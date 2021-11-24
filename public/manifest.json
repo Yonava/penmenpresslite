@@ -1,0 +1,17 @@
+{
+    "name": "The Penmen Press",
+    "short_name": "Penmen Press",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "theme_color": "#FFFFFF",
+    "orientation": "portrait-primary",
+    "icon": [
+        {
+            "src": "/img/icons/180x180.png",
+            "type": "image/png",
+            "sizes": "180x10"
+        }
+    ]
+
+}

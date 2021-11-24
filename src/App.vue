@@ -9,7 +9,7 @@
         <div v-if="!contentView">
             <div v-for="article in articles" :key="article.id">
                 <div class="container-1" @click="articleRequested(article)"> 
-                    <img class="picture" :src="require(`./assets/pictures/${article.image}.jpg`)" :alt="article.imageCaption">
+                    <img class="picture" :src="require(`./assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
                     <div class="container-2">                     
                         <p class="category">{{ article.category }}</p>
                         <h1 class="headline">{{ article.title }}</h1>

@@ -4,7 +4,7 @@
         <h1>{{ article.title }}</h1>
         <b><p>{{article.author }}</p></b>
         <br />
-        <img :src="require(`../assets/pictures/${article.image}.jpg`)" :alt="article.imageCaption">
+        <img :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
         <p class="article">{{ article.content }}</p>
         <br />
         <button class="back" @click="$parent.toggleContentView()">Return to News Feed</button>
