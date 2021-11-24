@@ -17,6 +17,11 @@
                     </div>
                 </div>
             </div>
+            <br>
+            <center>
+            <p>visit <a href="https://penmenpress.com/">https://penmenpress.com/</a> for more snhu reporting</p>
+            <p>© penmenpress 2021 all rights reserved</p>
+            </center>
         </div>
         <div v-else-if="contentView">
             <Content :article="selectedArticle" />
@@ -62,7 +67,7 @@ export default {
     font-size: 8pt;
 }
 .category {
-    background-color: rgb(70, 204, 204);
+    background-color: rgb(46, 185, 185);
     width: 180px; /* temp, dont know how to make it just flex without looking dumb */
     color: white;
     font-size:9pt;
@@ -76,6 +81,7 @@ export default {
     margin-right: 12px;
     max-height: 10;
     object-fit: cover;
+    border-radius: 5%;
 }
 .container-2 {
     flex-direction: column;
@@ -91,7 +97,6 @@ export default {
     background-color: white;
     margin-top: 5px;
     border-radius: 2%;
-    /* position: absolute; */
 }
 .headline {
     margin: 1px;
