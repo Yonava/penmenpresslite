@@ -1,6 +1,6 @@
 <template>
     <div>
-        <header>
+        <header id="header">
             <center>
             <h1>THE PENMEN PRESS</h1>
             <!-- <img src="./assets/header.png" alt="head"> -->
@@ -8,7 +8,7 @@
         </header>
         <div v-if="!contentView">
             <div v-for="article in articles" :key="article.id">
-                <div class="container-1" @click="articleRequested(article)">
+                <div class="container-1" @click="articleRequested(article)"> 
                     <img class="picture" :src="require(`./assets/pictures/${article.image}.jpg`)" :alt="article.imageCaption">
                     <div class="container-2">                     
                         <p class="category">{{ article.category }}</p>
@@ -44,12 +44,12 @@ export default {
     methods: {
         articleRequested(selectedArticle) {
             this.selectedArticle = selectedArticle;
+            window.scrollTo(0,0);
             this.toggleContentView();
         },
         toggleContentView() {
             this.contentView = !this.contentView;
         }
-
     }
 
 }
@@ -59,7 +59,6 @@ export default {
 .date {
     position: absolute;
     bottom: 0;
-    margin-bottom: 9px;
     font-size: 8pt;
 }
 .category {
@@ -81,6 +80,7 @@ export default {
 .container-2 {
     flex-direction: column;
     margin: 0px;
+    position: relative;
     border: 0px;
 }
 .container-1 {
@@ -90,22 +90,25 @@ export default {
     padding: 10px;
     background-color: white;
     margin-top: 5px;
-    position: relative;
     border-radius: 2%;
+    /* position: absolute; */
 }
 .headline {
     margin: 1px;
     font-size: 12pt;
+    line-height: 18px;
+    margin-left: 0px;
 }
 header {
     position: sticky;
     top: 0;
-    color: white;
-    background-color: black;
+    color: black;
+    background-color: rgb(230, 230, 230);
+    z-index: 1; 
 }
 body {
-    background-color: rgb(224, 220, 220);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: rgb(230, 230, 230);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 p {
     margin: 0px;
