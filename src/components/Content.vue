@@ -52,6 +52,7 @@ img {
     border: 2px black solid;    
     padding: 10px;
     background-color: white;  
+    margin: 5px;
 }
 h1 {
     font-size: 20pt;
@@ -63,5 +64,4 @@ h1 {
     font-family: 'Times New Roman', Times, serif;
     font-size: 12pt;
 }
-
 </style>

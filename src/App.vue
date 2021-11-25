@@ -1,12 +1,15 @@
 <template>
     <div>
-        <header id="header">
+    
+        <!-- penmen press banner -->
+        <header>
             <center>
-            <h1>THE PENMEN PRESS</h1>
-            <!-- <img src="./assets/header.png" alt="head"> -->
+                <h1>THE PENMEN PRESS</h1>
             </center>
         </header>
-        <div v-if="!contentView">
+
+        <!-- main news feed / home -->
+        <div v-if="!contentView && page === 'home'">
             <div v-for="article in articles" :key="article.id">
                 <div class="container-1" @click="articleRequested(article)"> 
                     <img class="picture" :src="require(`./assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
@@ -17,15 +20,42 @@
                     </div>
                 </div>
             </div>
-            <br>
+            <br />
             <center>
-            <p>visit <a href="https://penmenpress.com/">https://penmenpress.com/</a> for more snhu reporting</p>
-            <p>© penmenpress 2021 all rights reserved</p>
+                <p>visit <a href="https://penmenpress.com/">https://penmenpress.com/</a> for more snhu reporting</p>
+                <p>© penmenpress 2021 all rights reserved</p>
             </center>
         </div>
-        <div v-else-if="contentView">
+
+        <!-- content view / reader view -->
+        <div v-if="contentView">
             <Content :article="selectedArticle" />
         </div>
+
+        <!-- search menu -->
+        <div v-if="page === 'search'">
+            <Search />
+        </div>
+
+        <!-- favorites / read later menu -->
+        <div v-else-if="page === 'favorites'">
+            <Favorites />
+        </div>
+
+        <!-- navigation panel -->
+        <div v-if="!contentView" class="bottom">
+            <div :style="navBlip" class="selected-nav"></div> 
+            <div @click="navigate(-115, 'red', 'search')" class="nav-container">
+                <img class="icon" src="./assets/search.png" alt="search">
+            </div>
+            <div @click="navigate(0, 'purple', 'home')" class="nav-container">
+                <img class="icon" src="./assets/homebutton.png" alt="home">
+            </div>
+            <div @click="navigate(115, 'blue', 'favorites')" class="nav-container">
+                <img class="icon" src="./assets/star.png" alt="favorites">
+            </div>
+        </div> 
+
     </div>
 </template>
 
@@ -33,27 +63,38 @@
 
 import articles from './assets/articles'
 import Content from './components/Content.vue'
+import Search from './components/Search.vue'
+import Favorites from './components/Favorites.vue'
 
 export default {
     name: 'App',
     components: {
-        Content
+        Content,
+        Search,
+        Favorites
     },
     data: () => {
         return {
             articles: articles,
             contentView: false,
             selectedArticle: {},
+            navBlip: 'transform: translateX(0px); background-color: purple;',
+            page: 'home',
         }
     },
     methods: {
         articleRequested(selectedArticle) {
             this.selectedArticle = selectedArticle;
-            window.scrollTo(0,0);
             this.toggleContentView();
         },
         toggleContentView() {
+            window.scrollTo(0,0);
             this.contentView = !this.contentView;
+        },
+        navigate(pos, color, page) {
+            window.scrollTo(0,0);
+            this.navBlip = `transform: translateX(${pos}px); background-color: ${color};` // translate navBlip
+            this.page = page
         }
     }
 
@@ -61,6 +102,36 @@ export default {
 </script>
 
 <style>
+.icon {
+    height: 20px;
+    width: 20px;
+    padding: 7.5px;  
+}
+.selected-nav {
+    border-radius: 25%;
+    width: 30px; 
+    height: 30px;
+    opacity: 0.5;
+    position: absolute;
+    transition: 200ms ease-in-out;
+}
+.nav-container {
+    height: 35px;
+    width: 35px;
+    margin-left: 40px;
+    margin-right: 40px;   
+}
+.bottom {
+    background-color: white;
+    position: sticky;
+    bottom: 0;
+    height: 35px;
+    border-top: 1px black solid;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .date {
     position: absolute;
     bottom: 0;
@@ -77,9 +148,9 @@ export default {
     padding: 2px;
     height: 100px;
     width: 100px;
+    min-width: 100px;
     border: 1px black solid;
     margin-right: 12px;
-    max-height: 10;
     object-fit: cover;
     border-radius: 5%;
 }
@@ -95,7 +166,7 @@ export default {
     border: 2px black solid;    
     padding: 10px;
     background-color: white;
-    margin-top: 5px;
+    margin: 5px;
     border-radius: 2%;
 }
 .headline {
@@ -107,13 +178,15 @@ export default {
 header {
     position: sticky;
     top: 0;
-    color: black;
-    background-color: rgb(230, 230, 230);
-    z-index: 1; 
+    color: white;
+    background-color: rgb(71, 105, 194);
+    z-index: 1;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 body {
-    background-color: rgb(230, 230, 230);
+    background-color: rgb(71, 105, 194);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 0px;
 }
 p {
     margin: 0px;
