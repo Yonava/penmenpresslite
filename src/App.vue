@@ -45,13 +45,13 @@
         <!-- navigation panel -->
         <div v-if="!contentView" class="bottom">
             <div :style="navBlip" class="selected-nav"></div> 
-            <div @click="navigate(-115, 'red', 'search')" class="nav-container">
+            <div @click="navigate(-126, 'red', 'search')" class="nav-container">
                 <img class="icon" src="./assets/search.png" alt="search">
             </div>
             <div @click="navigate(0, 'purple', 'home')" class="nav-container">
                 <img class="icon" src="./assets/homebutton.png" alt="home">
             </div>
-            <div @click="navigate(115, 'blue', 'favorites')" class="nav-container">
+            <div @click="navigate(124, 'blue', 'favorites')" class="nav-container">
                 <img class="icon" src="./assets/star.png" alt="favorites">
             </div>
         </div> 
@@ -103,21 +103,21 @@ export default {
 
 <style>
 .icon {
-    height: 20px;
-    width: 20px;
-    padding: 7.5px;  
+    height: 25px;
+    width: 25px;
+    padding: 10px;  
 }
 .selected-nav {
     border-radius: 25%;
-    width: 30px; 
-    height: 30px;
+    width: 40px; 
+    height: 40px;
     opacity: 0.5;
     position: absolute;
     transition: 200ms ease-in-out;
 }
 .nav-container {
-    height: 35px;
-    width: 35px;
+    height: 50px;
+    width: 50px;
     margin-left: 40px;
     margin-right: 40px;   
 }
@@ -125,7 +125,7 @@ export default {
     background-color: white;
     position: sticky;
     bottom: 0;
-    height: 35px;
+    height: 50px;
     border-top: 1px black solid;
     margin-top: 10px;
     display: flex;
@@ -181,7 +181,7 @@ header {
     color: white;
     background-color: rgb(71, 105, 194);
     z-index: 1;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    /* font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
 }
 body {
     background-color: rgb(71, 105, 194);
