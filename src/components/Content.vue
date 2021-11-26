@@ -1,6 +1,8 @@
 <template>
 <div class="content">
     <div>
+        <input type="range" min="6" max="30" v-model="resizeInput" />
+        <p>{{ resizeInput }}pt Font</p>
         <p class="category">{{ article.category }}</p>
         <h1>{{ article.title }}</h1>
         <b><p>{{article.author }}</p></b>
@@ -9,11 +11,11 @@
         <center>
         <p class="caption">{{ article.imageCaption }}</p>
         </center>
-        <p class="article">{{ article.content }}</p>
+        <p :style="articleSize" class="article">{{ article.content }}</p>
         <br />
     </div>
     
-    <button class="back" @click="$parent.toggleContentView()">Return to News Feed</button>
+    <button class="back" @click="$parent.toggleContentView()"><b>Return to News Feed</b></button>
     
 </div>
 </template>
@@ -22,8 +24,19 @@
 
 export default {
     props: [
-        'article'
-    ]
+        'article',
+    ],
+    data: () => {
+        return {
+            articleSize: 'font-size: 12pt;',
+            resizeInput: '12',
+        }
+    },
+    watch: {
+        resizeInput() {
+            this.articleSize = `font-size: ${this.resizeInput}pt;`
+        }
+    }
     
 }
 </script>
@@ -41,7 +54,7 @@ img {
     background-color: white;
     border: 2px black solid;
     padding: 10px;
-    font-size: 10pt;
+    font-size: 12pt;
     font-family: Georgia, 'Times New Roman', Times, serif;
     position: sticky;
     bottom: 1%;
@@ -52,7 +65,7 @@ img {
     border: 2px black solid;    
     padding: 10px;
     background-color: white;  
-    margin: 5px;
+    /* margin: 5px; */
 }
 h1 {
     font-size: 20pt;
@@ -62,6 +75,5 @@ h1 {
 }
 .article {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 12pt;
 }
 </style>

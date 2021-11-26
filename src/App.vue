@@ -1,15 +1,18 @@
 <template>
     <div>
     
-        <!-- penmen press banner -->
-        <header>
-            <center>
-                <h1>THE PENMEN PRESS</h1>
-            </center>
-        </header>
+        
 
         <!-- main news feed / home -->
         <div v-if="!contentView && page === 'home'">
+
+            <!-- penmen press banner -->
+            <header>
+                <center>
+                    <h1>THE PENMEN PRESS</h1>
+                </center>
+            </header>
+
             <div v-for="article in articles" :key="article.id">
                 <div class="container-1" @click="articleRequested(article)"> 
                     <img class="picture" :src="require(`./assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
@@ -43,18 +46,18 @@
         </div>
 
         <!-- navigation panel -->
-        <div v-if="!contentView" class="bottom">
+        <footer v-if="!contentView" class="bottom">
             <div :style="navBlip" class="selected-nav"></div> 
-            <div @click="navigate(-126, 'red', 'search')" class="nav-container">
+            <div @click="navigate(-27, 'rgb(71, 105, 194)', 'search')" class="nav-container">
                 <img class="icon" src="./assets/search.png" alt="search">
             </div>
-            <div @click="navigate(0, 'purple', 'home')" class="nav-container">
+            <div @click="navigate(0, 'rgb(71, 105, 194)', 'home')" class="nav-container">
                 <img class="icon" src="./assets/homebutton.png" alt="home">
             </div>
-            <div @click="navigate(124, 'blue', 'favorites')" class="nav-container">
+            <div @click="navigate(27, 'rgb(71, 105, 194)', 'favorites')" class="nav-container">
                 <img class="icon" src="./assets/star.png" alt="favorites">
             </div>
-        </div> 
+        </footer> 
 
     </div>
 </template>
@@ -78,7 +81,7 @@ export default {
             articles: articles,
             contentView: false,
             selectedArticle: {},
-            navBlip: 'transform: translateX(0px); background-color: purple;',
+            navBlip: 'transform: translateX(0px); background-color: rgb(71, 105, 194);',
             page: 'home',
         }
     },
@@ -93,7 +96,7 @@ export default {
         },
         navigate(pos, color, page) {
             window.scrollTo(0,0);
-            this.navBlip = `transform: translateX(${pos}px); background-color: ${color};` // translate navBlip
+            this.navBlip = `transform: translateX(${pos}vw); background-color: ${color};` // translate navBlip
             this.page = page
         }
     }
@@ -103,34 +106,34 @@ export default {
 
 <style>
 .icon {
-    height: 25px;
-    width: 25px;
-    padding: 10px;  
+    height: 4vh;
+    width: 4vh;
 }
 .selected-nav {
     border-radius: 25%;
-    width: 40px; 
-    height: 40px;
+    width: 5vh;
+    height: 5vh;
     opacity: 0.5;
     position: absolute;
     transition: 200ms ease-in-out;
 }
 .nav-container {
-    height: 50px;
-    width: 50px;
-    margin-left: 40px;
-    margin-right: 40px;   
+    height: 4vh;
+    width: 4vh;
+    margin-left: 10vw;
+    margin-right: 10vw;   
 }
 .bottom {
     background-color: white;
-    position: sticky;
+    position: fixed;
     bottom: 0;
-    height: 50px;
+    height: 6vh;
+    min-width: 100vw;
     border-top: 1px black solid;
-    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: auto;
 }
 .date {
     position: absolute;
@@ -176,17 +179,22 @@ export default {
     margin-left: 0px;
 }
 header {
-    position: sticky;
+    /* position: sticky; */
     top: 0;
     color: white;
     background-color: rgb(71, 105, 194);
     z-index: 1;
     /* font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
 }
-body {
+html, body {
     background-color: rgb(71, 105, 194);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin: 0px;
+    min-width: 100vw;
+    min-height: 100vh;
+    overflow: auto;
+    /* display: flex; */
+    /* flex-direction: column; */
 }
 p {
     margin: 0px;
