@@ -26,8 +26,11 @@
             <br />
             <center>
                 <p>visit <a href="https://penmenpress.com/">https://penmenpress.com/</a> for more snhu reporting</p>
-                <p>© penmenpress 2021 all rights reserved</p>
+                <p>© penmenpress 2021, all rights reserved</p>
             </center>
+            <br />
+            <br />
+            <br />
         </div>
 
         <!-- content view / reader view -->
@@ -36,26 +39,28 @@
         </div>
 
         <!-- search menu -->
-        <div v-if="page === 'search'">
-            <Search />
+        <div v-if="page === 'search' && !contentView">
+            <Discover />
         </div>
 
         <!-- favorites / read later menu -->
-        <div v-else-if="page === 'favorites'">
-            <Favorites />
+        <div v-else-if="page === 'favorites' && !contentView">
+            <Bookmarked />
         </div>
 
         <!-- navigation panel -->
         <footer v-if="!contentView" class="bottom">
-            <div :style="navBlip" class="selected-nav"></div> 
-            <div @click="navigate(-27, 'rgb(71, 105, 194)', 'search')" class="nav-container">
-                <img class="icon" src="./assets/search.png" alt="search">
-            </div>
-            <div @click="navigate(0, 'rgb(71, 105, 194)', 'home')" class="nav-container">
-                <img class="icon" src="./assets/homebutton.png" alt="home">
-            </div>
-            <div @click="navigate(27, 'rgb(71, 105, 194)', 'favorites')" class="nav-container">
-                <img class="icon" src="./assets/star.png" alt="favorites">
+            <div class="bottom-container">
+                <div :style="navBlip" class="selected-nav"></div> 
+                <div @click="navigate(-117.5, 'rgb(71, 105, 194)', 'search')" class="nav-container">
+                    <img class="icon" src="./assets/search.png" alt="search">
+                </div>
+                <div @click="navigate(0, 'rgb(71, 105, 194)', 'home')" class="nav-container">
+                    <img class="icon" src="./assets/homebutton.png" alt="home">
+                </div>
+                <div @click="navigate(117.5, 'rgb(71, 105, 194)', 'favorites')" class="nav-container">
+                    <img class="icon" src="./assets/star.png" alt="favorites">
+                </div>
             </div>
         </footer> 
 
@@ -66,15 +71,15 @@
 
 import articles from './assets/articles'
 import Content from './components/Content.vue'
-import Search from './components/Search.vue'
-import Favorites from './components/Favorites.vue'
+import Discover from './components/Discover.vue'
+import Bookmarked from './components/Bookmarked.vue'
 
 export default {
     name: 'App',
     components: {
         Content,
-        Search,
-        Favorites
+        Discover,
+        Bookmarked
     },
     data: () => {
         return {
@@ -96,7 +101,7 @@ export default {
         },
         navigate(pos, color, page) {
             window.scrollTo(0,0);
-            this.navBlip = `transform: translateX(${pos}vw); background-color: ${color};` // translate navBlip
+            this.navBlip = `transform: translateX(${pos}px); background-color: ${color};` // translate navBlip
             this.page = page
         }
     }
@@ -111,6 +116,7 @@ export default {
 }
 .selected-nav {
     border-radius: 25%;
+    margin-top: 0.5vh;
     width: 5vh;
     height: 5vh;
     opacity: 0.5;
@@ -120,8 +126,15 @@ export default {
 .nav-container {
     height: 4vh;
     width: 4vh;
-    margin-left: 10vw;
-    margin-right: 10vw;   
+    margin-top: 1vh;
+    margin-right: 45px;
+    margin-left: 45px;
+}
+.bottom-container {
+    height: 6vh;
+    width: 250px;
+    justify-content: center;
+    display: flex;
 }
 .bottom {
     background-color: white;

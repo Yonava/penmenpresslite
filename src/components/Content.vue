@@ -3,6 +3,7 @@
     <div>
         <input type="range" min="6" max="30" v-model="resizeInput" />
         <p>{{ resizeInput }}pt Font</p>
+        <br>
         <p class="category">{{ article.category }}</p>
         <h1>{{ article.title }}</h1>
         <b><p>{{article.author }}</p></b>
@@ -14,8 +15,10 @@
         <p :style="articleSize" class="article">{{ article.content }}</p>
         <br />
     </div>
-    
-    <button class="back" @click="$parent.toggleContentView()"><b>Return to News Feed</b></button>
+
+    <br>
+    <br>
+    <button class="back" @click="$parent.toggleContentView()"><b>Return to Feed</b></button>
     
 </div>
 </template>
@@ -56,8 +59,9 @@ img {
     padding: 10px;
     font-size: 12pt;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    position: sticky;
-    bottom: 1%;
+    position: fixed;
+    bottom: 2vh;
+    min-width: 92.5vw;
 }
 .content {
     display: flex;
@@ -65,7 +69,6 @@ img {
     border: 2px black solid;    
     padding: 10px;
     background-color: white;  
-    /* margin: 5px; */
 }
 h1 {
     font-size: 20pt;

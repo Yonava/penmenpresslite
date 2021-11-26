@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Favorites Component</h1>
+        <h1>Bookmarked Articles Appear Here</h1>
         
     </div>
 </template>
