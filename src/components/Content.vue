@@ -3,7 +3,7 @@
     <div>
         <input type="range" min="6" max="30" v-model="resizeInput" />
         <p>{{ resizeInput }}pt Font</p>
-        <br>
+        <br />
         <p class="category">{{ article.category }}</p>
         <h1>{{ article.title }}</h1>
         <b><p>{{article.author }}</p></b>
@@ -61,6 +61,7 @@ img {
     font-family: Georgia, 'Times New Roman', Times, serif;
     position: fixed;
     bottom: 2vh;
+    margin-top: auto;
     min-width: 92.5vw;
 }
 .content {

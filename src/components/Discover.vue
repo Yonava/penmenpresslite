@@ -14,10 +14,14 @@
 
         <!-- display search results -->
         <div v-if="rawQuery.length > 0">
-            <br>
-            <br>
-            <br>
-            <p>Here's What I Could Find:</p>
+            <br /><br /><br />
+            <p v-if="displayedArticles.length > 0" class="search-text">Here's What We Found:</p>
+            <div v-else>
+                <center>
+                    <p class="search-text">Bad News!</p>
+                    <p class="search-text">We Can't Find What You're Searching For :(</p>
+                </center>
+            </div>
             <div v-for="article in displayedArticles" :key="article.id">
                 <div class="container-1" @click="$parent.articleRequested(article)"> 
                     <img class="picture" :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
@@ -122,21 +126,37 @@ export default {
     flex-direction: row;
     max-width: none;
     max-height: 40vh;
+    background-color: rgb(140, 200, 255);
+    overflow: auto;
     /* background-color: black; */
 }
 .main {
     margin: 0%;
 }
+.search-text {
+    font-size: 16pt;
+    margin: 5vw;
+    color: white;
+    margin-left: 1.5vw;
+}
 .search {
     position: fixed;
     top: 0;
     width: 100vw;
-    height: 10vh;
+    height: 5vh;
+    background-color: rgb(71, 105, 194);
+    z-index: 1;
+    border-bottom: 1px solid black;
     /* justify-items: center; */
 }
 .searchbar {
-    margin-top: 2.5vh;
-    width: 75vw;
-    border: 2px black solid;
+    margin-top: .9vh;
+    width: 90vw;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding-left: 8px;
+}
+input {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 </style>

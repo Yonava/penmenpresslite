@@ -1,8 +1,6 @@
 <template>
     <div>
-    
-        
-
+  
         <!-- main news feed / home -->
         <div v-if="!contentView && page === 'home'">
 
@@ -38,13 +36,13 @@
             <Content :article="selectedArticle" />
         </div>
 
-        <!-- search menu -->
-        <div v-if="page === 'search' && !contentView">
+        <!-- discover menu -->
+        <div v-if="page === 'discover' && !contentView">
             <Discover />
         </div>
 
-        <!-- favorites / read later menu -->
-        <div v-else-if="page === 'favorites' && !contentView">
+        <!-- bookmarked / read later menu -->
+        <div v-else-if="page === 'bookmarked' && !contentView">
             <Bookmarked />
         </div>
 
@@ -52,14 +50,14 @@
         <footer v-if="!contentView" class="bottom">
             <div class="bottom-container">
                 <div :style="navBlip" class="selected-nav"></div> 
-                <div @click="navigate(-117.5, 'rgb(71, 105, 194)', 'search')" class="nav-container">
-                    <img class="icon" src="./assets/search.png" alt="search">
+                <div @click="navigate(-120, 'rgb(71, 105, 194)', 'discover')" class="nav-container">
+                    <img class="icon" src="./assets/search.png" alt="discovery">
                 </div>
                 <div @click="navigate(0, 'rgb(71, 105, 194)', 'home')" class="nav-container">
                     <img class="icon" src="./assets/homebutton.png" alt="home">
                 </div>
-                <div @click="navigate(117.5, 'rgb(71, 105, 194)', 'favorites')" class="nav-container">
-                    <img class="icon" src="./assets/star.png" alt="favorites">
+                <div @click="navigate(120, 'rgb(71, 105, 194)', 'bookmarked')" class="nav-container">
+                    <img class="icon" src="./assets/star.png" alt="bookmarked">
                 </div>
             </div>
         </footer> 
@@ -111,27 +109,27 @@ export default {
 
 <style>
 .icon {
-    height: 4vh;
-    width: 4vh;
+    height: 30px;
+    width: 30px;
 }
 .selected-nav {
     border-radius: 25%;
-    margin-top: 0.5vh;
-    width: 5vh;
-    height: 5vh;
+    margin-top: 4.5px;
+    width: 38px;
+    height: 38px;
     opacity: 0.5;
     position: absolute;
     transition: 200ms ease-in-out;
 }
 .nav-container {
-    height: 4vh;
-    width: 4vh;
-    margin-top: 1vh;
+    height: 30px;
+    width: 30px;
+    margin-top: 8px;
     margin-right: 45px;
     margin-left: 45px;
 }
 .bottom-container {
-    height: 6vh;
+    height: 45px;
     width: 250px;
     justify-content: center;
     display: flex;
@@ -140,7 +138,7 @@ export default {
     background-color: white;
     position: fixed;
     bottom: 0;
-    height: 6vh;
+    height: 45px;
     min-width: 100vw;
     border-top: 1px black solid;
     display: flex;
