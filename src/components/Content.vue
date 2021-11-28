@@ -34,12 +34,19 @@ export default {
             resizeInput: '12',
         }
     },
+    mounted() {
+        if (localStorage.articleSize) {
+            this.articleSize = localStorage.articleSize;
+            this.resizeInput = localStorage.resizeInput;
+        }
+    },
     watch: {
         resizeInput() {
-            this.articleSize = `font-size: ${this.resizeInput}pt;`
+            this.articleSize = `font-size: ${this.resizeInput}pt;`;
+            localStorage.articleSize = this.articleSize;
+            localStorage.resizeInput = this.resizeInput;
         }
-    }
-    
+    },
 }
 </script>
 
@@ -69,6 +76,8 @@ img {
     border: 2px black solid;    
     padding: 10px;
     background-color: white;
+    height: 100%;   
+    overflow-y: hidden;
 }
 h1 {
     font-size: 20pt;
