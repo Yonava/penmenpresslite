@@ -119,7 +119,7 @@ export default {
             this.searchPlaceholder = 'Articles, Authors, or Issues';
             this.searchStyle = 'width: 100vw; opacity: 1; padding-left: 4vw; font-size: 2.5vh;';
             this.searchTitle = '<';
-            this.searchTitleStyle = 'font-family: monospace; opacity: 0.5; cursor: pointer;';
+            this.searchTitleStyle = 'font-family: monospace; opacity: 0.5; cursor: pointer; margin: 12px;';
             this.searching = true;
         },
         disengageSearch() {
@@ -143,17 +143,14 @@ export default {
     margin-left: 1.5vw;
     color: white;
     display: fixed;
-    float: left;
     cursor: default;
     background-color: rgb(71, 105, 194);
 }
 .featured {
     position: absolute;
-    margin-top: 19vh;
     display: flex;
     flex-direction: row;
     max-width: none;
-    max-height: 40vh;
     /* background-color: rgb(140, 200, 255); */
     overflow: auto;
 }
@@ -164,7 +161,7 @@ export default {
     margin: 2vh;
     margin-right: 0vh;
     margin-left: 2.5vh;
-    /* margin-top: 1.75vh; */
+    margin-top: 1.75vh;
     font-size: 5vh;
     color: white;
     cursor: default;

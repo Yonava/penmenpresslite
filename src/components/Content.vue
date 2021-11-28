@@ -76,8 +76,6 @@ img {
     border: 2px black solid;    
     padding: 10px;
     background-color: white;
-    height: 100%;   
-    overflow-y: hidden;
 }
 h1 {
     font-size: 20pt;
@@ -87,5 +85,10 @@ h1 {
 }
 .article {
     font-family: 'Times New Roman', Times, serif;
+}
+html {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
 }
 </style>
