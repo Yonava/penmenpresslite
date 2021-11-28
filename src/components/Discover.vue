@@ -3,17 +3,20 @@
 
         <!-- search panel -->
         <div class="search">
-            <center>
-                <input 
-                class="searchbar"
-                type="text" 
-                placeholder="Search articles, authors, and issues" 
-                v-model="rawQuery" />
-            </center>
+            <h1 @click="disengageSearch()" :style="searchTitleStyle" class="search-title">
+                {{ searchTitle }}
+            </h1>
+            <input 
+            :style="searchStyle"
+            class="searchbar"
+            type="text" 
+            :placeholder="searchPlaceholder" 
+            v-model="rawQuery"
+            @click="engageSearch()" />
         </div>
 
         <!-- display search results -->
-        <div v-if="rawQuery.length > 0">
+        <div v-if="rawQuery.length > 0 && searching">
             <br /><br /><br />
             <p v-if="displayedArticles.length > 0" class="search-text">Here's What We Found:</p>
             <div v-else>
@@ -32,10 +35,11 @@
                     </div>
                 </div>
             </div>
+            <br /><br /><br />
         </div>
 
         <!-- featured articles -->
-        <div v-else-if="rawQuery.length === 0">
+        <div v-else-if="!searching">
             <h1 class="featured-title">Featured Articles</h1>
             <div class="featured">
                 <div v-for="article in featuredArticles" :key="article.id">
@@ -60,11 +64,16 @@ import articles from '../assets/articles.json'
 
 export default {
     data: () => {
-        return {
+        return {   
+            searching: false,         
             articles: articles,
             featuredArticles: articles,
             displayedArticles: [],
             rawQuery: '',
+            searchStyle: 'width: 60vw;',
+            searchPlaceholder: '',
+            searchTitle: 'Search',
+            searchTitleStyle: '',
         }
     },
     watch: {
@@ -105,6 +114,22 @@ export default {
                         break;
                 }
             }
+        },
+        engageSearch() {
+            this.searchPlaceholder = 'Articles, Authors, or Issues';
+            this.searchStyle = 'width: 100vw; opacity: 1; padding-left: 4vw; font-size: 2.5vh;';
+            this.searchTitle = '<';
+            this.searchTitleStyle = 'font-family: monospace; opacity: 0.5;';
+            this.searching = true;
+        },
+        disengageSearch() {
+            this.searchPlaceholder = '';
+            this.searchStyle = 'width: 60vw;';
+            this.searchTitle = 'Search';
+            this.searchTitleStyle = '';
+            this.searching = false;
+
+            this.rawQuery = ''
         }
     }
 }
@@ -117,7 +142,8 @@ export default {
     margin-bottom: 1vh;
     margin-left: 1.5vw;
     color: white;
-    position: fixed;
+    display: block;
+    float: left;
 }
 .featured {
     position: absolute;
@@ -126,12 +152,20 @@ export default {
     flex-direction: row;
     max-width: none;
     max-height: 40vh;
-    background-color: rgb(140, 200, 255);
+    /* background-color: rgb(140, 200, 255); */
     overflow: auto;
-    /* background-color: black; */
 }
 .main {
     margin: 0%;
+}
+.search-title {
+    margin: 2vh;
+    margin-right: 0vh;
+    margin-left: 2.5vh;
+    margin-top: 1.75vh;
+    font-size: 5vh;
+    color: white;
+    transition: 300ms ease-in-out;
 }
 .search-text {
     font-size: 16pt;
@@ -140,21 +174,23 @@ export default {
     margin-left: 1.5vw;
 }
 .search {
+    display: flex;
     position: fixed;
     top: 0;
     width: 100vw;
-    height: 5vh;
     background-color: rgb(71, 105, 194);
     z-index: 1;
     border-bottom: 1px solid black;
-    /* justify-items: center; */
 }
 .searchbar {
-    margin-top: .9vh;
-    width: 90vw;
+    margin: 2vh;
+    width: 100vw;
     border: 1px solid black;
-    border-radius: 10px;
-    padding-left: 8px;
+    border-radius: 40px;
+    height: 5vh;
+    margin-right: 2.5vh;
+    transition: 300ms;
+    opacity: 0.8;
 }
 input {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;

@@ -1,26 +1,25 @@
 <template>
-<div class="content">
-    <div>
-        <input type="range" min="6" max="30" v-model="resizeInput" />
-        <p>{{ resizeInput }}pt Font</p>
-        <br />
-        <p class="category">{{ article.category }}</p>
-        <h1>{{ article.title }}</h1>
-        <b><p>{{article.author }}</p></b>
-        <br />
-        <img :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
-        <center>
-        <p class="caption">{{ article.imageCaption }}</p>
-        </center>
-        <p :style="articleSize" class="article">{{ article.content }}</p>
-        <br />
+
+    <div class="content">
+        <div>
+            <input type="range" min="6" max="30" v-model="resizeInput" />
+            <p>{{ resizeInput }}pt Font</p>
+            <br />
+            <p class="category">{{ article.category }}</p>
+            <h1>{{ article.title }}</h1>
+            <b><p>{{article.author }}</p></b>
+            <br />
+            <img :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
+            <center>
+                <p class="caption">{{ article.imageCaption }}</p>
+            </center>
+            <p :style="articleSize" class="article">{{ article.content }}</p>
+            <br />
+            <button class="back" @click="$parent.toggleContentView()"><b>Return to Feed</b></button>
+        </div>
+        <br /><br />
     </div>
 
-    <br>
-    <br>
-    <button class="back" @click="$parent.toggleContentView()"><b>Return to Feed</b></button>
-    
-</div>
 </template>
 
 <script>
@@ -69,7 +68,7 @@ img {
     flex-direction: column;
     border: 2px black solid;    
     padding: 10px;
-    background-color: white;  
+    background-color: white;
 }
 h1 {
     font-size: 20pt;
