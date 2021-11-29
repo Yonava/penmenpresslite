@@ -1,7 +1,7 @@
 [
     {
         "title":"Dining Hall Disaster",
-        "preview":"",
+        "saved": false,
         "image":"Dining-Hall-Disaster",
         "imageCaption":"A Dining Hall chicken sandwich served with mold (image courtesy: Calie Wilbar)",
         "category":"NEWS",
@@ -11,7 +11,7 @@
     },
     {
         "title":"Time to “Begin Again” With the Release of Taylor’s Version Albums",
-        "preview":"",
+        "saved": false,
         "image":"tswift",
         "imageCaption":"Taylor Swift’s “Red” Album (image source: Taylor Posik)",
         "category":"ARTS & ENTERTAINMENT",
@@ -21,7 +21,7 @@
     },
     {
         "title":"Hanover Street Chophouse: A Pricey But Incredible Meal",
-        "preview":"",
+        "saved": false,
         "image":"steak",
         "imageCaption":"(image credit: Hanover Street Chophouse)",
         "category":"LIFESTYLE",
@@ -31,7 +31,7 @@
     },
     {
         "title":"SNHU Prepares to “Rock the Night Away”",
-        "preview":"",
+        "saved": false,
         "image":"radiosnhu",
         "imageCaption":"The RadioSNHU logo (image source: Brendan Mcguire)",
         "category":"ARTS & ENTERTAINMENT",
@@ -41,7 +41,7 @@
     },
     {
         "title":"McIninch Gallery Features Artist Nicole Eisenman",
-        "preview":"",
+        "saved": false,
         "image":"artgallery",
         "imageCaption":"Nicole Eisenmen’s prints on display (image source: Logan Mock)",
         "category":"ARTS & ENTERTAINMENT",
@@ -51,7 +51,7 @@
     },
     {
         "title":"Dealing With Burnout",
-        "preview":"",
+        "saved": false,
         "image":"wellnesscenter",
         "imageCaption":"Wellness Center (photo source: Taylor Posik)",
         "category":"LIFESTYLE",
@@ -61,7 +61,7 @@
     },
     {
         "title":"Cross Campus Construction",
-        "preview":"",
+        "saved": false,
         "image":"construction",
         "imageCaption":"Main stairway. (image source: Emily Blais)",
         "category":"NEWS",
@@ -71,7 +71,7 @@
     },
     {
         "title":"How to SNHU: Combating Boredom on Campus",
-        "preview":"",
+        "saved": false,
         "image":"combatingboredom",
         "imageCaption":"Inter-Greek Council (image courtesy: SNHU Involvement)",
         "category":"NEWS",
@@ -81,7 +81,7 @@
     },
     {
         "title":"Crime on Campus: The Clery Report",
-        "preview":"",
+        "saved": false,
         "image":"wolak",
         "imageCaption":"Wolak Learning Center. (image source: Joshua DiNapoli)",
         "category":"NEWS",
@@ -91,7 +91,7 @@
     },
     {
         "title":"How to SNHU: Time Management",
-        "preview":"",
+        "saved": false,
         "image":"timemanagement",
         "imageCaption":"(image courtesy: Breeze)",
         "category":"LIFESTYLE",
@@ -101,7 +101,7 @@
     },
     {
         "title":"Baby Keem Takes Rap Scene by Storm With Powerful Debut",
-        "preview":"",
+        "saved": false,
         "image":"babykeem",
         "imageCaption":"Baby Keem drops two new singles. (image source: onestowatch.com)",
         "category":"ARTS & ENTERTAINMENT",

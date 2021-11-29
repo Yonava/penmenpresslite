@@ -66,7 +66,7 @@ export default {
     data: () => {
         return {   
             searching: false,         
-            articles: articles,
+            articles,
             featuredArticles: articles,
             displayedArticles: [],
             rawQuery: '',
@@ -119,7 +119,7 @@ export default {
             this.searchPlaceholder = 'Articles, Authors, or Issues';
             this.searchStyle = 'width: 100vw; opacity: 1; padding-left: 4vw; font-size: 2.5vh;';
             this.searchTitle = '<';
-            this.searchTitleStyle = 'font-family: monospace; opacity: 0.5; cursor: pointer; margin: 12px;';
+            this.searchTitleStyle = "font-family: monospace; font-weight: bold; opacity: 0.5; cursor: pointer;";
             this.searching = true;
         },
         disengageSearch() {
@@ -139,7 +139,6 @@ export default {
 <style scoped>
 .featured-title {
     margin-top: 12.5vh;
-    margin-bottom: 1vh;
     margin-left: 1.5vw;
     color: white;
     display: fixed;
@@ -159,7 +158,6 @@ export default {
 }
 .search-title {
     margin: 2vh;
-    margin-right: 0vh;
     margin-left: 2.5vh;
     margin-top: 1.75vh;
     font-size: 5vh;

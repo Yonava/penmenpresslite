@@ -39,6 +39,7 @@ export default {
             this.articleSize = localStorage.articleSize;
             this.resizeInput = localStorage.resizeInput;
         }
+        window.navigator.vibrate([200, 100, 200]);
     },
     watch: {
         resizeInput() {

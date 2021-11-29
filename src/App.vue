@@ -12,14 +12,17 @@
             </header>
 
             <div v-for="article in articles" :key="article.id">
-                <div class="container-1" @click="articleRequested(article)"> 
-                    <img class="picture" :src="require(`./assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
-                    <div class="container-2">                     
+                <div class="container-1" @click="articleRequested(article)">  
+                    <img class="picture" :src="require(`./assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">                
+                    <div class="container-2">
                         <p class="category">{{ article.category }}</p>
                         <h1 class="headline">{{ article.title }}</h1>
                         <p class="date">{{ article.date }} - {{ article.author }}</p>
                     </div>
                 </div>
+                <img v-if="article.saved" @click="bookmark(article, false)" class="bookmark" src="./assets/remove-bookmark.svg" alt="unsave">
+                <img v-else @click="bookmark(article, true)" class="bookmark" src="./assets/add-bookmark.svg" alt="save"> 
+                <img class="bookmark" src="./assets/share.svg" alt="share">
             </div>
             <br />
             <center>
@@ -43,7 +46,7 @@
 
         <!-- bookmarked / read later menu -->
         <div v-else-if="page === 'bookmarked' && !contentView">
-            <Bookmarked />
+            <Bookmarked :bookmarkedArticles="bookmarked" />
         </div>
 
         <!-- navigation panel -->
@@ -81,7 +84,8 @@ export default {
     },
     data: () => {
         return {
-            articles: articles,
+            bookmarked: [],
+            articles,
             contentView: false,
             selectedArticle: {},
             navBlip: 'transform: translateX(0px); background-color: rgb(71, 105, 194);',
@@ -89,6 +93,14 @@ export default {
         }
     },
     methods: {
+        bookmark(article, saveState) {
+            article.saved = saveState;
+            this.bookmarked = [];
+            for (let i = 0; i < this.articles.length; i++) {
+                if (this.articles[i].saved) this.bookmarked.push(this.articles[i].title)
+            }
+            localStorage.bookmarked = this.bookmarked
+        },
         articleRequested(selectedArticle) {
             this.selectedArticle = selectedArticle;
             this.toggleContentView();
@@ -102,12 +114,28 @@ export default {
             this.navBlip = `transform: translateX(${pos}px); background-color: ${color};` // translate navBlip
             this.page = page
         }
+    },
+    mounted() {
+        if (localStorage.bookmarked) {
+            let parseStorage = localStorage.bookmarked.split(',');
+            this.bookmarked = ['Saved Articles Detected']
+            console.log(this.articles)
+            for (let i = 0; i < parseStorage.length; i++) {
+                for (let j = 0; j < this.articles.length; j++) {
+                    if (this.articles[j].title === parseStorage[i]) this.articles[j].saved = true;
+                }
+            }
+        }
     }
 
 }
 </script>
 
 <style>
+.bookmark {
+    width: 15px;
+    margin-left: 2vw;
+}
 .icon {
     height: 30px;
     width: 30px;
