@@ -17,7 +17,7 @@
 
         <!-- display search results -->
         <div v-if="rawQuery.length > 0 && searching">
-            <br /><br /><br />
+            <br /><br /><br /><br><br>
             <p v-if="displayedArticles.length > 0" class="search-text">Here's What We Found:</p>
             <div v-else>
                 <center>
@@ -73,7 +73,7 @@
             <h2 @click="engageSearch('_Opinion')">Opinion</h2>
             <h2 @click="engageSearch('_Sports')">Sports</h2>
         </div>
-         
+        <br><br>
     </div>
 </template>
 

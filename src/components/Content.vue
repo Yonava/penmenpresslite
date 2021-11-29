@@ -74,7 +74,9 @@ img {
 .content {
     display: flex;
     flex-direction: column;
-    border: 2px black solid;    
+    border: 2px black solid;   
+    border-top: none;
+    border-bottom: none; 
     padding: 10px;
     background-color: white;
 }
@@ -91,5 +93,6 @@ html {
     height: 100%;
     width: 100%;
     overflow: auto;
+    background-color: white;
 }
 </style>
