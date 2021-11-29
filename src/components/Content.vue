@@ -5,7 +5,7 @@
             <input type="range" min="6" max="30" v-model="resizeInput" />
             <p>{{ resizeInput }}pt Font</p>
             <br />
-            <p class="category">{{ article.category }}</p>
+            <p class="category">{{ article.category.substring(1) }}</p>
             <h1>{{ article.title }}</h1>
             <b><p>{{article.author }}</p></b>
             <br />

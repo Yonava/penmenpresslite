@@ -15,7 +15,7 @@
                 <div class="container-1" @click="articleRequested(article)">  
                     <img class="picture" :src="require(`./assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">                
                     <div class="container-2">
-                        <p class="category">{{ article.category }}</p>
+                        <p class="category">{{ article.category.substring(1) }}</p>
                         <h1 class="headline">{{ article.title }}</h1>
                         <p class="date">{{ article.date }} - {{ article.author }}</p>
                     </div>

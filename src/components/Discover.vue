@@ -29,7 +29,7 @@
                 <div class="container-1" @click="$parent.articleRequested(article)"> 
                     <img class="picture" :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
                     <div class="container-2">                     
-                        <p class="category">{{ article.category }}</p>
+                        <p class="category">{{ article.category.substring(1) }}</p>
                         <h1 class="headline">{{ article.title }}</h1>
                         <p class="date">{{ article.date }} - {{ article.author }}</p>
                     </div>
@@ -38,18 +38,16 @@
             <br /><br /><br />
         </div>
 
-        <!-- featured articles -->
+        <!-- article of the day -->
         <div v-else-if="!searching">
-            <h1 class="featured-title">Featured Articles</h1>
+            <h1 class="featured-title">Article of the Day</h1>
             <div class="featured">
-                <div v-for="article in featuredArticles" :key="article.id">
-                    <div class="container-1" @click="$parent.articleRequested(article)"> 
-                        <img class="picture" :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
-                        <div class="container-2">                     
-                            <p class="category">{{ article.category }}</p>
-                            <h1 class="headline">{{ article.title }}</h1>
-                            <p class="date">{{ article.date }} - {{ article.author }}</p>
-                        </div>
+                <div class="container-1" @click="$parent.articleRequested(articles[3])"> 
+                    <img class="picture" :src="require(`../assets/pictures/${articles[3].image}.webp`)" :alt="articles[3].imageCaption">
+                    <div class="container-2">                     
+                        <p class="category">{{ articles[3].category.substring(1) }}</p>
+                        <h1 class="headline">{{ articles[3].title }}</h1>
+                        <p class="date">{{ articles[3].date }} - {{ articles[3].author }}</p>
                     </div>
                 </div>
             </div>
@@ -58,27 +56,27 @@
         <!-- category tags -->
         <br><br><br><br><br><br><br><br> <!-- temp, cus i have no idea how to css :( -->
         <div v-if="!searching" class="tags">
-            <h1 style="color: white; margin: 1vh;">Categories:</h1>
-            <h2 @click="engageSearch('News')">News</h2>
-            <h2 @click="engageSearch('Arts & Entertainment')">Arts & Entertainment</h2>
-            <h2 @click="engageSearch('Lifestyle')">Lifestyle</h2>
-            <h2 @click="engageSearch('Opinion')">Opinion</h2>
-            <h2 @click="engageSearch('Sports')">Sports</h2>
+            <!-- underscore character ensures category keyword search only -->
+            <h1 style="color: white; margin: 1vh;">Categories</h1>
+            <h2 @click="engageSearch('_News')">News</h2>
+            <h2 @click="engageSearch('_Arts & Entertainment')">Arts & Entertainment</h2>
+            <h2 @click="engageSearch('_Lifestyle')">Lifestyle</h2>
+            <h2 @click="engageSearch('_Opinion')">Opinion</h2>
+            <h2 @click="engageSearch('_Sports')">Sports</h2>
         </div>
 
     </div>
 </template>
 
 <script>
-
 import articles from '../assets/articles.json'
 
 export default {
     data: () => {
-        return {   
+        return {  
+            maskQuery: false,
             searching: false,         
             articles,
-            featuredArticles: articles,
             displayedArticles: [],
             rawQuery: '',
             searchStyle: 'width: 60vw;',
@@ -89,7 +87,8 @@ export default {
     },
     watch: {
         rawQuery() {
-            this.search();
+            if (this.maskQuery) this.maskQuery = false
+            else this.search();
         }
     },
     methods: {
@@ -102,7 +101,12 @@ export default {
         search() {
 
             let query = this.sanitizeQuery(this.rawQuery);
+            if (this.rawQuery[0] === '_') {
+                this.maskQuery = true;
+                this.rawQuery = 'Category: ' + this.rawQuery.substring(1);
+            }
             this.displayedArticles = [];
+            // console.log(this.rawQuery)
 
             if (!query) return
 
@@ -132,7 +136,6 @@ export default {
             this.searchTitle = '<';
             this.searchTitleStyle = "font-family: monospace; font-weight: bold; opacity: 0.5; cursor: pointer; margin-top: 20px";
             this.searching = true;
-
             this.rawQuery = searchQuery
         },
         disengageSearch() {
@@ -141,7 +144,6 @@ export default {
             this.searchTitle = 'Search';
             this.searchTitleStyle = '';
             this.searching = false;
-
             this.rawQuery = ''
         }
     }
@@ -196,6 +198,7 @@ h2 {
     margin: 5vw;
     color: white;
     margin-left: 1.5vw;
+    margin-top: 4vh;
 }
 .search {
     display: flex;
