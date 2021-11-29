@@ -12,7 +12,7 @@
             type="text" 
             :placeholder="searchPlaceholder" 
             v-model="rawQuery"
-            @click="engageSearch()" />
+            @click="engageSearch('')" />
         </div>
 
         <!-- display search results -->
@@ -53,6 +53,17 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- category tags -->
+        <br><br><br><br><br><br><br><br> <!-- temp, cus i have no idea how to css :( -->
+        <div v-if="!searching" class="tags">
+            <h1 style="color: white; margin: 1vh;">Categories:</h1>
+            <h2 @click="engageSearch('News')">News</h2>
+            <h2 @click="engageSearch('Arts & Entertainment')">Arts & Entertainment</h2>
+            <h2 @click="engageSearch('Lifestyle')">Lifestyle</h2>
+            <h2 @click="engageSearch('Opinion')">Opinion</h2>
+            <h2 @click="engageSearch('Sports')">Sports</h2>
         </div>
 
     </div>
@@ -115,12 +126,14 @@ export default {
                 }
             }
         },
-        engageSearch() {
+        engageSearch(searchQuery) {
             this.searchPlaceholder = 'Articles, Authors, or Issues';
             this.searchStyle = 'width: 100vw; opacity: 1; padding-left: 4vw; font-size: 2.5vh;';
             this.searchTitle = '<';
             this.searchTitleStyle = "font-family: monospace; font-weight: bold; opacity: 0.5; cursor: pointer; margin-top: 20px";
             this.searching = true;
+
+            this.rawQuery = searchQuery
         },
         disengageSearch() {
             this.searchPlaceholder = '';
@@ -137,6 +150,19 @@ export default {
 </script>
 
 <style scoped>
+.tags {
+    position: absolute;
+}
+h2 {
+    border: .3vh solid black;
+    font-size: 14pt;
+    background-color: white;
+    border-radius: 50px;
+    bottom: 0;
+    padding: 1.5vh;
+    margin: 1vh;
+    background-color: lightblue;
+}
 .featured-title {
     margin-top: 12.5vh;
     margin-left: 1.5vw;
