@@ -50,14 +50,14 @@
         <footer v-if="!contentView" class="bottom">
             <div class="bottom-container">
                 <div :style="navBlip" class="selected-nav"></div> 
-                <div @click="navigate(-120, 'rgb(71, 105, 194)', 'discover')" class="nav-container">
-                    <img class="icon" src="./assets/search.png" alt="discovery">
+                <div @click="navigate(-120, 'red', 'discover')" class="nav-container">
+                    <img class="icon" src="./assets/discover.svg" alt="discovery">
                 </div>
                 <div @click="navigate(0, 'rgb(71, 105, 194)', 'home')" class="nav-container">
-                    <img class="icon" src="./assets/homebutton.png" alt="home">
+                    <img class="icon" src="./assets/feed.svg" alt="home">
                 </div>
-                <div @click="navigate(120, 'rgb(71, 105, 194)', 'bookmarked')" class="nav-container">
-                    <img class="icon" src="./assets/star.png" alt="bookmarked">
+                <div @click="navigate(120, 'orange', 'bookmarked')" class="nav-container">
+                    <img class="icon" src="./assets/savedicon.svg" alt="bookmarked">
                 </div>
             </div>
         </footer> 
@@ -120,6 +120,7 @@ export default {
     opacity: 0.5;
     position: absolute;
     transition: 200ms ease-in-out;
+    z-index: -1;
 }
 .nav-container {
     height: 30px;
@@ -145,6 +146,7 @@ export default {
     justify-content: center;
     align-items: center;
     margin-top: auto;
+    /* opacity: 0.9; */
 }
 .date {
     position: absolute;
