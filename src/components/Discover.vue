@@ -119,7 +119,7 @@ export default {
             this.searchPlaceholder = 'Articles, Authors, or Issues';
             this.searchStyle = 'width: 100vw; opacity: 1; padding-left: 4vw; font-size: 2.5vh;';
             this.searchTitle = '<';
-            this.searchTitleStyle = "font-family: monospace; font-weight: bold; opacity: 0.5; cursor: pointer;";
+            this.searchTitleStyle = "font-family: monospace; font-weight: bold; opacity: 0.5; cursor: pointer; margin-top: 20px";
             this.searching = true;
         },
         disengageSearch() {

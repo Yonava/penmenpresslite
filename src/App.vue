@@ -133,8 +133,8 @@ export default {
 
 <style>
 .bookmark {
-    width: 15px;
-    margin-left: 2vw;
+    width: 4vh;
+    margin-left: 3.5vw;
 }
 .icon {
     height: 30px;
@@ -210,8 +210,9 @@ export default {
     border: 2px black solid;    
     padding: 10px;
     background-color: white;
-    margin: 5px;
-    border-radius: 2%;
+    margin: 1vh;
+    border-radius: 8px;
+    /* min-height: 20vh; */
 }
 .headline {
     margin: 1px;
