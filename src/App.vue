@@ -19,19 +19,20 @@
                         <h1 class="headline">{{ article.title }}</h1>
                         <p class="date">{{ article.date }} - {{ article.author }}</p>
                     </div>
+                    <div>
+                        <img v-if="article.saved" @click="bookmark(article, false)" class="bookmark" src="./assets/remove-bookmark.svg" alt="unsave">
+                        <img v-else @click="bookmark(article, true)" class="bookmark" src="./assets/add-bookmark.svg" alt="save">
+                        <!-- <img class="bookmark" src="./assets/share.svg" alt="share"> -->
+                    </div>
                 </div>
-                <img v-if="article.saved" @click="bookmark(article, false)" class="bookmark" src="./assets/remove-bookmark.svg" alt="unsave">
-                <img v-else @click="bookmark(article, true)" class="bookmark" src="./assets/add-bookmark.svg" alt="save"> 
-                <img class="bookmark" src="./assets/share.svg" alt="share">
             </div>
+            
             <br />
             <center>
                 <p>visit <a href="https://penmenpress.com/">https://penmenpress.com/</a> for more snhu reporting</p>
                 <p>© penmenpress 2021, all rights reserved</p>
             </center>
-            <br />
-            <br />
-            <br />
+            <br /><br /><br />
         </div>
 
         <!-- content view / reader view -->
@@ -90,10 +91,12 @@ export default {
             selectedArticle: {},
             navBlip: 'transform: translateX(0px); background-color: rgb(71, 105, 194);',
             page: 'home',
+            requestHandler: true,
         }
     },
     methods: {
         bookmark(article, saveState) {
+            this.confirmRequest(false);
             article.saved = saveState;
             this.bookmarked = [];
             for (let i = 0; i < this.articles.length; i++) {
@@ -103,7 +106,12 @@ export default {
         },
         articleRequested(selectedArticle) {
             this.selectedArticle = selectedArticle;
-            this.toggleContentView();
+            setTimeout(this.confirmRequest(true), 3)
+        },
+        confirmRequest(request) {
+            if (!request) this.requestHandler = false
+            if (this.requestHandler) this.toggleContentView();
+            request ? this.requestHandler = true:this.requestHandler = false 
         },
         toggleContentView() {
             window.scrollTo(0,0);
@@ -134,7 +142,8 @@ export default {
 <style>
 .bookmark {
     width: 4vh;
-    margin-left: 3.5vw;
+    margin: 2vw;
+    margin-top: 0px;
 }
 .icon {
     height: 30px;
@@ -212,7 +221,10 @@ export default {
     background-color: white;
     margin: 1vh;
     border-radius: 8px;
-    /* min-height: 20vh; */
+    max-width: 78vw;
+    height: 16vh;
+    z-index: -1;
+    padding-right: 18vw;
 }
 .headline {
     margin: 1px;

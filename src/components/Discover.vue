@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-
+    
         <!-- search panel -->
         <div class="search">
             <h1 @click="disengageSearch()" :style="searchTitleStyle" class="search-title">
@@ -33,38 +33,47 @@
                         <h1 class="headline">{{ article.title }}</h1>
                         <p class="date">{{ article.date }} - {{ article.author }}</p>
                     </div>
+                    <div>
+                        <img v-if="article.saved" @click="$parent.bookmark(article, false)" class="bookmark" src="../assets/remove-bookmark.svg" alt="unsave">
+                        <img v-else @click="$parent.bookmark(article, true)" class="bookmark" src="../assets/add-bookmark.svg" alt="save">
+                        <!-- <img class="bookmark" src="./assets/share.svg" alt="share"> -->
+                    </div>
                 </div>
-            </div>
-            <br /><br /><br />
+            </div>  
         </div>
+        <br /><br /><br />
+      
 
         <!-- article of the day -->
-        <div v-else-if="!searching">
+        <div v-if="!searching">
             <h1 class="featured-title">Article of the Day</h1>
-            <div class="featured">
-                <div class="container-1" @click="$parent.articleRequested(articles[3])"> 
-                    <img class="picture" :src="require(`../assets/pictures/${articles[3].image}.webp`)" :alt="articles[3].imageCaption">
-                    <div class="container-2">                     
-                        <p class="category">{{ articles[3].category.substring(1) }}</p>
-                        <h1 class="headline">{{ articles[3].title }}</h1>
-                        <p class="date">{{ articles[3].date }} - {{ articles[3].author }}</p>
-                    </div>
+            <div class="container-1" @click="$parent.articleRequested(articles[3])">  
+                <img class="picture" :src="require(`../assets/pictures/${articles[3].image}.webp`)" :alt="articles[3].imageCaption">                
+                <div class="container-2">
+                    <p class="category">{{ articles[3].category.substring(1) }}</p>
+                    <h1 class="headline">{{ articles[3].title }}</h1>
+                    <p class="date">{{ articles[3].date }} - {{ articles[3].author }}</p>
+                </div>
+                <div>
+                    <img v-if="articles[3].saved" @click="$parent.bookmark(articles[3], false)" class="bookmark" src="../assets/remove-bookmark.svg" alt="unsave">
+                    <img v-else @click="$parent.bookmark(articles[3], true)" class="bookmark" src="../assets/add-bookmark.svg" alt="save">
+                    <!-- <img class="bookmark" src="./assets/share.svg" alt="share"> -->
                 </div>
             </div>
         </div>
 
         <!-- category tags -->
-        <br><br><br><br><br><br><br><br> <!-- temp, cus i have no idea how to css :( -->
         <div v-if="!searching" class="tags">
-            <!-- underscore character ensures category keyword search only -->
+            <!-- underscore character ensures strictly category search -->
             <h1 style="color: white; margin: 1vh;">Categories</h1>
+            <br>
             <h2 @click="engageSearch('_News')">News</h2>
             <h2 @click="engageSearch('_Arts & Entertainment')">Arts & Entertainment</h2>
             <h2 @click="engageSearch('_Lifestyle')">Lifestyle</h2>
             <h2 @click="engageSearch('_Opinion')">Opinion</h2>
             <h2 @click="engageSearch('_Sports')">Sports</h2>
         </div>
-
+         
     </div>
 </template>
 
@@ -106,8 +115,7 @@ export default {
                 this.rawQuery = 'Category: ' + this.rawQuery.substring(1);
             }
             this.displayedArticles = [];
-            // console.log(this.rawQuery)
-
+            
             if (!query) return
 
             for (let i = 0; i < articles.length; i++) {
@@ -116,11 +124,9 @@ export default {
                     case this.articles[i].title.toLowerCase().includes(query):
                         this.displayedArticles.push(this.articles[i]);
                         break;
-
                     case this.articles[i].author.toLowerCase().includes(query):
                         this.displayedArticles.push(this.articles[i]);
                         break;
-
                     case this.articles[i].category.toLowerCase().includes(query):
                         this.displayedArticles.push(this.articles[i]);
                         break;
@@ -164,9 +170,10 @@ h2 {
     padding: 1.5vh;
     margin: 1vh;
     background-color: lightblue;
+    width: 70vw;
 }
 .featured-title {
-    margin-top: 12.5vh;
+    margin-top: 5vh;
     margin-left: 1.5vw;
     color: white;
     display: fixed;
@@ -204,6 +211,7 @@ h2 {
     display: flex;
     position: fixed;
     top: 0;
+    margin-top: 1vh;
     width: 100vw;
     background-color: rgb(71, 105, 194);
     z-index: 1;
