@@ -127,7 +127,6 @@ export default {
         if (localStorage.bookmarked) {
             let parseStorage = localStorage.bookmarked.split(',');
             this.bookmarked = ['Saved Articles Detected']
-            console.log(this.articles)
             for (let i = 0; i < parseStorage.length; i++) {
                 for (let j = 0; j < this.articles.length; j++) {
                     if (this.articles[j].title === parseStorage[i]) this.articles[j].saved = true;

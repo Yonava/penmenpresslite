@@ -172,8 +172,8 @@ export default {
 .search-icon {
     padding-left: 4vh;
     padding-top: 2.5vh;
-    max-width: 5vh;
-    max-height: 5vh;
+    max-width: 4vh;
+    max-height: 4vh;
     transition: 200ms ease-in-out
 }
 h2 {
@@ -188,7 +188,7 @@ h2 {
     transition: 200ms ease-in-out;
 }
 .featured-title {
-    margin-top: 5vh;
+    margin-top: 1vh;
     margin-left: 1.5vw;
     margin-bottom: 0px;
     color: white;

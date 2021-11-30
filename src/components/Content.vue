@@ -15,7 +15,12 @@
             </center>
             <p :style="articleSize" class="article">{{ article.content }}</p>
             <br />
-            <button class="back" @click="$parent.toggleContentView()"><b>Return to Feed</b></button>
+            <button :style="returnButtonStyle" 
+            class="back" 
+            @click="scroll"
+            >
+                <b>Return to Feed</b>
+            </button>
         </div>
         <br /><br />
     </div>
@@ -32,7 +37,15 @@ export default {
         return {
             articleSize: 'font-size: 12pt;',
             resizeInput: '12',
+            returnButtonStyle: 'padding: 1.5vh; font-size: 12pt; bottom: 2vh;',
+            lastScrollPos: 0,
         }
+    },
+    created() {
+        document.addEventListener("scroll", (this.scroll));
+    },
+    destroyed() {
+        document.removeEventListener("scroll", (this.scroll));
     },
     mounted() {
         if (localStorage.articleSize) {
@@ -48,7 +61,23 @@ export default {
             localStorage.resizeInput = this.resizeInput;
         }
     },
+    methods: {
+        scroll() {
+            if (this.lastScrollPos < window.scrollY) {
+                this.returnButtonStyle = 'height: 0vh; bottom: 0vh;';
+                setTimeout(() => this.returnButtonStyle += 'opacity: 0;', 10);
+            } else {
+                this.returnButtonStyle = 'padding: 1.5vh; font-size: 12pt; bottom: 2vh;';
+            }
+            console.log(window.scrollY)
+            
+            this.lastScrollPos = window.scrollY;
+            // $root.toggleContentView();
+        }
+    }
 }
+    
+
 </script>
 
 <style scoped>
@@ -63,13 +92,11 @@ img {
 .back {
     background-color: white;
     border: 2px black solid;
-    padding: 10px;
-    font-size: 12pt;
     font-family: Georgia, 'Times New Roman', Times, serif;
     position: fixed;
-    bottom: 2vh;
     margin-top: auto;
     min-width: 92.5vw;
+    transition: 200ms ease-in-out;
 }
 .content {
     display: flex;
