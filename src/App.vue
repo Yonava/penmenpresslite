@@ -240,7 +240,7 @@ header {
     z-index: 1;
     /* font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
 }
-html, body {
+body {
     background-color: rgb(71, 105, 194);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin: 0px;

@@ -3,9 +3,11 @@
     
         <!-- search panel -->
         <div class="search">
-            <h1 @click="disengageSearch()" :style="searchTitleStyle" class="search-title">
+            
+            <h1 v-if="searching" @click="disengageSearch()" :style="searchTitleStyle" class="search-title">
                 {{ searchTitle }}
             </h1>
+            <img v-else class="search-icon" src="../assets/search.svg" alt="search">
             <input 
             :style="searchStyle"
             class="searchbar"
@@ -13,6 +15,7 @@
             :placeholder="searchPlaceholder" 
             v-model="rawQuery"
             @click="engageSearch('')" />
+               
         </div>
 
         <!-- display search results -->
@@ -46,7 +49,9 @@
 
         <!-- article of the day -->
         <div v-if="!searching">
-            <h1 class="featured-title">Article of the Day</h1>
+            <center>
+                <h1 class="featured-title">Article of the Day</h1>
+            </center>
             <div class="container-1" @click="$parent.articleRequested(articles[3])">  
                 <img class="picture" :src="require(`../assets/pictures/${articles[3].image}.webp`)" :alt="articles[3].imageCaption">                
                 <div class="container-2">
@@ -63,16 +68,18 @@
         </div>
 
         <!-- category tags -->
-        <div v-if="!searching" class="tags">
-            <!-- underscore character ensures strictly category search -->
-            <h1 style="color: white; margin: 1vh; margin-bottom: 0px;">Categories</h1>
-            <h2 :style="tags" @click="engageSearch('_News')">News</h2>
-            <h2 :style="tags" @click="engageSearch('_Arts & Entertainment')">Arts & Entertainment</h2>
-            <h2 :style="tags" @click="engageSearch('_Lifestyle')">Lifestyle</h2>
-            <h2 :style="tags" @click="engageSearch('_Opinion')">Opinion</h2>
-            <h2 :style="tags" @click="engageSearch('_Sports')">Sports</h2>
-            <br>
-        </div>
+        <center>
+            <div v-if="!searching" class="tags">
+                <!-- underscore character ensures strictly category search -->
+                <h1 style="color: white; margin: 1vh; margin-bottom: 0px;">Categories</h1>
+                <h2 :style="tags" @click="engageSearch('_News')">News</h2>
+                <h2 :style="tags" @click="engageSearch('_Arts & Entertainment')">Arts & Entertainment</h2>
+                <h2 :style="tags" @click="engageSearch('_Lifestyle')">Lifestyle</h2>
+                <h2 :style="tags" @click="engageSearch('_Opinion')">Opinion</h2>
+                <h2 :style="tags" @click="engageSearch('_Sports')">Sports</h2>
+                <br>
+            </div>
+        </center>
     </div>
 </template>
 
@@ -89,7 +96,7 @@ export default {
             rawQuery: '',
             searchStyle: 'width: 60vw;',
             searchPlaceholder: '',
-            searchTitle: 'Search',
+            searchTitle: '',
             searchTitleStyle: '',
             tags: 'width: 90vw; background-color: rgb(207, 233, 241);',
         }
@@ -147,7 +154,7 @@ export default {
         disengageSearch() {
             this.searchPlaceholder = '';
             this.searchStyle = 'width: 60vw;';
-            this.searchTitle = 'Search';
+            this.searchTitle = '';
             this.searchTitleStyle = '';
             this.searching = false;
             this.rawQuery = ''
@@ -158,6 +165,13 @@ export default {
 </script>
 
 <style scoped>
+.search-icon {
+    padding-left: 4vw;
+    margin-top: 3vh;
+    max-width: 4vh;
+    max-height: 4vh;
+    transition: 200ms ease-in-out
+}
 .tags {
     position: absolute;
 }
@@ -212,7 +226,7 @@ h2 {
     display: flex;
     position: fixed;
     top: 0;
-    margin-top: 1vh;
+    padding-top: 1vh;
     width: 100vw;
     background-color: rgb(71, 105, 194);
     z-index: 1;
