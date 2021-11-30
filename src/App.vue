@@ -247,6 +247,7 @@ body {
     max-width: 100vw;
     max-height: 100vh;
     overflow: auto;
+    -webkit-overflow-scrolling: touch; /* enables “momentum” (smooth) scrolling */
 }
 p {
     margin: 0px;

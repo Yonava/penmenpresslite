@@ -87,7 +87,9 @@ h1 {
 .article {
     font-family: 'Times New Roman', Times, serif;
 }
+html,
 body {
-    max-height: 100vh;
+  position: fixed;
+  overflow: hidden;
 }
 </style>

@@ -2,12 +2,12 @@
     <div class="main">
     
         <!-- search panel -->
-        <div class="search">
+        <div :style="searchStyleMain" class="search">
             
             <h1 v-if="searching" @click="disengageSearch()" :style="searchTitleStyle" class="search-title">
                 {{ searchTitle }}
             </h1>
-            <img v-else class="search-icon" src="../assets/search.svg" alt="search">
+            <img v-else @click="engageSearch('')" class="search-icon" src="../assets/search.svg" alt="search">
             <input 
             :style="searchStyle"
             class="searchbar"
@@ -69,7 +69,7 @@
 
         <!-- category tags -->
         <center>
-            <div v-if="!searching" class="tags">
+            <div v-if="!searching">
                 <!-- underscore character ensures strictly category search -->
                 <h1 style="color: white; margin: 1vh; margin-bottom: 0px;">Categories</h1>
                 <h2 :style="tags" @click="engageSearch('_News')">News</h2>
@@ -94,10 +94,11 @@ export default {
             articles,
             displayedArticles: [],
             rawQuery: '',
-            searchStyle: 'width: 60vw;',
+            searchStyle: 'width: 0vw; opacity: 0;',
             searchPlaceholder: '',
             searchTitle: '',
             searchTitleStyle: '',
+            searchStyleMain: '',
             tags: 'width: 90vw; background-color: rgb(207, 233, 241);',
         }
     },
@@ -149,16 +150,19 @@ export default {
             this.searchTitle = '<';
             this.searchTitleStyle = "font-family: monospace; font-weight: bold; opacity: 0.5; cursor: pointer; margin-top: 20px";
             this.searching = true;
-            this.rawQuery = searchQuery
+            this.rawQuery = searchQuery;
+            this.searchStyleMain = 'border-bottom: 1px solid black;';
         },
         disengageSearch() {
             this.searchPlaceholder = '';
-            this.searchStyle = 'width: 60vw;';
+            this.searchStyle = 'width: 0vw;';
+            setTimeout(() => this.searchStyle += 'opacity: 0;', 100);
             this.searchTitle = '';
             this.searchTitleStyle = '';
             this.searching = false;
-            this.rawQuery = ''
-        }
+            this.rawQuery = '';
+            this.searchStyleMain = '';
+        },
     }
 }
 
@@ -166,14 +170,11 @@ export default {
 
 <style scoped>
 .search-icon {
-    padding-left: 4vw;
-    margin-top: 3vh;
-    max-width: 4vh;
-    max-height: 4vh;
+    padding-left: 4vh;
+    padding-top: 2.5vh;
+    max-width: 5vh;
+    max-height: 5vh;
     transition: 200ms ease-in-out
-}
-.tags {
-    position: absolute;
 }
 h2 {
     border: .3vh solid black;
@@ -230,17 +231,14 @@ h2 {
     width: 100vw;
     background-color: rgb(71, 105, 194);
     z-index: 1;
-    border-bottom: 1px solid black;
 }
 .searchbar {
     margin: 2vh;
-    width: 100vw;
     border: 1px solid black;
     border-radius: 40px;
     height: 5vh;
     margin-right: 2.5vh;
     transition: 300ms;
-    opacity: 0.8;
 }
 input {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
