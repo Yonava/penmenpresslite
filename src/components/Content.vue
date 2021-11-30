@@ -17,7 +17,7 @@
             <br />
             <button :style="returnButtonStyle" 
             class="back" 
-            @click="scroll"
+            @click="$parent.toggleContentView()"
             >
                 <b>Return to Feed</b>
             </button>
@@ -63,7 +63,7 @@ export default {
     },
     methods: {
         scroll() {
-            if (this.lastScrollPos < window.scrollY) {
+            if ((this.lastScrollPos < window.scrollY) && window.scrollY > 100) {
                 this.returnButtonStyle = 'height: 0vh; bottom: 0vh;';
                 setTimeout(() => this.returnButtonStyle += 'opacity: 0;', 10);
             } else {
@@ -72,7 +72,7 @@ export default {
             console.log(window.scrollY)
             
             this.lastScrollPos = window.scrollY;
-            // $root.toggleContentView();
+            
         }
     }
 }
