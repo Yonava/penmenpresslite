@@ -4,21 +4,27 @@
         <!-- search panel -->
         <div :style="searchStyleMain" class="search">
             
-            <h1 v-if="searching" @click="disengageSearch()" :style="searchTitleStyle" class="search-title">
+            <img v-if="!searching" @click="engageSearch('')" class="search-icon" src="../assets/search.svg" alt="search">
+            <h1 @click="disengageSearch()" :style="searchTitleStyle" class="search-title">
                 {{ searchTitle }}
             </h1>
-            <img v-else @click="engageSearch('')" class="search-icon" src="../assets/search.svg" alt="search">
+            
             <input 
             :style="searchStyle"
             class="searchbar"
             type="text" 
             :placeholder="searchPlaceholder" 
             v-model="rawQuery"
-            @click="engageSearch('')" />
+            @click="engageSearch(rawQuery)" />
                
         </div>
 
         <!-- display search results -->
+        <div v-if="searching && !rawQuery" class="empty-search">
+            <center>
+                <img src="../assets/search.svg" alt="search">
+            </center>   
+        </div>
         <div v-if="rawQuery.length > 0 && searching">
             <br /><br /><br />
             <p v-if="displayedArticles.length > 0" class="search-text">Here's What We Found:</p>
@@ -169,6 +175,9 @@ export default {
 </script>
 
 <style scoped>
+.empty-search {
+    margin: 20vh;
+}
 .search-icon {
     padding-left: 4vh;
     padding-top: 2.5vh;
