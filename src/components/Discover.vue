@@ -17,7 +17,7 @@
 
         <!-- display search results -->
         <div v-if="rawQuery.length > 0 && searching">
-            <br /><br /><br /><br><br>
+            <br /><br /><br />
             <p v-if="displayedArticles.length > 0" class="search-text">Here's What We Found:</p>
             <div v-else>
                 <center>
@@ -65,15 +65,15 @@
         <!-- category tags -->
         <div v-if="!searching" class="tags">
             <!-- underscore character ensures strictly category search -->
-            <h1 style="color: white; margin: 1vh;">Categories</h1>
+            <h1 style="color: white; margin: 1vh; margin-bottom: 0px;">Categories</h1>
             <br>
             <h2 @click="engageSearch('_News')">News</h2>
             <h2 @click="engageSearch('_Arts & Entertainment')">Arts & Entertainment</h2>
             <h2 @click="engageSearch('_Lifestyle')">Lifestyle</h2>
             <h2 @click="engageSearch('_Opinion')">Opinion</h2>
             <h2 @click="engageSearch('_Sports')">Sports</h2>
+            <br>
         </div>
-        <br><br>
     </div>
 </template>
 

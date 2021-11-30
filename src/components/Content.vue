@@ -90,9 +90,6 @@ h1 {
     font-family: 'Times New Roman', Times, serif;
 }
 html {
-    height: 100%;
-    width: 100%;
-    overflow: auto;
     background-color: white;
 }
 </style>
