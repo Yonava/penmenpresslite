@@ -17,8 +17,7 @@
             <br />
             <button :style="returnButtonStyle" 
             class="back" 
-            @click="$parent.toggleContentView()"
-            >
+            @click="$parent.toggleContentView()">
                 <b>Return to Feed</b>
             </button>
         </div>
@@ -38,7 +37,9 @@ export default {
             articleSize: 'font-size: 12pt;',
             resizeInput: '12',
             returnButtonStyle: 'padding: 1.5vh; font-size: 12pt; bottom: 2vh;',
-            lastScrollPos: 0,
+            takeScrollFeedback: true,
+            yDifferential: 0,
+            lastPos: 0,
         }
     },
     created() {
@@ -62,17 +63,21 @@ export default {
         }
     },
     methods: {
-        scroll() {
-            if ((this.lastScrollPos < window.scrollY) && window.scrollY > 100) {
+        scroll() { 
+            if ((this.yDifferential > 10) && window.scrollY > 100) {
                 this.returnButtonStyle = 'height: 0vh; bottom: 0vh;';
-                setTimeout(() => this.returnButtonStyle += 'opacity: 0;', 10);
-            } else {
+                    setTimeout(() => this.returnButtonStyle += 'opacity: 0;', 5);
+                this.animationCooldown = true;
+            } else if (this.yDifferential < -20){ // sensitivity control
                 this.returnButtonStyle = 'padding: 1.5vh; font-size: 12pt; bottom: 2vh;';
+                this.animationCooldown = true;
+            }   
+            if (this.takeScrollFeedback) {
+                this.yDifferential = window.scrollY - this.lastPos;
+                this.lastPos = window.scrollY
+                this.takeScrollFeedback = false;
+                setTimeout(() => this.takeScrollFeedback = true, 50);
             }
-            console.log(window.scrollY)
-            
-            this.lastScrollPos = window.scrollY;
-            
         }
     }
 }

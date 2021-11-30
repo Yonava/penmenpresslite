@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <!-- penmen press banner -->
+        <!-- saved articles banner -->
         <header class="saved-header">
             <center>
                 <h1>SAVED ARTICLES</h1>
