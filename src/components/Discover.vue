@@ -66,12 +66,11 @@
         <div v-if="!searching" class="tags">
             <!-- underscore character ensures strictly category search -->
             <h1 style="color: white; margin: 1vh; margin-bottom: 0px;">Categories</h1>
-            <br>
-            <h2 @click="engageSearch('_News')">News</h2>
-            <h2 @click="engageSearch('_Arts & Entertainment')">Arts & Entertainment</h2>
-            <h2 @click="engageSearch('_Lifestyle')">Lifestyle</h2>
-            <h2 @click="engageSearch('_Opinion')">Opinion</h2>
-            <h2 @click="engageSearch('_Sports')">Sports</h2>
+            <h2 :style="tags" @click="engageSearch('_News')">News</h2>
+            <h2 :style="tags" @click="engageSearch('_Arts & Entertainment')">Arts & Entertainment</h2>
+            <h2 :style="tags" @click="engageSearch('_Lifestyle')">Lifestyle</h2>
+            <h2 :style="tags" @click="engageSearch('_Opinion')">Opinion</h2>
+            <h2 :style="tags" @click="engageSearch('_Sports')">Sports</h2>
             <br>
         </div>
     </div>
@@ -92,6 +91,7 @@ export default {
             searchPlaceholder: '',
             searchTitle: 'Search',
             searchTitleStyle: '',
+            tags: 'width: 90vw; background-color: rgb(207, 233, 241);',
         }
     },
     watch: {
@@ -169,12 +169,13 @@ h2 {
     bottom: 0;
     padding: 1.5vh;
     margin: 1vh;
-    background-color: lightblue;
-    width: 70vw;
+    margin-bottom: 1.5vh;
+    transition: 200ms ease-in-out;
 }
 .featured-title {
     margin-top: 5vh;
     margin-left: 1.5vw;
+    margin-bottom: 0px;
     color: white;
     display: fixed;
     cursor: default;

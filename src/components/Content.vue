@@ -75,8 +75,6 @@ img {
     display: flex;
     flex-direction: column;
     border: 2px black solid;   
-    border-top: none;
-    border-bottom: none; 
     padding: 10px;
     background-color: white;
 }
@@ -88,8 +86,5 @@ h1 {
 }
 .article {
     font-family: 'Times New Roman', Times, serif;
-}
-html {
-    background-color: white;
 }
 </style>

@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <br />
             <center>
                 <p>visit <a href="https://penmenpress.com/">https://penmenpress.com/</a> for more snhu reporting</p>
@@ -244,8 +244,8 @@ html, body {
     background-color: rgb(71, 105, 194);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin: 0px;
-    min-width: 100vw;
-    min-height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
     overflow: auto;
 }
 p {
