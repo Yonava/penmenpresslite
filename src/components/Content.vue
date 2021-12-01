@@ -2,8 +2,21 @@
 
     <div class="content">
         <div>
-            <input type="range" min="6" max="30" v-model="resizeInput" />
-            <p>{{ resizeInput }}pt Font</p>
+            <div class="utility-parent">
+            <img class="utility-icon" src="../assets/share.svg" alt="share">
+                <img @click="resizeFont()" 
+                class="utility-icon" 
+                src="../assets/fontsize.svg" 
+                alt="fontSize"
+                style="grid-column: 2; z-index: 1;">
+                <div class="utility-icon" :style="buttonColoration"/>
+            </div>
+
+            <br>
+
+            
+            <input id="font-size" :style="expandFontSlider" type="range" min="6" max="30" v-model="resizeInput" />
+            <label class="font-label" :style="fontLabel" for="font-size">{{ resizeInput }}pt Font</label>
             <br />
             <p class="category">{{ article.category.substring(1) }}</p>
             <h1>{{ article.title }}</h1>
@@ -40,6 +53,10 @@ export default {
             takeScrollFeedback: true,
             yDifferential: 0,
             lastPos: 0,
+            expandFontSlider: 'width: 0vw; opacity: 0;',
+            sliderExpanded: false,
+            fontLabel: 'opacity: 0;',
+            buttonColoration: 'background-color: lightblue; grid-column: 2; opacity: 0; border-radius: 25%;',
         }
     },
     created() {
@@ -78,6 +95,31 @@ export default {
                 this.takeScrollFeedback = false;
                 setTimeout(() => this.takeScrollFeedback = true, 50);
             }
+        },
+        resizeFont() {
+            let delay = 400;
+            let fontLabelTrasitDur = 200  // offsets fontLabel transition
+            const resolvePromise = new Promise(resolve => setTimeout(resolve, delay*2));
+            if (this.sliderExpanded) {
+                this.fontLabel = 'opacity: 0;';
+                this.buttonColoration = 'background-color: lightblue; grid-column: 2; opacity: 0; border-radius: 25%;';
+            } else {
+                this.buttonColoration = 'background-color: lightblue; grid-column: 2; opacity: 1; border-radius: 25%;';
+            }
+            
+            if (this.sliderExpanded) {
+                setTimeout(() => this.expandFontSlider = 'width: 2vw;', fontLabelTrasitDur);
+                setTimeout(() => this.expandFontSlider += 'opacity: 0;', 400 + fontLabelTrasitDur);
+            } else {
+                this.expandFontSlider = 'width: 2vw; opacity: 1;';
+                setTimeout(() => this.expandFontSlider += 'width: 70vw;', 400);
+            }
+
+            resolvePromise.then(() => {
+                if (!this.sliderExpanded) this.fontLabel = 'opacity: 1;'; 
+                this.sliderExpanded = !this.sliderExpanded;
+            });
+
         }
     }
 }
@@ -86,6 +128,23 @@ export default {
 </script>
 
 <style scoped>
+.font-label {
+    transition: 200ms ease-in-out;
+}
+.utility-parent {
+    display: grid;
+}
+.utility-icon {
+    column-gap: 1vw; /* doesnt work in parent either! */
+    grid-row: 1;
+    width: 5vh;
+    height: 5vh;
+    transition: 200ms ease-in-out;
+}
+#font-size {
+    margin-bottom: 2vh;
+    transition: 300ms ease-in-out;
+}
 .caption {
     margin-bottom: 20px;
 }

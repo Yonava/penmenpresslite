@@ -24,7 +24,6 @@
                     </div>
                     <div>
                         <img @click="$parent.bookmark(article, false)" class="bookmark" src="../assets/remove-bookmark.svg" alt="unsave">
-                        <!-- <img class="bookmark" src="./assets/share.svg" alt="share"> -->
                     </div>
                 </div>
             </div>
