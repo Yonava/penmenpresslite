@@ -42,12 +42,12 @@
 
         <!-- discover menu -->
         <div v-if="page === 'discover' && !contentView">
-            <Discover />
+            <Discover :articles="articles" />
         </div>
 
         <!-- bookmarked / read later menu -->
         <div v-else-if="page === 'bookmarked' && !contentView">
-            <Bookmarked :bookmarkedArticles="bookmarked" />
+            <Bookmarked :articles="articles" />
         </div>
 
         <!-- navigation panel -->
@@ -71,7 +71,8 @@
 
 <script>
 
-import articles from './assets/articles'
+import ArticleObj from './classes/Articles.js'
+import articleData from './assets/articles'
 import Content from './components/Content.vue'
 import Discover from './components/Discover.vue'
 import Bookmarked from './components/Bookmarked.vue'
@@ -86,17 +87,19 @@ export default {
     data: () => {
         return {
             bookmarked: [],
-            articles,
+            articleData,
             contentView: false,
             selectedArticle: {},
             navBlip: 'transform: translateX(0px); background-color: rgb(71, 105, 194);',
             page: 'home',
             requestHandler: true,
+            articles: [],
         }
     },
     methods: {
         bookmark(article, saveState) {
             this.confirmRequest(false);
+            console.log(article.saved)
             article.saved = saveState;
             this.bookmarked = [];
             for (let i = 0; i < this.articles.length; i++) {
@@ -121,9 +124,24 @@ export default {
             window.scrollTo(0,0);
             this.navBlip = `transform: translateX(${pos}px); background-color: ${color};` // translate navBlip
             this.page = page
+        },
+        initArticles() {
+            for (let i = 0; i < articleData.length; i++) {
+                let loadArticles = new ArticleObj(
+                    articleData[i].title,
+                    articleData[i].image,
+                    articleData[i].imageCaption,
+                    articleData[i].category,
+                    articleData[i].author,
+                    articleData[i].date,
+                    articleData[i].content
+                )
+                this.articles.push(loadArticles);
+            }
         }
     },
     mounted() {
+        this.initArticles();
         if (localStorage.bookmarked) {
             let parseStorage = localStorage.bookmarked.split(',');
             this.bookmarked = ['Saved Articles Detected']

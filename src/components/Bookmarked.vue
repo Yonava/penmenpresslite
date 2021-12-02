@@ -8,11 +8,13 @@
             </center>
         </header>
 
-        <!-- bookmarked articles -->
-        <center v-if="bookmarkedArticles.length === 0">
+        <!-- if no saved articles -->
+        <center v-if="!saved">
             <p class="non-saved">Saved/Bookmarked Articles Show Up Here</p>
             <img class="icon-display" src="../assets/add-bookmark.svg" alt="save">
         </center>
+
+        <!-- display saved / bookmarked articles -->
         <div v-for="article in articles" :key="article.id">
             <div v-if="article.saved">
                 <div class="container-1" @click="$parent.articleRequested(article)">  
@@ -23,7 +25,7 @@
                         <p class="date">{{ article.date }} - {{ article.author }}</p>
                     </div>
                     <div>
-                        <img @click="$parent.bookmark(article, false)" class="bookmark" src="../assets/remove-bookmark.svg" alt="unsave">
+                        <img @click="$parent.bookmark(article, false); update()" class="bookmark" src="../assets/remove-bookmark.svg" alt="unsave">
                     </div>
                 </div>
             </div>
@@ -34,18 +36,27 @@
 
 <script>
 
-import articles from '../assets/articles.json'
-
 export default {
 
     data: () => {
         return {
-            articles,
+            saved: true,
         }
     },
     props: [
-        'bookmarkedArticles',
-    ]
+        'articles',
+    ],
+    methods: {
+        update() {
+            for (let i = 0; i < this.articles.length; i++) {
+                if (this.articles[i].saved) return
+            }
+            this.saved = false;
+        }
+    },
+    mounted() {
+        this.update();
+    }
 }
 
 </script>

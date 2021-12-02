@@ -13,7 +13,7 @@
             :style="searchStyle"
             class="searchbar"
             type="text" 
-            :placeholder="searchPlaceholder" 
+            placeholder="Articles, Authors, or Categories" 
             v-model="rawQuery"
             @click="engageSearch(rawQuery)" />
                
@@ -90,24 +90,23 @@
 </template>
 
 <script>
-import articles from '../assets/articles.json'
-
 export default {
     data: () => {
         return {  
             maskQuery: false,
             searching: false,         
-            articles,
             displayedArticles: [],
             rawQuery: '',
             searchStyle: 'width: 0vw; opacity: 0;',
-            searchPlaceholder: '',
             searchTitle: '',
             searchTitleStyle: '',
             searchStyleMain: '',
             tags: 'width: 90vw; background-color: rgb(207, 233, 241);',
         }
     },
+    props: [
+        'articles',
+    ],
     watch: {
         rawQuery() {
             if (this.maskQuery) this.maskQuery = false
@@ -132,7 +131,7 @@ export default {
             
             if (!query) return
 
-            for (let i = 0; i < articles.length; i++) {
+            for (let i = 0; i < this.articles.length; i++) {
                 switch (true) {
 
                     case this.articles[i].title.toLowerCase().includes(query):
@@ -151,7 +150,6 @@ export default {
             }
         },
         engageSearch(searchQuery) {
-            this.searchPlaceholder = 'Articles, Authors, or Issues';
             this.searchStyle = 'width: 100vw; opacity: 1; padding-left: 4vw; font-size: 2.5vh;';
             this.searchTitle = '<';
             this.searchTitleStyle = "font-family: monospace; font-weight: bold; opacity: 0.5; cursor: pointer; margin-top: 20px";
@@ -160,7 +158,6 @@ export default {
             this.searchStyleMain = 'border-bottom: 1px solid black;';
         },
         disengageSearch() {
-            this.searchPlaceholder = '';
             this.searchStyle = 'width: 0vw;';
             setTimeout(() => this.searchStyle += 'opacity: 0;', 100);
             this.searchTitle = '';
