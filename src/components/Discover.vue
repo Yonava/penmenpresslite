@@ -58,17 +58,16 @@
             <center>
                 <h1 class="featured-title">Article of the Day</h1>
             </center>
-            <div class="container-1" @click="$parent.articleRequested(articles[3])">  
-                <img class="picture" :src="require(`../assets/pictures/${articles[3].image}.webp`)" :alt="articles[3].imageCaption">                
+            <div class="container-1" @click="$parent.articleRequested(articles[articleOfTheDay])">  
+                <img class="picture" :src="require(`../assets/pictures/${articles[articleOfTheDay].image}.webp`)" :alt="articles[articleOfTheDay].imageCaption">                
                 <div class="container-2">
-                    <p class="category">{{ articles[3].category.substring(1) }}</p>
-                    <h1 class="headline">{{ articles[3].title }}</h1>
-                    <p class="date">{{ articles[3].date }} - {{ articles[3].author }}</p>
+                    <p class="category">{{ articles[articleOfTheDay].category.substring(1) }}</p>
+                    <h1 class="headline">{{ articles[articleOfTheDay].title }}</h1>
+                    <p class="date">{{ articles[articleOfTheDay].date }} - {{ articles[articleOfTheDay].author }}</p>
                 </div>
                 <div>
-                    <img v-if="articles[3].saved" @click="$parent.bookmark(articles[3], false)" class="bookmark" src="../assets/remove-bookmark.svg" alt="unsave">
-                    <img v-else @click="$parent.bookmark(articles[3], true)" class="bookmark" src="../assets/add-bookmark.svg" alt="save">
-                    <!-- <img class="bookmark" src="./assets/share.svg" alt="share"> -->
+                    <img v-if="articles[articleOfTheDay].saved" @click="$parent.bookmark(articles[articleOfTheDay], false)" class="bookmark" src="../assets/remove-bookmark.svg" alt="unsave">
+                    <img v-else @click="$parent.bookmark(articles[articleOfTheDay], true)" class="bookmark" src="../assets/add-bookmark.svg" alt="save">
                 </div>
             </div>
         </div>
@@ -78,11 +77,11 @@
             <div v-if="!searching">
                 <!-- underscore character ensures strictly category search -->
                 <h1 style="color: white; margin: 1vh; margin-bottom: 0px;">Categories</h1>
-                <h2 :style="tags" @click="engageSearch('_News')">News</h2>
-                <h2 :style="tags" @click="engageSearch('_Arts & Entertainment')">Arts & Entertainment</h2>
-                <h2 :style="tags" @click="engageSearch('_Lifestyle')">Lifestyle</h2>
-                <h2 :style="tags" @click="engageSearch('_Opinion')">Opinion</h2>
-                <h2 :style="tags" @click="engageSearch('_Sports')">Sports</h2>
+                    <h2 :style="tags" @click="engageSearch('_News')">News</h2>
+                    <h2 :style="tags" @click="engageSearch('_Arts & Entertainment')">Arts & Entertainment</h2>
+                    <h2 :style="tags" @click="engageSearch('_Lifestyle')">Lifestyle</h2>
+                    <h2 :style="tags" @click="engageSearch('_Opinion')">Opinion</h2>
+                    <h2 :style="tags" @click="engageSearch('_Sports')">Sports</h2>
                 <br>
             </div>
         </center>
@@ -92,7 +91,8 @@
 <script>
 export default {
     data: () => {
-        return {  
+        return {
+            articleOfTheDay: 0,
             maskQuery: false,
             searching: false,         
             displayedArticles: [],
@@ -165,7 +165,10 @@ export default {
             this.searching = false;
             this.rawQuery = '';
             this.searchStyleMain = '';
-        },
+        }
+    },
+    mounted() {
+        this.articleOfTheDay = Math.floor(Math.random()*this.articles.length);    
     }
 }
 

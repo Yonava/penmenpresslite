@@ -22,7 +22,6 @@
                     <div>
                         <img v-if="article.saved" @click="bookmark(article, false)" class="bookmark" src="./assets/remove-bookmark.svg" alt="unsave">
                         <img v-else @click="bookmark(article, true)" class="bookmark" src="./assets/add-bookmark.svg" alt="save">
-                        <!-- <img class="bookmark" src="./assets/share.svg" alt="share"> -->
                     </div>
                 </div>
             </div>

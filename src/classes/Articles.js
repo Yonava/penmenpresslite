@@ -3,7 +3,7 @@ export default class Articles {
         this.title = title;
         this.image = image;
         this.imageCaption = imageCaption;
-        this.category = category;
+        this.category = '_' + category; // putting an _ in search will be bound strictly to category
         this.author = author;
         this.date = date;
         this.content = content;
