@@ -15,14 +15,12 @@
                 <div class="container-1" @click="articleRequested(article)">  
                     <img class="picture" :src="require(`./assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">                
                     <div class="container-2">
+                        <p class="date">{{ article.date }} - {{ article.author }}</p>
                         <p class="category">{{ article.category.substring(1) }}</p>
                         <h1 class="headline">{{ article.title }}</h1>
-                        <p class="date">{{ article.date }} - {{ article.author }}</p>
                     </div>
-                    <div>
-                        <img v-if="article.saved" @click="bookmark(article, false)" class="bookmark" src="./assets/remove-bookmark.svg" alt="unsave">
-                        <img v-else @click="bookmark(article, true)" class="bookmark" src="./assets/add-bookmark.svg" alt="save">
-                    </div>
+                    <img v-if="article.saved" @click="bookmark(article, false)" class="bookmark" src="./assets/remove-bookmark.svg" alt="unsave">
+                    <img v-else @click="bookmark(article, true)" class="bookmark" src="./assets/add-bookmark.svg" alt="save">
                 </div>
             </div>
 
@@ -124,8 +122,11 @@ export default {
             this.navBlip = `transform: translateX(${pos}px); background-color: ${color};` // translate navBlip
             this.page = page
         },
-        initArticles() {
-            for (let i = 0; i < articleData.length; i++) {
+    },
+    mounted() {
+
+        // init article objects
+        for (let i = 0; i < articleData.length; i++) {
                 let loadArticles = new ArticleObj(
                     articleData[i].title,
                     articleData[i].image,
@@ -137,10 +138,8 @@ export default {
                 )
                 this.articles.push(loadArticles);
             }
-        }
-    },
-    mounted() {
-        this.initArticles();
+
+        // fetch bookmarked articles from storage
         if (localStorage.bookmarked) {
             let parseStorage = localStorage.bookmarked.split(',');
             this.bookmarked = ['Saved Articles Detected']
@@ -157,9 +156,9 @@ export default {
 
 <style>
 .bookmark {
-    width: 4vh;
-    margin: 2vw;
-    margin-top: 0px;
+    min-width: 30px;
+    margin-left: 5%;
+    /* padding-right: 10%; */
 }
 .icon {
     height: 30px;
@@ -199,48 +198,41 @@ export default {
     justify-content: center;
     align-items: center;
     margin-top: auto;
-    /* opacity: 0.9; */
+    opacity: 0.9;
 }
 .date {
-    position: absolute;
-    bottom: 0;
     font-size: 8pt;
 }
 .category {
     background-color: rgb(46, 185, 185);
-    width: 180px; /* temp, dont know how to make it just flex without looking dumb */
+    width: 47vw;; /* temp, dont know how to make it just flex without looking dumb */
     color: white;
-    font-size:9pt;
-    padding: 2px;
+    font-size: 9pt;
+    padding: .5vw;
 }
 .picture {
     padding: 2px;
-    height: 100px;
-    width: 100px;
-    min-width: 100px;
+    height: 13vh;
+    width: 13vh;
+    min-width: 13vh;
     border: 1px black solid;
-    margin-right: 12px;
+    margin-right: 2vw;
     object-fit: cover;
     border-radius: 5%;
 }
 .container-2 {
     flex-direction: column;
-    margin: 0px;
-    position: relative;
     border: 0px;
 }
 .container-1 {
     display: flex;
     flex-direction: row;
     border: 2px black solid;    
-    padding: 10px;
+    padding: 1vh;
     background-color: white;
-    margin: 1vh;
+    margin-bottom: .5vh;
     border-radius: 8px;
-    max-width: 78vw;
-    height: 16vh;
-    z-index: -1;
-    padding-right: 18vw;
+    width: 95vw;
 }
 .headline {
     margin: 1px;
@@ -249,12 +241,10 @@ export default {
     margin-left: 0px;
 }
 header {
-    /* position: sticky; */
     top: 0;
     color: white;
     background-color: rgb(71, 105, 194);
     z-index: 1;
-    /* font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
 }
 body {
     background-color: rgb(71, 105, 194);

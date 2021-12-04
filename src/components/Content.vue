@@ -6,10 +6,9 @@
                 <img class="utility-icon" src="../assets/share.svg" alt="share">
                 <img @click="resizeFont()" 
                 class="utility-icon" 
-                src="../assets/fontsize.svg" 
+                src="../assets/font.svg" 
                 alt="fontSize"
-                style="grid-column: 2; z-index: 1;">
-                <!-- <div class="utility-icon" :style="'background-color: lightblue; border-radius: 25%; margin-left: 40px; position: fixed;' + buttonColoration"/> -->
+                :style="buttonColoration">
                 <input id="font-size" :style="expandFontSlider" type="range" min="6" max="30" v-model="resizeInput" />
                 <label class="font-label" :style="fontLabel" for="font-size">{{ resizeInput }}</label>
             </div>
@@ -50,10 +49,11 @@ export default {
             takeScrollFeedback: true,
             yDifferential: 0,
             lastPos: 0,
-            expandFontSlider: 'width: 0vw; opacity: 0;',
+            expandFontSlider: 'width: 0vw; opacity: 0; display: none',
             sliderExpanded: false,
             fontLabel: 'opacity: 0;',
-            buttonColoration: 'opacity: 0;',
+            buttonColoration: 'background-color: white;',
+            fontSliderCooldown: false,
         }
     },
     created() {
@@ -74,6 +74,9 @@ export default {
             this.articleSize = `font-size: ${this.resizeInput}pt;`;
             localStorage.articleSize = this.articleSize;
             localStorage.resizeInput = this.resizeInput;
+        },
+        fontSliderCooldown() {
+            console.log(this.fontSliderCooldown)
         }
     },
     methods: {
@@ -96,26 +99,29 @@ export default {
         resizeFont() {
             let delay = 400;
             let fontLabelTrasitDur = 200  // offsets fontLabel transition
-            const resolvePromise = new Promise(resolve => setTimeout(resolve, delay*2));
-            if (this.sliderExpanded) {
-                this.fontLabel = 'opacity: 0;';
-                this.buttonColoration = 'opacity: 0;';
-            } else {
-                this.buttonColoration = 'opacity: 1;';
+            if (!this.fontSliderCooldown) {
+                const resolvePromise = new Promise(resolve => setTimeout(resolve, delay*2));
+                this.fontSliderCooldown = true;
+                if (this.sliderExpanded) {
+                    this.fontLabel = 'opacity: 0;';
+                    this.buttonColoration = 'background-color: white;';
+                } else this.buttonColoration = 'background-color: rgb(255, 200, 200);';     
+
+                if (this.sliderExpanded) {
+                    setTimeout(() => this.expandFontSlider = 'width: 2vw;', fontLabelTrasitDur);
+                    setTimeout(() => this.expandFontSlider += 'opacity: 0;', delay + fontLabelTrasitDur);
+                } else {
+                    this.expandFontSlider = 'width: 2vw; opacity: 1;';
+                    setTimeout(() => this.expandFontSlider += 'width: 55vw;', delay);
+                }
+                resolvePromise.then(() => {
+                if (!this.sliderExpanded) this.fontLabel = 'opacity: 1;';
+                else this.expandFontSlider = 'display:none;';
+                this.sliderExpanded = !this.sliderExpanded;
+                this.fontSliderCooldown = false;
+                });
             }
             
-            if (this.sliderExpanded) {
-                setTimeout(() => this.expandFontSlider = 'width: 2vw;', fontLabelTrasitDur);
-                setTimeout(() => this.expandFontSlider += 'opacity: 0;', 400 + fontLabelTrasitDur);
-            } else {
-                this.expandFontSlider = 'width: 2vw; opacity: 1;';
-                setTimeout(() => this.expandFontSlider += 'width: 55vw;', 400);
-            }
-
-            resolvePromise.then(() => {
-                if (!this.sliderExpanded) this.fontLabel = 'opacity: 1;'; 
-                this.sliderExpanded = !this.sliderExpanded;
-            });
 
         }
     }
@@ -139,6 +145,7 @@ export default {
     width: 5vh;
     height: 5vh;
     transition: 200ms ease-in-out;
+    border-radius: 20%;
 }
 #font-size {
     transition: 300ms ease-in-out;
@@ -176,9 +183,9 @@ h1 {
 .article {
     font-family: 'Times New Roman', Times, serif;
 }
-html,
 body {
   position: fixed;
   overflow: hidden;
+  background-color: white;
 }
 </style>

@@ -18,7 +18,7 @@
             @click="engageSearch(rawQuery)" />
                
         </div>
-
+        <br><br><br><br><br>
         <!-- display search results -->
         <div v-if="searching && !rawQuery" class="empty-search">
             <center>
@@ -26,7 +26,6 @@
             </center>   
         </div>
         <div v-if="rawQuery.length > 0 && searching">
-            <br /><br /><br />
             <p v-if="displayedArticles.length > 0" class="search-text">Here's What We Found:</p>
             <div v-else>
                 <center>
@@ -50,8 +49,6 @@
                 </div>
             </div>  
         </div>
-        <br /><br /><br />
-      
 
         <!-- article of the day -->
         <div v-if="!searching">
@@ -82,7 +79,6 @@
                     <h2 :style="tags" @click="engageSearch('_Lifestyle')">Lifestyle</h2>
                     <h2 :style="tags" @click="engageSearch('_Opinion')">Opinion</h2>
                     <h2 :style="tags" @click="engageSearch('_Sports')">Sports</h2>
-                <br>
             </div>
         </center>
     </div>
@@ -238,8 +234,6 @@ h2 {
     top: 0;
     padding-top: 1vh;
     width: 100vw;
-    background-color: rgb(71, 105, 194);
-    z-index: 1;
 }
 .searchbar {
     margin: 2vh;
