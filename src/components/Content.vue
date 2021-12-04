@@ -14,7 +14,7 @@
             </div>
 
             <br />
-            <p class="category">{{ article.category.substring(1) }}</p>
+            <p class="cat">{{ article.category.substring(1) }}</p>
             <h1>{{ article.title }}</h1>
             <b><p>{{article.author }}</p></b>
             <br />

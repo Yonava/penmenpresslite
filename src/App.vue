@@ -1,44 +1,18 @@
 <template>
     <div>
-  
-        <!-- main news feed / home -->
+
+        <!-- home feed -->
         <div v-if="!contentView && page === 'home'">
-
-            <!-- penmen press banner -->
-            <header>
-                <center>
-                    <h1>THE PENMEN PRESS</h1>
-                </center>
-            </header>
-
-            <div v-for="article in articles" :key="article.id">
-                <div class="container-1" @click="articleRequested(article)">  
-                    <img class="picture" :src="require(`./assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">                
-                    <div class="container-2">
-                        <p class="date">{{ article.date }} - {{ article.author }}</p>
-                        <p class="category">{{ article.category.substring(1) }}</p>
-                        <h1 class="headline">{{ article.title }}</h1>
-                    </div>
-                    <img v-if="article.saved" @click="bookmark(article, false)" class="bookmark" src="./assets/remove-bookmark.svg" alt="unsave">
-                    <img v-else @click="bookmark(article, true)" class="bookmark" src="./assets/add-bookmark.svg" alt="save">
-                </div>
-            </div>
-
-            <br />
-            <center>
-                <p>visit <a href="https://penmenpress.com/">https://penmenpress.com/</a> for more snhu reporting</p>
-                <p>© penmenpress 2021, all rights reserved</p>
-            </center>
-            <br /><br /><br />
+            <Feed :articles="articles" />
         </div>
 
         <!-- content view / reader view -->
-        <div v-if="contentView">
+        <div v-else-if="contentView">
             <Content :article="selectedArticle" />
         </div>
 
         <!-- discover menu -->
-        <div v-if="page === 'discover' && !contentView">
+        <div v-else-if="page === 'discover' && !contentView">
             <Discover :articles="articles" />
         </div>
 
@@ -73,13 +47,15 @@ import articleData from './assets/articles'
 import Content from './components/Content.vue'
 import Discover from './components/Discover.vue'
 import Bookmarked from './components/Bookmarked.vue'
+import Feed from './components/Feed.vue'
 
 export default {
     name: 'App',
     components: {
         Content,
         Discover,
-        Bookmarked
+        Bookmarked,
+        Feed,
     },
     data: () => {
         return {
@@ -124,7 +100,6 @@ export default {
         },
     },
     mounted() {
-
         // init article objects
         for (let i = 0; i < articleData.length; i++) {
                 let loadArticles = new ArticleObj(
@@ -155,11 +130,69 @@ export default {
 </script>
 
 <style>
-.bookmark {
-    min-width: 30px;
-    margin-left: 5%;
-    /* padding-right: 10%; */
+/* ARTICLE DISPLAY */
+.box-1 {
+    display: flex;
+    flex-direction: row;
+    flex: 4;
 }
+.box-2 {
+    flex-direction: column;
+    margin: 2vw;
+    margin-top: 0px;
+    flex: 10;
+}
+.box-3 {
+    display: absolute;
+    flex-direction: row;
+    flex: 1;
+}
+.parent {
+    width: 94%;
+    margin: auto;
+    padding: 1vw;
+    margin-bottom: 3vh;
+}
+.photo {
+    padding: 2px;
+    height: 13vh;
+    width: 13vh;
+    min-width: 13vh;
+    border: 1px black solid;
+    object-fit: cover;
+    border-radius: 5%;
+    margin: 0px;
+}
+.title {
+    font-size: 10pt;
+    margin: 0px;
+}
+.book {
+    width: 4vh;
+    margin: 0px;
+}
+.cat {
+    margin-top: .5vh;
+    margin-bottom: .5vh;
+    background-color: rgb(46, 185, 185);
+    color: white;
+    font-size: 8pt;
+    padding: .5vw;
+}
+.author {
+    margin: 0px;
+    font-size: .5rem;
+}
+
+/* HEADER DISPLAY */
+.feed-header {
+    top: 0;
+    position: sticky;
+    background-color: white;
+    opacity: 0.95;
+}
+
+/* NAVIGATION DISPLAY */
 .icon {
     height: 30px;
     width: 30px;
@@ -200,63 +233,11 @@ export default {
     margin-top: auto;
     opacity: 0.9;
 }
-.date {
-    font-size: 8pt;
-}
-.category {
-    background-color: rgb(46, 185, 185);
-    width: 47vw;; /* temp, dont know how to make it just flex without looking dumb */
-    color: white;
-    font-size: 9pt;
-    padding: .5vw;
-}
-.picture {
-    padding: 2px;
-    height: 13vh;
-    width: 13vh;
-    min-width: 13vh;
-    border: 1px black solid;
-    margin-right: 2vw;
-    object-fit: cover;
-    border-radius: 5%;
-}
-.container-2 {
-    flex-direction: column;
-    border: 0px;
-}
-.container-1 {
-    display: flex;
-    flex-direction: row;
-    border: 2px black solid;    
-    padding: 1vh;
-    background-color: white;
-    margin-bottom: .5vh;
-    border-radius: 8px;
-    width: 95vw;
-}
-.headline {
-    margin: 1px;
-    font-size: 12pt;
-    line-height: 18px;
-    margin-left: 0px;
-}
-header {
-    top: 0;
-    color: white;
-    background-color: rgb(71, 105, 194);
-    z-index: 1;
-}
+
+/* GLOBAL DISPLAY */
 body {
-    background-color: rgb(71, 105, 194);
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin: 0px;
-    max-width: 100vw;
-    max-height: 100vh;
-    overflow: auto;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     -webkit-overflow-scrolling: touch; /* enables “momentum” (smooth) scrolling */
-}
-p {
     margin: 0px;
-    font-size: 10pt
 }
 </style>

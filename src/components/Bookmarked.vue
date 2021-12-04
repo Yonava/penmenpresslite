@@ -1,11 +1,9 @@
 <template>
     <div>
-
-        <!-- saved articles banner -->
-        <header class="saved-header">
-            <center>
-                <h1>SAVED ARTICLES</h1>
-            </center>
+        
+        <!-- main feed banner -->
+        <header class="feed-header"> 
+            <h1 style="border-bottom: .2vh solid black; margin-left: 3%; opacity: 1; margin-top: 0vh;">SAVED ARTICLES</h1>
         </header>
 
         <!-- if no saved articles -->
@@ -14,23 +12,27 @@
             <img class="icon-display" src="../assets/add-bookmark.svg" alt="save">
         </center>
 
-        <!-- display saved / bookmarked articles -->
+        <!-- article display -->
         <div v-for="article in articles" :key="article.id">
             <div v-if="article.saved">
-                <div class="container-1" @click="$parent.articleRequested(article)">  
-                    <img class="picture" :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">                
-                    <div class="container-2">
-                        <p class="category">{{ article.category.substring(1) }}</p>
-                        <h1 class="headline">{{ article.title }}</h1>
-                        <p class="date">{{ article.date }} - {{ article.author }}</p>
-                    </div>
-                    <div>
-                        <img @click="$parent.bookmark(article, false); update()" class="bookmark" src="../assets/remove-bookmark.svg" alt="unsave">
+                <div class="parent">
+                    <div class="box-1" @click="$parent.articleRequested(article)">  
+                        <img class="photo" :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">                
+                        <div class="box-2">
+                            <p class="author">{{ article.date }} - {{ article.author }}</p>
+                            <p class="cat">{{ article.category.substring(1) }}</p>
+                            <h2 class="title">{{ article.title }}</h2>
+                        </div>
+                        <div class="box-3">
+                            <img @click="$parent.bookmark(article, false); update()" class="book" src="../assets/remove-bookmark.svg" alt="unsave">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <br><br><br><br>
+
     </div>
 </template>
 
@@ -66,11 +68,7 @@ export default {
     margin: 10vh;
     margin-bottom: 2.5vh;
     font-size: 16pt;
-    color: white;
-}
-.saved-header {
-    top: 0;
-    position: sticky;
+    color: black;
 }
 .icon-display {
     width: 10vh;

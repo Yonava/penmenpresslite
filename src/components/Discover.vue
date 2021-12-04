@@ -18,13 +18,8 @@
             @click="engageSearch(rawQuery)" />
                
         </div>
-        <br><br><br><br><br>
+        <br><br><br><br><br><br>
         <!-- display search results -->
-        <div v-if="searching && !rawQuery" class="empty-search">
-            <center>
-                <img src="../assets/search.svg" alt="search">
-            </center>   
-        </div>
         <div v-if="rawQuery.length > 0 && searching">
             <p v-if="displayedArticles.length > 0" class="search-text">Here's What We Found:</p>
             <div v-else>
@@ -33,52 +28,58 @@
                     <p class="search-text">We Can't Find What You're Searching For :(</p>
                 </center>
             </div>
-            <div v-for="article in displayedArticles" :key="article.id">
-                <div class="container-1" @click="$parent.articleRequested(article)"> 
-                    <img class="picture" :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
-                    <div class="container-2">                     
-                        <p class="category">{{ article.category.substring(1) }}</p>
-                        <h1 class="headline">{{ article.title }}</h1>
-                        <p class="date">{{ article.date }} - {{ article.author }}</p>
+        
+            <div class="parent" v-for="article in displayedArticles" :key="article.id">
+                <div class="box-1" @click="$parent.articleRequested(article)">  
+                    <img class="photo" :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">                
+                    <div class="box-2">
+                        <p class="author">{{ article.date }} - {{ article.author }}</p>
+                        <p class="cat">{{ article.category.substring(1) }}</p>
+                        <h2 class="title">{{ article.title }}</h2>
                     </div>
-                    <div>
-                        <img v-if="article.saved" @click="$parent.bookmark(article, false)" class="bookmark" src="../assets/remove-bookmark.svg" alt="unsave">
-                        <img v-else @click="$parent.bookmark(article, true)" class="bookmark" src="../assets/add-bookmark.svg" alt="save">
-                        <!-- <img class="bookmark" src="./assets/share.svg" alt="share"> -->
+                    <div class="box-3">
+                        <img v-if="article.saved" @click="$parent.bookmark(article, false)" class="book" src="../assets/remove-bookmark.svg" alt="unsave">
+                        <img v-else @click="$parent.bookmark(article, true)" class="book" src="../assets/add-bookmark.svg" alt="save">
                     </div>
                 </div>
-            </div>  
+            </div>
+            <br><br><br>  
         </div>
 
         <!-- article of the day -->
         <div v-if="!searching">
+
             <center>
                 <h1 class="featured-title">Article of the Day</h1>
             </center>
-            <div class="container-1" @click="$parent.articleRequested(articles[articleOfTheDay])">  
-                <img class="picture" :src="require(`../assets/pictures/${articles[articleOfTheDay].image}.webp`)" :alt="articles[articleOfTheDay].imageCaption">                
-                <div class="container-2">
-                    <p class="category">{{ articles[articleOfTheDay].category.substring(1) }}</p>
-                    <h1 class="headline">{{ articles[articleOfTheDay].title }}</h1>
-                    <p class="date">{{ articles[articleOfTheDay].date }} - {{ articles[articleOfTheDay].author }}</p>
-                </div>
-                <div>
-                    <img v-if="articles[articleOfTheDay].saved" @click="$parent.bookmark(articles[articleOfTheDay], false)" class="bookmark" src="../assets/remove-bookmark.svg" alt="unsave">
-                    <img v-else @click="$parent.bookmark(articles[articleOfTheDay], true)" class="bookmark" src="../assets/add-bookmark.svg" alt="save">
+            
+            <div class="parent">
+                <div class="box-1" @click="$parent.articleRequested(articles[articleOfTheDay])">  
+                    <img class="photo" :src="require(`../assets/pictures/${articles[articleOfTheDay].image}.webp`)" :alt="articles[articleOfTheDay].imageCaption">                
+                    <div class="box-2">
+                        <p class="author">{{ articles[articleOfTheDay].date }} - {{ articles[articleOfTheDay].author }}</p>
+                        <p class="cat">{{ articles[articleOfTheDay].category.substring(1) }}</p>
+                        <h2 class="title">{{ articles[articleOfTheDay].title }}</h2>
+                    </div>
+                    <div class="box-3">
+                        <img v-if="articles[articleOfTheDay].saved" @click="$parent.bookmark(articles[articleOfTheDay], false)" class="book" src="../assets/remove-bookmark.svg" alt="unsave">
+                        <img v-else @click="$parent.bookmark(articles[articleOfTheDay], true)" class="book" src="../assets/add-bookmark.svg" alt="save">
+                    </div>
                 </div>
             </div>
+
         </div>
 
         <!-- category tags -->
         <center>
             <div v-if="!searching">
                 <!-- underscore character ensures strictly category search -->
-                <h1 style="color: white; margin: 1vh; margin-bottom: 0px;">Categories</h1>
-                    <h2 :style="tags" @click="engageSearch('_News')">News</h2>
-                    <h2 :style="tags" @click="engageSearch('_Arts & Entertainment')">Arts & Entertainment</h2>
-                    <h2 :style="tags" @click="engageSearch('_Lifestyle')">Lifestyle</h2>
-                    <h2 :style="tags" @click="engageSearch('_Opinion')">Opinion</h2>
-                    <h2 :style="tags" @click="engageSearch('_Sports')">Sports</h2>
+                <h3 class="cat-title">Categories</h3>
+                    <h2 class="quick-search" @click="engageSearch('_News')">News</h2>
+                    <h2 class="quick-search" @click="engageSearch('_Arts & Entertainment')">Arts & Entertainment</h2>
+                    <h2 class="quick-search" @click="engageSearch('_Lifestyle')">Lifestyle</h2>
+                    <h2 class="quick-search" @click="engageSearch('_Opinion')">Opinion</h2>
+                    <h2 class="quick-search" @click="engageSearch('_Sports')">Sports</h2>
             </div>
         </center>
     </div>
@@ -97,7 +98,6 @@ export default {
             searchTitle: '',
             searchTitleStyle: '',
             searchStyleMain: '',
-            tags: 'width: 90vw; background-color: rgb(207, 233, 241);',
         }
     },
     props: [
@@ -151,7 +151,7 @@ export default {
             this.searchTitleStyle = "font-family: monospace; font-weight: bold; opacity: 0.5; cursor: pointer; margin-top: 20px";
             this.searching = true;
             this.rawQuery = searchQuery;
-            this.searchStyleMain = 'border-bottom: 1px solid black;';
+            this.searchStyleMain = 'border-bottom: 1px solid black; background: #c9c9c9;';
         },
         disengageSearch() {
             this.searchStyle = 'width: 0vw;';
@@ -171,60 +171,48 @@ export default {
 </script>
 
 <style scoped>
-.empty-search {
-    margin: 20vh;
+.cat-title {
+    font-size: 16pt;
+}
+.featured-title {
+    font-size: 16pt;
+}
+.icon-display {
+    width: 6vh;
+    height: 6vh;
+    background-color: black;
+    padding: 8vh; 
+    border-radius: 25%;
 }
 .search-icon {
     padding-left: 4vh;
-    padding-top: 2.5vh;
+    padding-top: 1.5vh;
     max-width: 4vh;
     max-height: 4vh;
     transition: 200ms ease-in-out
 }
-h2 {
-    border: .3vh solid black;
-    font-size: 14pt;
+.quick-search {
+    border: 1px solid black;
+    font-size: 10pt;
     background-color: white;
-    border-radius: 50px;
-    bottom: 0;
+    border-radius: 25px;
+    bottom: 10;
     padding: 1.5vh;
-    margin: 1vh;
-    margin-bottom: 1.5vh;
-    transition: 200ms ease-in-out;
-}
-.featured-title {
-    margin-top: 1vh;
-    margin-left: 1.5vw;
-    margin-bottom: 0px;
-    color: white;
-    display: fixed;
-    cursor: default;
-    background-color: rgb(71, 105, 194);
-}
-.featured {
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    max-width: none;
-    /* background-color: rgb(140, 200, 255); */
-    overflow: auto;
-}
-.main {
-    margin: 0%;
+    width: 50%;
 }
 .search-title {
     margin: 2vh;
     margin-left: 2.5vh;
     margin-top: 1.75vh;
     font-size: 5vh;
-    color: white;
+    color: black;
     cursor: default;
     transition: 300ms ease-in-out;
 }
 .search-text {
     font-size: 16pt;
     margin: 5vw;
-    color: white;
+    color: black;
     margin-left: 1.5vw;
     margin-top: 4vh;
 }
@@ -234,6 +222,7 @@ h2 {
     top: 0;
     padding-top: 1vh;
     width: 100vw;
+    background: linear-gradient(#c9c9c9, #ffffff)
 }
 .searchbar {
     margin: 2vh;
