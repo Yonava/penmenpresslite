@@ -2,6 +2,8 @@
 
     <div class="content">
         <div>
+
+            <!-- utility panel -->
             <div class="utility-parent">
                 <img class="utility-icon" src="../assets/share.svg" alt="share">
                 <img @click="resizeFont()" 
@@ -13,23 +15,26 @@
                 <label class="font-label" :style="fontLabel" for="font-size">{{ resizeInput }}</label>
             </div>
 
-            <br />
-            <p class="cat">{{ article.category.substring(1) }}</p>
-            <h1 class="headline">{{ article.title }}</h1>
-            <p>{{article.author }}</p>
-            <img :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
-            <center>
-                <p class="caption">{{ article.imageCaption }}</p>
-            </center>
-            <p :style="articleSize" class="article">{{ article.content }}</p>
+            <!-- article data -->
+            <div>
+                <p class="cat">{{ article.category.substring(1) }}</p>
+                <h1 class="headline">{{ article.title }}</h1>
+                <p class="author-credit">{{ article.author }}</p>
+                <img :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
+                <center>
+                    <p class="caption">{{ article.imageCaption }}</p>
+                </center>
+                <p :style="articleSize" class="article">{{ article.content }}</p>
+            </div>
             
         </div>
 
-            <button :style="returnButtonStyle" 
-            class="back" 
-            @click="$parent.toggleContentView()">
-                <b>Return to Feed</b>
-            </button>
+        <!-- return button -->
+        <button :style="returnButtonStyle" 
+        class="back" 
+        @click="$parent.toggleContentView()">
+            <b>Return to Feed</b>
+        </button>
 
 
         <br /><br />
@@ -143,9 +148,9 @@ export default {
     display: flex;
 }
 .utility-icon {
-    margin-right: 15px;
+    margin-bottom: 1vh;
+    margin-right: 2vh;
     width: 5vh;
-    height: 5vh;
     transition: 200ms ease-in-out;
     border-radius: 10%;
 }
@@ -154,6 +159,10 @@ export default {
 }
 
 /* ARTICLE CONTENT DISPLAYS */
+.author-credit {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 10pt;
+}
 .caption {
     margin: 0px;
     font-size: 6pt;
@@ -170,12 +179,14 @@ img {
     width: 90%;
     margin-left: 3%;
     transition: 200ms ease-in-out;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .headline {
     font-size: 20pt;
     margin: 15px;
     margin-left: 0px;
     line-height: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .article {
     font-family: 'Times New Roman', Times, serif;

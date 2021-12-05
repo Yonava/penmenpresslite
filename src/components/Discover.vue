@@ -78,7 +78,7 @@
         <center>
             <div v-if="!searching">
                 <!-- underscore character ensures strictly category search -->
-                <h3 class="cat-title">Categories</h3>
+                <h3 class="cat-title">Quick Search</h3>
                     <h2 class="quick-search" @click="engageSearch('_News')">News</h2>
                     <h2 class="quick-search" @click="engageSearch('_Arts & Entertainment')">Arts & Entertainment</h2>
                     <h2 class="quick-search" @click="engageSearch('_Lifestyle')">Lifestyle</h2>
@@ -187,12 +187,16 @@ export default {
     font-size: 16pt;
 }
 .quick-search {
-    border: 1px solid black;
+    /* border: .5px solid black; */
+    box-shadow: rgb(158, 158, 158) 10px 5px 15px;
+    border: black solid .5px;
     font-size: 10pt;
+    color: white;
     border-radius: 25px;
     padding: 1.5vh;
     width: 60%;
     font-weight: normal;
+    background-color: rgb(46, 185, 185);
 }
 
 /* SEARCH HEADER STYLING */

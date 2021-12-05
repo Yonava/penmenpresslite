@@ -116,6 +116,10 @@ export default {
         // sort by article date
         this.articles.sort((a, b) => b.dateScore - a.dateScore);
 
+        // init bookmarked localStorage to prevent lag on first click
+        let initBookmarks = localStorage.bookmarked;
+        localStorage.bookmarked = initBookmarks;
+
         // fetch bookmarked articles from storage
         if (localStorage.bookmarked) {
             let parseStorage = localStorage.bookmarked.split(',');
@@ -166,8 +170,9 @@ export default {
     margin: 0px;
 }
 .title {
-    font-size: 10pt;
+    font-size: 12pt;
     margin: 0px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .book {
     width: 4vh;
@@ -192,6 +197,7 @@ export default {
     position: sticky;
     background-color: white;
     opacity: 0.95;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 /* NAVIGATION DISPLAY */
@@ -236,8 +242,8 @@ export default {
 
 /* GLOBAL DISPLAY */
 body {
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
     -webkit-overflow-scrolling: touch; /* enables “momentum” (smooth) scrolling */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0px;
 }
 </style>
