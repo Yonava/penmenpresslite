@@ -27,6 +27,7 @@
             <p style="margin-bottom: 0vh;">visit <a href="https://penmenpress.com/">https://penmenpress.com/</a> for more snhu reporting</p>
             <p style="margin-bottom: 10vh; margin-top: .5vh;">© penmenpress 2021, all rights reserved</p>
         </center>
+
     </div>
 </template>
 
@@ -35,7 +36,7 @@
 export default {
     props: [
         'articles',
-    ]
+    ],
 }
 </script>
 

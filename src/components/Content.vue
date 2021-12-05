@@ -91,7 +91,7 @@ export default {
             }   
             if (this.takeScrollFeedback) {
                 this.yDifferential = window.scrollY - this.lastPos;
-                this.lastPos = window.scrollY
+                this.lastPos = window.scrollY // window.scrollY is a value gained from eventListener
                 this.takeScrollFeedback = false;
                 setTimeout(() => this.takeScrollFeedback = true, 50);
             }
@@ -131,6 +131,8 @@ export default {
 </script>
 
 <style scoped>
+
+/* TOP BUTTONS / UTILITY BUTTONS */
 .font-label {
     transition: 200ms ease-in-out;
     margin-left: 1vh;
@@ -150,8 +152,11 @@ export default {
 #font-size {
     transition: 300ms ease-in-out;
 }
+
+/* ARTICLE CONTENT DISPLAYS */
 .caption {
-    margin-bottom: 20px;
+    margin: 0px;
+    font-size: 6pt;
 }
 img {
     height: auto;
@@ -167,13 +172,6 @@ img {
     min-width: 92.5vw;
     transition: 200ms ease-in-out;
 }
-.content {
-    display: flex;
-    flex-direction: column;
-    border: 2px black solid;   
-    padding: 10px;
-    background-color: white;
-}
 h1 {
     font-size: 20pt;
     margin: 15px;
@@ -183,9 +181,17 @@ h1 {
 .article {
     font-family: 'Times New Roman', Times, serif;
 }
-body {
+
+/* PARENT STYLING */
+.content {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5vw;
+    background-color: white;
+}
+/* body {
   position: fixed;
   overflow: hidden;
   background-color: white;
-}
+} */
 </style>

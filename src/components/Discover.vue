@@ -222,7 +222,7 @@ export default {
     top: 0;
     padding-top: 1vh;
     width: 100vw;
-    background: linear-gradient(#c9c9c9, #ffffff)
+    background: linear-gradient(#c9c9c9, #ffffff00)
 }
 .searchbar {
     margin: 2vh;

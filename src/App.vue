@@ -72,7 +72,6 @@ export default {
     methods: {
         bookmark(article, saveState) {
             this.confirmRequest(false);
-            console.log(article.saved)
             article.saved = saveState;
             this.bookmarked = [];
             for (let i = 0; i < this.articles.length; i++) {
@@ -113,6 +112,9 @@ export default {
                 )
                 this.articles.push(loadArticles);
             }
+
+        // sort by article date
+        this.articles.sort((a, b) => b.dateScore - a.dateScore);
 
         // fetch bookmarked articles from storage
         if (localStorage.bookmarked) {
@@ -229,9 +231,7 @@ export default {
     border-top: 1px black solid;
     display: flex;
     justify-content: center;
-    align-items: center;
     margin-top: auto;
-    opacity: 0.9;
 }
 
 /* GLOBAL DISPLAY */
