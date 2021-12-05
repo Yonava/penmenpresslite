@@ -15,22 +15,25 @@
 
             <br />
             <p class="cat">{{ article.category.substring(1) }}</p>
-            <h1>{{ article.title }}</h1>
-            <b><p>{{article.author }}</p></b>
-            <br />
+            <h1 class="headline">{{ article.title }}</h1>
+            <p>{{article.author }}</p>
             <img :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
             <center>
                 <p class="caption">{{ article.imageCaption }}</p>
             </center>
             <p :style="articleSize" class="article">{{ article.content }}</p>
-            <br />
+            
+        </div>
+
             <button :style="returnButtonStyle" 
             class="back" 
             @click="$parent.toggleContentView()">
                 <b>Return to Feed</b>
             </button>
-        </div>
+
+
         <br /><br />
+
     </div>
 
 </template>
@@ -75,9 +78,6 @@ export default {
             localStorage.articleSize = this.articleSize;
             localStorage.resizeInput = this.resizeInput;
         },
-        fontSliderCooldown() {
-            console.log(this.fontSliderCooldown)
-        }
     },
     methods: {
         scroll() { 
@@ -147,7 +147,7 @@ export default {
     width: 5vh;
     height: 5vh;
     transition: 200ms ease-in-out;
-    border-radius: 20%;
+    border-radius: 10%;
 }
 #font-size {
     transition: 300ms ease-in-out;
@@ -159,20 +159,19 @@ export default {
     font-size: 6pt;
 }
 img {
-    height: auto;
-    max-width: 100%;
+    max-height: 40vh;
+    width: 100%;
     object-fit: cover;
 }
 .back {
     background-color: white;
     border: 2px black solid;
-    font-family: Georgia, 'Times New Roman', Times, serif;
     position: fixed;
-    margin-top: auto;
-    min-width: 92.5vw;
+    width: 90%;
+    margin-left: 3%;
     transition: 200ms ease-in-out;
 }
-h1 {
+.headline {
     font-size: 20pt;
     margin: 15px;
     margin-left: 0px;
@@ -184,14 +183,6 @@ h1 {
 
 /* PARENT STYLING */
 .content {
-    display: flex;
-    flex-direction: column;
     padding: 1.5vw;
-    background-color: white;
 }
-/* body {
-  position: fixed;
-  overflow: hidden;
-  background-color: white;
-} */
 </style>

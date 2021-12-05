@@ -199,6 +199,7 @@ export default {
     bottom: 10;
     padding: 1.5vh;
     width: 50%;
+    font-weight: normal;
 }
 .search-title {
     margin: 2vh;
@@ -222,7 +223,7 @@ export default {
     top: 0;
     padding-top: 1vh;
     width: 100vw;
-    background: linear-gradient(#c9c9c9, #ffffff00)
+    background: linear-gradient(#b1b1b1, #ffffff00)
 }
 .searchbar {
     margin: 2vh;
