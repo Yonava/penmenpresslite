@@ -155,7 +155,7 @@ export default {
             this.searchTitleStyle = "font-family: monospace; font-weight: bold; opacity: 0.5; cursor: pointer; margin-top: 20px";
             this.searching = true;
             this.rawQuery = searchQuery;
-            this.searchStyleMain = 'border-bottom: 1px solid black; background: #c9c9c9;';
+            this.searchStyleMain = 'border-bottom: 1px solid black; background: #c9c9c9; box-shadow: black 0px 0px 10px;';
         },
         disengageSearch() {
             this.searchStyle = 'width: 0vw;';
@@ -187,14 +187,13 @@ export default {
     font-size: 16pt;
 }
 .quick-search {
-    /* border: .5px solid black; */
-    box-shadow: rgb(158, 158, 158) 10px 5px 15px;
+    box-shadow: rgb(180, 180, 180) 3px 3px 5px;
     border: black solid .5px;
-    font-size: 10pt;
+    font-size: 13pt;
     color: white;
     border-radius: 25px;
     padding: 1.5vh;
-    width: 60%;
+    width: 80%;
     font-weight: normal;
     background-color: rgb(46, 185, 185);
 }
@@ -228,7 +227,7 @@ export default {
     top: 0;
     padding-top: 1vh;
     width: 100vw;
-    background: linear-gradient(#757575, #ffffff00)
+    background: linear-gradient(#525252, #ffffff00)
 }
 .searchbar {
     margin: 2vh;
@@ -236,14 +235,14 @@ export default {
     border-radius: 40px;
     height: 5vh;
     margin-right: 2.5vh;
-    transition: 300ms;
+    transition: 200ms;
 }
 .search-icon {
     padding-left: 4vh;
     padding-top: 1.5vh;
     max-width: 4vh;
     max-height: 4vh;
-    transition: 200ms ease-in-out
+    transition: 100ms ease-in-out
 }
 input {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
