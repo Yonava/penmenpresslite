@@ -155,7 +155,7 @@ export default {
             this.searchTitleStyle = "font-family: monospace; font-weight: bold; opacity: 0.5; cursor: pointer; margin-top: 20px";
             this.searching = true;
             this.rawQuery = searchQuery;
-            this.searchStyleMain = 'border-bottom: 1px solid black; background: #c9c9c9; box-shadow: black 0px 0px 10px;';
+            this.searchStyleMain = 'border-bottom: 1px solid black; background: #c9c9c9; box-shadow: rgb(25, 25, 25) 0px 0px 10px;';
         },
         disengageSearch() {
             this.searchStyle = 'width: 0vw;';
@@ -188,7 +188,7 @@ export default {
 }
 .quick-search {
     box-shadow: rgb(180, 180, 180) 3px 3px 5px;
-    border: black solid .5px;
+    border: rgb(0, 0, 0) solid .5px;
     font-size: 13pt;
     color: white;
     border-radius: 25px;
@@ -235,14 +235,14 @@ export default {
     border-radius: 40px;
     height: 5vh;
     margin-right: 2.5vh;
-    transition: 200ms;
+    transition: 150ms;
 }
 .search-icon {
-    padding-left: 4vh;
-    padding-top: 1.5vh;
-    max-width: 4vh;
+    filter: invert(100%);
+    margin-top: 3%;
+    margin-left: 5%;
     max-height: 4vh;
-    transition: 100ms ease-in-out
+    padding: .5vh;
 }
 input {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;

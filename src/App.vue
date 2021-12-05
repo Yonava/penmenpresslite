@@ -24,14 +24,13 @@
         <!-- navigation panel -->
         <footer v-if="!contentView" class="bottom">
             <div class="bottom-container">
-                <div :style="navBlip" class="selected-nav"></div> 
-                <div @click="navigate(-120, 'red', 'discover')" class="nav-container">
+                <div @click="navigate('discover')" :style="selected[0]" class="nav-container">
                     <img class="icon" src="./assets/discover.svg" alt="discovery">
                 </div>
-                <div @click="navigate(0, 'rgb(71, 105, 194)', 'home')" class="nav-container">
+                <div @click="navigate('home')" :style="selected[1]" class="nav-container">
                     <img class="icon" src="./assets/feed.svg" alt="home">
                 </div>
-                <div @click="navigate(120, 'orange', 'bookmarked')" class="nav-container">
+                <div @click="navigate('bookmarked')" :style="selected[2]" class="nav-container">
                     <img class="icon" src="./assets/savedicon.svg" alt="bookmarked">
                 </div>
             </div>
@@ -63,10 +62,10 @@ export default {
             articleData,
             contentView: false,
             selectedArticle: {},
-            navBlip: 'transform: translateX(0px); background-color: rgb(71, 105, 194);',
             page: 'home',
             requestHandler: true,
             articles: [],
+            selected: ['filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);']
         }
     },
     methods: {
@@ -92,9 +91,19 @@ export default {
             window.scrollTo(0,0);
             this.contentView = !this.contentView;
         },
-        navigate(pos, color, page) {
+        navigate(page) {
             window.scrollTo(0,0);
-            this.navBlip = `transform: translateX(${pos}px); background-color: ${color};` // translate navBlip
+            switch (page) {
+                case 'discover':
+                    this.selected = ['filter: invert(0%);', 'filter: invert(60%);', 'filter: invert(60%);']
+                    break;
+                case 'home':
+                    this.selected = ['filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);']
+                    break;
+                case 'bookmarked':
+                    this.selected = ['filter: invert(60%);', 'filter: invert(60%);', 'filter: invert(0%);']
+                    break;
+            }
             this.page = page
         },
     },
@@ -202,42 +211,34 @@ export default {
 
 /* NAVIGATION DISPLAY */
 .icon {
-    height: 30px;
-    width: 30px;
-}
-.selected-nav {
-    border-radius: 25%;
-    margin-top: 4.5px;
-    width: 38px;
-    height: 38px;
-    opacity: 0.5;
-    position: absolute;
-    transition: 200ms ease-in-out;
-    z-index: -1;
+    height: 5vh;
+    width: 5vh;
+    margin-bottom: 0px;
 }
 .nav-container {
-    height: 30px;
-    width: 30px;
-    margin-top: 8px;
-    margin-right: 45px;
-    margin-left: 45px;
+    height: 5vh;
+    width: 5vh;
+    margin-top: .5vh;
+    margin-right: 10vw;
+    margin-left: 10vw;
+    margin-bottom: 0px;
 }
 .bottom-container {
-    height: 45px;
-    width: 250px;
+    width: 80vw;
     justify-content: center;
     display: flex;
+    margin-bottom: 0px;
 }
 .bottom {
+    height: 6vh;
     background-color: white;
     position: fixed;
     bottom: 0;
-    height: 45px;
     min-width: 100vw;
     border-top: 1px black solid;
     display: flex;
     justify-content: center;
-    margin-top: auto;
+    margin-bottom: 0px;
 }
 
 /* GLOBAL DISPLAY */
