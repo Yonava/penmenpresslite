@@ -18,9 +18,13 @@
             @click="engageSearch(rawQuery)" />
                
         </div>
-        <br><br><br><br><br><br>
         <!-- display search results -->
-        <div v-if="rawQuery.length > 0 && searching">
+        <div v-if="rawQuery.length === 0 && searching">
+            <center>
+                <img class="magnifying-glass" src="../assets/search.svg" alt="magnifying glass">
+            </center>
+        </div>
+        <div v-else-if="rawQuery.length > 0 && searching">
             <p v-if="displayedArticles.length > 0" class="search-text">Here's What We Found:</p>
             <div v-else>
                 <center>
@@ -50,7 +54,7 @@
         <div v-if="!searching">
 
             <center>
-                <h1 class="featured-title">Article of the Day</h1>
+                <h1 class="article-of-the-day-title">Article of the Day</h1>
             </center>
             
             <div class="parent">
@@ -171,35 +175,33 @@ export default {
 </script>
 
 <style scoped>
+
+/* ARTICLE OF THE DAY */
+.article-of-the-day-title {
+    font-size: 16pt; 
+    margin-top: 12.5vh;
+}
+
+/* QUICK SEARCH STYLING */
 .cat-title {
     font-size: 16pt;
-}
-.featured-title {
-    font-size: 16pt;
-}
-.icon-display {
-    width: 6vh;
-    height: 6vh;
-    background-color: black;
-    padding: 8vh; 
-    border-radius: 25%;
-}
-.search-icon {
-    padding-left: 4vh;
-    padding-top: 1.5vh;
-    max-width: 4vh;
-    max-height: 4vh;
-    transition: 200ms ease-in-out
 }
 .quick-search {
     border: 1px solid black;
     font-size: 10pt;
-    background-color: white;
     border-radius: 25px;
-    bottom: 10;
     padding: 1.5vh;
-    width: 50%;
+    width: 60%;
     font-weight: normal;
+}
+
+/* SEARCH HEADER STYLING */
+.magnifying-glass {
+    padding: 2vh;
+    margin-top: 20vh;
+    width: 15vh;
+    filter: invert(100%);
+    border-radius: 25%;
 }
 .search-title {
     margin: 2vh;
@@ -208,14 +210,13 @@ export default {
     font-size: 5vh;
     color: black;
     cursor: default;
-    transition: 300ms ease-in-out;
+    transition: 100ms ease-in-out;
 }
 .search-text {
-    font-size: 16pt;
-    margin: 5vw;
+    font-size: 12pt;
     color: black;
-    margin-left: 1.5vw;
-    margin-top: 4vh;
+    margin-top: 12.5vh;
+    margin-left: 3%;
 }
 .search {
     display: flex;
@@ -223,7 +224,7 @@ export default {
     top: 0;
     padding-top: 1vh;
     width: 100vw;
-    background: linear-gradient(#b1b1b1, #ffffff00)
+    background: linear-gradient(#757575, #ffffff00)
 }
 .searchbar {
     margin: 2vh;
@@ -233,7 +234,15 @@ export default {
     margin-right: 2.5vh;
     transition: 300ms;
 }
+.search-icon {
+    padding-left: 4vh;
+    padding-top: 1.5vh;
+    max-width: 4vh;
+    max-height: 4vh;
+    transition: 200ms ease-in-out
+}
 input {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+
 </style>
