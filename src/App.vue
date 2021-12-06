@@ -12,12 +12,12 @@
         </div>
 
         <!-- discover menu -->
-        <div v-else-if="page === 'discover' && !contentView">
+        <div v-else-if="page === 'discover'">
             <Discover :articles="articles" />
         </div>
 
         <!-- bookmarked / read later menu -->
-        <div v-else-if="page === 'bookmarked' && !contentView">
+        <div v-else-if="page === 'bookmarked'">
             <Bookmarked :articles="articles" />
         </div>
 
@@ -66,7 +66,7 @@ export default {
             page: 'home',
             requestHandler: true,
             articles: [],
-            selected: ['filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);']
+            selected: ['filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);'],
         }
     },
     methods: {
@@ -75,18 +75,18 @@ export default {
             article.saved = saveState;
             this.bookmarked = [];
             for (let i = 0; i < this.articles.length; i++) {
-                if (this.articles[i].saved) this.bookmarked.push(this.articles[i].title)
+                if (this.articles[i].saved) this.bookmarked.push(this.articles[i].title);
             }
-            localStorage.bookmarked = this.bookmarked
+            localStorage.bookmarked = this.bookmarked;
         },
         articleRequested(selectedArticle) {
             this.selectedArticle = selectedArticle;
             setTimeout(this.confirmRequest(true), 3)
         },
         confirmRequest(request) {
-            if (!request) this.requestHandler = false
+            if (!request) this.requestHandler = false;
             if (this.requestHandler) this.toggleContentView();
-            request ? this.requestHandler = true:this.requestHandler = false 
+            request ? this.requestHandler = true:this.requestHandler = false;
         },
         toggleContentView() {
             window.scrollTo(0,0);

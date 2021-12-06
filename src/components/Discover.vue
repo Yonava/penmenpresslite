@@ -37,7 +37,7 @@
                 <div class="box-1" @click="$parent.articleRequested(article)">  
                     <img class="photo" :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">                
                     <div class="box-2">
-                        <p class="author">{{ article.date }} - {{ article.author }}</p>
+                        <p class="author">{{ article.date }} - {{ article.author.substring(1) }}</p>
                         <p class="cat">{{ article.category.substring(1) }}</p>
                         <h2 class="title">{{ article.title }}</h2>
                     </div>
@@ -61,7 +61,7 @@
                 <div class="box-1" @click="$parent.articleRequested(articles[articleOfTheDay])">  
                     <img class="photo" :src="require(`../assets/pictures/${articles[articleOfTheDay].image}.webp`)" :alt="articles[articleOfTheDay].imageCaption">                
                     <div class="box-2">
-                        <p class="author">{{ articles[articleOfTheDay].date }} - {{ articles[articleOfTheDay].author }}</p>
+                        <p class="author">{{ articles[articleOfTheDay].date.substring(1) }} - {{ articles[articleOfTheDay].author }}</p>
                         <p class="cat">{{ articles[articleOfTheDay].category.substring(1) }}</p>
                         <h2 class="title">{{ articles[articleOfTheDay].title }}</h2>
                     </div>
@@ -86,6 +86,7 @@
                     <h2 class="quick-search" @click="engageSearch('_Sports')">Sports</h2>
             </div>
         </center>
+        <br><br><br><br>
     </div>
 </template>
 
@@ -94,7 +95,6 @@ export default {
     data: () => {
         return {
             articleOfTheDay: 0,
-            maskQuery: false,
             searching: false,         
             displayedArticles: [],
             rawQuery: '',
@@ -109,8 +109,7 @@ export default {
     ],
     watch: {
         rawQuery() {
-            if (this.maskQuery) this.maskQuery = false
-            else this.search();
+            this.search();
         }
     },
     methods: {
@@ -121,14 +120,18 @@ export default {
             return raw;
         },
         search() {
+            let query = this.rawQuery;
 
-            let query = this.sanitizeQuery(this.rawQuery);
-            if (this.rawQuery[0] === '_') {
-                this.maskQuery = true;
-                this.rawQuery = 'Category: ' + this.rawQuery.substring(1);
-            }
+            if (this.rawQuery[0] === '_') this.rawQuery = 'Category: ' + this.rawQuery.substring(1);
+            else if (this.rawQuery[0] === '$') this.rawQuery = 'Author: ' + this.rawQuery.substring(1);
+
+            if (this.rawQuery.substring(0, 10) === 'Category: ') this.executeSearch(this.sanitizeQuery('_' + query.substring(10)));
+            else if (this.rawQuery.substring(0, 8) === 'Author: ') this.executeSearch(this.sanitizeQuery('$' + query.substring(8)));
+            else this.executeSearch(query);
+        },
+        executeSearch(query) {
+            console.log(query)
             this.displayedArticles = [];
-            
             if (!query) return
 
             for (let i = 0; i < this.articles.length; i++) {

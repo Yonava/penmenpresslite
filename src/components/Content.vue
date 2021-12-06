@@ -12,14 +12,14 @@
                 alt="fontSize"
                 :style="buttonColoration">
                 <input id="font-size" :style="expandFontSlider" type="range" min="6" max="30" v-model="resizeInput" />
-                <label class="font-label" :style="fontLabel" for="font-size">{{ resizeInput }}</label>
+                <p class="font-label" :style="fontLabel">{{ resizeInput }}</p>
             </div>
 
             <!-- article data -->
             <div>
                 <p class="cat">{{ article.category.substring(1) }}</p>
                 <h1 class="headline">{{ article.title }}</h1>
-                <p class="author-credit">{{ article.author }}</p>
+                <p class="author-credit">{{ article.author.substring(1) }}</p>
                 <img :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
                 <center>
                     <p class="caption">{{ article.imageCaption }}</p>
@@ -75,7 +75,7 @@ export default {
             this.articleSize = localStorage.articleSize;
             this.resizeInput = localStorage.resizeInput;
         }
-        window.navigator.vibrate([200, 100, 200]);
+        window.navigator.vibrate([200, 100, 200]); // works on andriod devices
     },
     watch: {
         resizeInput() {
@@ -90,13 +90,13 @@ export default {
                 this.returnButtonStyle = 'height: 0vh; bottom: 0vh;';
                     setTimeout(() => this.returnButtonStyle += 'opacity: 0;', 5);
                 this.animationCooldown = true;
-            } else if (this.yDifferential < -20){ // sensitivity control
+            } else if (this.yDifferential < -20) { // sensitivity control
                 this.returnButtonStyle = 'padding: 1.5vh; font-size: 12pt; bottom: 2vh;';
                 this.animationCooldown = true;
             }   
             if (this.takeScrollFeedback) {
                 this.yDifferential = window.scrollY - this.lastPos;
-                this.lastPos = window.scrollY // window.scrollY is a value gained from eventListener
+                this.lastPos = window.scrollY; // window.scrollY is a value gained from eventListener
                 this.takeScrollFeedback = false;
                 setTimeout(() => this.takeScrollFeedback = true, 50);
             }
@@ -140,12 +140,14 @@ export default {
 /* TOP BUTTONS / UTILITY BUTTONS */
 .font-label {
     transition: 200ms ease-in-out;
-    margin-left: 1vh;
-    margin-top: .6vh;
     font-size: 16pt;
+    margin: 0px;
+    margin-bottom: .35vh;
+    margin-left: 1vw;
 }
 .utility-parent {
     display: flex;
+    align-items: center;
 }
 .utility-icon {
     margin-bottom: 1vh;

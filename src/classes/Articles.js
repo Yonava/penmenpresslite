@@ -4,13 +4,12 @@ export default class Articles {
         this.image = image;
         this.imageCaption = imageCaption;
         this.category = '_' + category; // putting an _ in search will be bound strictly to category
-        this.author = author;
+        this.author = '$' + author; // putting an $ in search will be bound strictly to author
         this.date = date;
         this.content = this.parsedContent(content);
         this.saved = false;
         this.dateScore = this.dateScore(date);
     }
-    
     dateScore(date) {
         let months = ['placeholder', 'January', 'February', 
         'March', 'April', 'May', 'June', 'July', 'August', 

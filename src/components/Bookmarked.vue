@@ -19,7 +19,7 @@
                     <div class="box-1" @click="$parent.articleRequested(article)">  
                         <img class="photo" :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">                
                         <div class="box-2">
-                            <p class="author">{{ article.date }} - {{ article.author }}</p>
+                            <p class="author">{{ article.date }} - {{ article.author.substring(1) }}</p>
                             <p class="cat">{{ article.category.substring(1) }}</p>
                             <h2 class="title">{{ article.title }}</h2>
                         </div>
