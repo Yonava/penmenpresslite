@@ -58,6 +58,7 @@ export default {
     },
     data: () => {
         return {
+            lastY: 0,
             bookmarked: [],
             articleData,
             contentView: false,
@@ -104,7 +105,7 @@ export default {
                     this.selected = ['filter: invert(60%);', 'filter: invert(60%);', 'filter: invert(0%);']
                     break;
             }
-            this.page = page
+            this.page = page;
         },
     },
     mounted() {
@@ -139,8 +140,7 @@ export default {
                 }
             }
         }
-    }
-
+    },
 }
 </script>
 

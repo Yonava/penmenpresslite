@@ -24,7 +24,7 @@
                 <center>
                     <p class="caption">{{ article.imageCaption }}</p>
                 </center>
-                <p :style="articleSize" class="article">{{ article.content }}</p>
+                <pre class="article" :style="articleSize">{{ article.content }}</pre>
             </div>
             
         </div>
@@ -190,10 +190,12 @@ img {
 }
 .article {
     font-family: 'Times New Roman', Times, serif;
+    max-width: 100%;
+    white-space: pre-wrap;
 }
 
 /* PARENT STYLING */
 .content {
-    padding: 1.5vw;
+    padding: 1.5vw; 
 }
 </style>

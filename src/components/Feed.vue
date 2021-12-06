@@ -37,6 +37,21 @@ export default {
     props: [
         'articles',
     ],
+    mounted() {
+        // set page position
+        window.scrollTo(0, localStorage.pagePos);
+    },
+    created() {
+        addEventListener("scroll", (this.captureY));
+    },
+    destroyed() {
+        removeEventListener("scroll", (this.captureY));
+    },
+    methods: {
+        captureY() {
+            localStorage.pagePos = window.scrollY;
+        },
+    }
 }
 </script>
 
