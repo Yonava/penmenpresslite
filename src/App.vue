@@ -31,7 +31,8 @@
                     <img class="icon" src="./assets/feed.svg" alt="home">
                 </div>
                 <div @click="navigate('bookmarked')" :style="selected[2]" class="nav-container">
-                    <img class="icon" src="./assets/savedicon.svg" alt="bookmarked">
+                    <img v-if="page != 'bookmarked'" class="icon" src="./assets/savedicon.svg" alt="saved">
+                    <img v-else class="icon" src="./assets/savediconblack.svg" alt="saved-selected">
                 </div>
             </div>
         </footer> 

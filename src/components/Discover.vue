@@ -5,7 +5,7 @@
         <div :style="searchStyleMain" class="search">
             
             <img v-if="!searching" @click="engageSearch('')" class="search-icon" src="../assets/search.svg" alt="search">
-            <h1 v-else @click="disengageSearch()" class="search-title">&lt;</h1>
+            <img v-else @click="disengageSearch()" class="esc-icon" src="../assets/backsearch.svg" alt="esc.">
             
             <input
             v-if="searching"
@@ -20,6 +20,7 @@
         <!-- display search results -->
         <div v-if="rawQuery.length === 0 && searching">
             <center>
+                <p style="margin-top: 12.5vh; font-size: 8pt;">Filters: '^' for Content, '=' for Headline, '$' for Author, '_' for Category</p>
                 <img class="magnifying-glass" src="../assets/search.svg" alt="magnifying glass">
             </center>
         </div>
@@ -61,7 +62,7 @@
                 <div class="box-1" @click="$parent.articleRequested(articles[articleOfTheDay])">  
                     <img class="photo" :src="require(`../assets/pictures/${articles[articleOfTheDay].image}.webp`)" :alt="articles[articleOfTheDay].imageCaption">                
                     <div class="box-2">
-                        <p class="author">{{ articles[articleOfTheDay].date.substring(1) }} - {{ articles[articleOfTheDay].author }}</p>
+                        <p class="author">{{ articles[articleOfTheDay].date }} - {{ articles[articleOfTheDay].author.substring(1) }}</p>
                         <p class="cat">{{ articles[articleOfTheDay].category.substring(1) }}</p>
                         <h2 class="title">{{ articles[articleOfTheDay].title.substring(1) }}</h2>
                     </div>
@@ -78,7 +79,7 @@
         <center>
             <div v-if="!searching">
                 <!-- underscore character ensures strictly category search -->
-                <h3 class="cat-title">Quick Search</h3>
+                <h3 class="cat-title">Quick Filters</h3>
                     <h2 class="quick-search" @click="engageSearch('_News')">News</h2>
                     <h2 class="quick-search" @click="engageSearch('_Arts & Entertainment')">Arts & Entertainment</h2>
                     <h2 class="quick-search" @click="engageSearch('_Lifestyle')">Lifestyle</h2>
@@ -229,7 +230,7 @@ export default {
 /* SEARCH RESULT DECORATIVES*/
 .magnifying-glass {
     padding: 2vh;
-    margin-top: 20vh;
+    margin-top: 5vh;
     width: 15vh;
     filter: invert(100%);
     border-radius: 25%;
@@ -242,14 +243,11 @@ export default {
 }
 
 /* SEARCH HEADER DISPLAY */
-.search-title {
-    color: black;
-    font-family: monospace;
-    opacity: 0.5; 
-    cursor: pointer;
-    margin: 0px;
-    font-size: 4.5vh;
-    margin-top: 1.4vh;
+.esc-icon {
+    height: 3.5vh;
+    opacity: 1;
+    filter: invert(60%);
+    margin-top: 2.3%;
 }
 .search {
     display: flex;
@@ -267,7 +265,7 @@ export default {
     border-radius: 40px;
     font-size: 2vh;
     height: 5vh;
-    margin-left: 5%;
+    margin-left: 3%;
     width: 77%;
     padding-left: 3%;
 }
