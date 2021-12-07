@@ -1,12 +1,12 @@
 export default class Articles {
     constructor(title, image, imageCaption, category, author, date, content) {
-        this.title = title;
+        this.title = '=' + title;
         this.image = image;
         this.imageCaption = imageCaption;
         this.category = '_' + category; // putting an _ in search will be bound strictly to category
         this.author = '$' + author; // putting an $ in search will be bound strictly to author
         this.date = date;
-        this.content = this.parsedContent(content);
+        this.content = '^' + this.parsedContent(content);
         this.saved = false;
         this.dateScore = this.dateScore(date);
     }

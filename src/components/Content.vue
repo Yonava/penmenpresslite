@@ -18,13 +18,13 @@
             <!-- article data -->
             <div>
                 <p class="cat">{{ article.category.substring(1) }}</p>
-                <h1 class="headline">{{ article.title }}</h1>
+                <h1 class="headline">{{ article.title.substring(1) }}</h1>
                 <p class="author-credit">{{ article.author.substring(1) }}</p>
                 <img :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">
                 <center>
                     <p class="caption">{{ article.imageCaption }}</p>
                 </center>
-                <pre class="article" :style="articleSize">{{ article.content }}</pre>
+                <pre class="article" :style="articleSize">{{ article.content.substring(1) }}</pre>
             </div>
             
         </div>

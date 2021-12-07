@@ -13,7 +13,7 @@
                 <div class="box-2">
                     <p class="author">{{ article.date }} - {{ article.author.substring(1) }}</p>
                     <p class="cat">{{ article.category.substring(1) }}</p>
-                    <h2 class="title">{{ article.title }}</h2>
+                    <h2 class="title">{{ article.title.substring(1) }}</h2>
                 </div>
                 <div class="box-3">
                     <img v-if="article.saved" @click="$parent.bookmark(article, false)" class="book" src="../assets/remove-bookmark.svg" alt="unsave">

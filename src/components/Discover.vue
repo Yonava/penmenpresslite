@@ -39,7 +39,7 @@
                     <div class="box-2">
                         <p class="author">{{ article.date }} - {{ article.author.substring(1) }}</p>
                         <p class="cat">{{ article.category.substring(1) }}</p>
-                        <h2 class="title">{{ article.title }}</h2>
+                        <h2 class="title">{{ article.title.substring(1) }}</h2>
                     </div>
                     <div class="box-3">
                         <img v-if="article.saved" @click="$parent.bookmark(article, false)" class="book" src="../assets/remove-bookmark.svg" alt="unsave">
@@ -63,7 +63,7 @@
                     <div class="box-2">
                         <p class="author">{{ articles[articleOfTheDay].date.substring(1) }} - {{ articles[articleOfTheDay].author }}</p>
                         <p class="cat">{{ articles[articleOfTheDay].category.substring(1) }}</p>
-                        <h2 class="title">{{ articles[articleOfTheDay].title }}</h2>
+                        <h2 class="title">{{ articles[articleOfTheDay].title.substring(1) }}</h2>
                     </div>
                     <div class="box-3">
                         <img v-if="articles[articleOfTheDay].saved" @click="$parent.bookmark(articles[articleOfTheDay], false)" class="book" src="../assets/remove-bookmark.svg" alt="unsave">
@@ -121,18 +121,48 @@ export default {
         },
         search() {
             let query = this.rawQuery;
+            let searchShortHands = ['$', '_', '=', '^'];
+            let corrospondingTerms = ['Author: ', 'Category: ', 'Headline: ', 'Content: '];
 
-            if (this.rawQuery[0] === '_') this.rawQuery = 'Category: ' + this.rawQuery.substring(1);
-            else if (this.rawQuery[0] === '$') this.rawQuery = 'Author: ' + this.rawQuery.substring(1);
-
-            if (this.rawQuery.substring(0, 10) === 'Category: ') this.executeSearch(this.sanitizeQuery('_' + query.substring(10)));
-            else if (this.rawQuery.substring(0, 8) === 'Author: ') this.executeSearch(this.sanitizeQuery('$' + query.substring(8)));
-            else this.executeSearch(query);
+            for (let i = 0; i < searchShortHands.length; i++) {
+                if (this.rawQuery[0] === searchShortHands[i]) {
+                    this.rawQuery = corrospondingTerms[i] + this.rawQuery.substring(1);
+                    break;
+                }
+            }
+            for (let i = 0; i < corrospondingTerms.length; i++) {
+                if (corrospondingTerms[i] === this.rawQuery.substring(0, corrospondingTerms[i].length)) {
+                    this.executeSearch(this.sanitizeQuery(searchShortHands[i] + query.substring(corrospondingTerms[i].length)), searchShortHands[i]);
+                    return;
+                }
+            }
+            
+            this.executeSearch(this.sanitizeQuery(query, false));
         },
-        executeSearch(query) {
-            console.log(query)
+        executeSearch(query, filterChar) {
+
             this.displayedArticles = [];
-            if (!query) return
+            if (!query) return;
+
+            if (filterChar) {
+                let target = query[0];
+                query = query.substring(1);
+                switch (target) {
+                    case '_': 
+                        this.displayedArticles = this.articles.filter(item => item.category.toLowerCase().includes(query));
+                        break;
+                    case '$':
+                        this.displayedArticles = this.articles.filter(item => item.author.toLowerCase().includes(query));
+                        break;
+                    case '=':
+                        this.displayedArticles = this.articles.filter(item => item.title.toLowerCase().includes(query));
+                        break;
+                    case '^':
+                        this.displayedArticles = this.articles.filter(item => item.content.toLowerCase().includes(query));
+                        break;
+                }
+                return;
+            }
 
             for (let i = 0; i < this.articles.length; i++) {
                 switch (true) {
@@ -248,7 +278,7 @@ export default {
     padding: .5vh;
 }
 input {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 </style>
