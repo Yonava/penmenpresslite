@@ -181,7 +181,8 @@ export default {
         },
         engageSearch(searchQuery) {
 
-            setTimeout((() => this.$refs.email.focus()), 10);
+            // setTimeout((() => this.$refs.email.focus()), 10); 
+            // doesnt bring up keyboard on iOS :(
 
             this.searching = true;
             this.rawQuery = searchQuery;
@@ -248,6 +249,7 @@ export default {
     cursor: pointer;
     margin: 0px;
     font-size: 4.5vh;
+    margin-top: 2vh;
 }
 .search {
     display: flex;
