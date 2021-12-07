@@ -249,7 +249,7 @@ export default {
     cursor: pointer;
     margin: 0px;
     font-size: 4.5vh;
-    margin-top: 2vh;
+    margin-top: 1.6vh;
 }
 .search {
     display: flex;
