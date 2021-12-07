@@ -58,7 +58,6 @@ export default {
     },
     data: () => {
         return {
-            lastY: 0,
             bookmarked: [],
             articleData,
             contentView: false,

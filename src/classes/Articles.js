@@ -1,12 +1,12 @@
 export default class Articles {
     constructor(title, image, imageCaption, category, author, date, content) {
-        this.title = '=' + title;
+        this.title = '=' + title; // = filters search strictly by category
         this.image = image;
         this.imageCaption = imageCaption;
-        this.category = '_' + category; // putting an _ in search will be bound strictly to category
-        this.author = '$' + author; // putting an $ in search will be bound strictly to author
+        this.category = '_' + category; // _ filters search strictly by category
+        this.author = '$' + author; // $ filters search strictly by author
         this.date = date;
-        this.content = '^' + this.parsedContent(content);
+        this.content = '^' + this.parsedContent(content); //  ^ filters search strictly by category
         this.saved = false;
         this.dateScore = this.dateScore(date);
     }
@@ -27,7 +27,7 @@ export default class Articles {
         content = [...content]
         while (content.includes('~')) {
             let replaceIndex = content.findIndex(num => num === '~');
-            content[replaceIndex] = '\n\n';
+            content[replaceIndex] = '\n\n\n';
         }
         return content.join('');
     }

@@ -103,7 +103,7 @@ export default {
         },
         resizeFont() {
             let delay = 400;
-            let fontLabelTrasitDur = 200  // offsets fontLabel transition
+            let fontLabelTrasitDur = 200; // offsets fontLabel transition
             if (!this.fontSliderCooldown) {
                 const resolvePromise = new Promise(resolve => setTimeout(resolve, delay*2));
                 this.fontSliderCooldown = true;
@@ -120,10 +120,10 @@ export default {
                     setTimeout(() => this.expandFontSlider += 'width: 55vw;', delay);
                 }
                 resolvePromise.then(() => {
-                if (!this.sliderExpanded) this.fontLabel = 'opacity: 1;';
-                else this.expandFontSlider = 'display:none;';
-                this.sliderExpanded = !this.sliderExpanded;
-                this.fontSliderCooldown = false;
+                    if (!this.sliderExpanded) this.fontLabel = 'opacity: 1;';
+                    else this.expandFontSlider = 'display: none;';
+                    this.sliderExpanded = !this.sliderExpanded;
+                    this.fontSliderCooldown = false;
                 });
             }
             

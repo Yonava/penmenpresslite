@@ -5,12 +5,11 @@
         <div :style="searchStyleMain" class="search">
             
             <img v-if="!searching" @click="engageSearch('')" class="search-icon" src="../assets/search.svg" alt="search">
-            <h1 @click="disengageSearch()" :style="searchTitleStyle" class="search-title">
-                {{ searchTitle }}
-            </h1>
+            <h1 v-else @click="disengageSearch()" class="search-title">&lt;</h1>
             
-            <input 
-            :style="searchStyle"
+            <input
+            v-if="searching"
+            ref="email"
             class="searchbar"
             type="text" 
             placeholder="Articles, Authors, or Categories" 
@@ -26,10 +25,11 @@
         </div>
         <div v-else-if="rawQuery.length > 0 && searching">
             <p v-if="displayedArticles.length > 0" class="search-text">Here's What We Found:</p>
-            <div v-else>
+            <div v-else style="margin-top: 20vh;">
                 <center>
-                    <p class="search-text">Bad News!</p>
-                    <p class="search-text">We Can't Find What You're Searching For :(</p>
+                    <p style="font-size: 14pt;">Bad News!</p>
+                    <p style="font-size: 14pt;">We Can't Find What You're Searching For</p>
+                    <p style="font-size: 40pt;">😢</p>
                 </center>
             </div>
         
@@ -98,10 +98,7 @@ export default {
             searching: false,         
             displayedArticles: [],
             rawQuery: '',
-            searchStyle: 'width: 0vw; opacity: 0;',
-            searchTitle: '',
-            searchTitleStyle: '',
-            searchStyleMain: '',
+            searchStyleMain: 'padding-top: 1vh;',
         }
     },
     props: [
@@ -183,21 +180,18 @@ export default {
             }
         },
         engageSearch(searchQuery) {
-            this.searchStyle = 'width: 100vw; opacity: 1; padding-left: 4vw; font-size: 2.5vh;';
-            this.searchTitle = '<';
-            this.searchTitleStyle = "font-family: monospace; font-weight: bold; opacity: 0.5; cursor: pointer; margin-top: 20px";
+
+            setTimeout((() => this.$refs.email.focus()), 10);
+
             this.searching = true;
             this.rawQuery = searchQuery;
-            this.searchStyleMain = 'border-bottom: 1px solid black; background: #c9c9c9; box-shadow: rgb(25, 25, 25) 0px 0px 10px;';
+            this.searchStyleMain = 'padding-top: 3vh; border-bottom: 1px solid black; background: #c9c9c9f5; box-shadow: rgb(25, 25, 25) 0px 0px 10px;';
         },
         disengageSearch() {
-            this.searchStyle = 'width: 0vw;';
-            setTimeout(() => this.searchStyle += 'opacity: 0;', 100);
-            this.searchTitle = '';
-            this.searchTitleStyle = '';
+
             this.searching = false;
             this.rawQuery = '';
-            this.searchStyleMain = '';
+            this.searchStyleMain = 'padding-top: 1vh;';
         }
     },
     mounted() {
@@ -231,7 +225,7 @@ export default {
     background-color: rgb(46, 185, 185);
 }
 
-/* SEARCH HEADER STYLING */
+/* SEARCH RESULT DECORATIVES*/
 .magnifying-glass {
     padding: 2vh;
     margin-top: 20vh;
@@ -239,43 +233,46 @@ export default {
     filter: invert(100%);
     border-radius: 25%;
 }
-.search-title {
-    margin: 2vh;
-    margin-left: 2.5vh;
-    margin-top: 1.75vh;
-    font-size: 5vh;
-    color: black;
-    cursor: default;
-    transition: 100ms ease-in-out;
-}
 .search-text {
     font-size: 12pt;
     color: black;
     margin-top: 12.5vh;
     margin-left: 3%;
 }
+
+/* SEARCH HEADER DISPLAY */
+.search-title {
+    color: black;
+    font-family: monospace;
+    opacity: 0.5; 
+    cursor: pointer;
+    margin: 0px;
+    font-size: 4.5vh;
+}
 .search {
     display: flex;
     position: fixed;
     top: 0;
-    padding-top: 1vh;
     width: 100vw;
-    background: linear-gradient(#525252, #ffffff00)
+    background: linear-gradient(#525252, #ffffff00);
+    padding-top: 1vh;
+    padding-bottom: 2vh;
+    padding-left: 5vw;
+    transition: 100ms ease-in-out;
 }
 .searchbar {
-    margin: 2vh;
     border: 1px solid black;
     border-radius: 40px;
+    font-size: 2vh;
     height: 5vh;
-    margin-right: 2.5vh;
-    transition: 150ms;
+    margin-left: 5%;
+    width: 77%;
+    padding-left: 3%;
 }
 .search-icon {
     filter: invert(100%);
-    margin-top: 3%;
-    margin-left: 5%;
-    max-height: 4vh;
-    padding: .5vh;
+    padding-top: 2vh;
+    height: 4vh;
 }
 input {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
