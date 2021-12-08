@@ -1,7 +1,7 @@
 export default class Articles {
     constructor(title, image, imageCaption, category, author, date, content) {
         this.title = '=' + title; // = filters search strictly by category
-        this.image = image;
+        this.image = this.verifyImage(image);
         this.imageCaption = imageCaption;
         this.category = '_' + category; // _ filters search strictly by category
         this.author = '$' + author; // $ filters search strictly by author
@@ -31,4 +31,20 @@ export default class Articles {
         }
         return content.join('');
     }
+    verifyImage(image) {
+        // if no image link is defined in an article, it defaults to the press logo as an image display
+        if (!image) image = "https://penmenpress.com/wp-content/uploads/2018/09/press-default-e1536863665146-1071x642.png";
+        return image;
+    }
 }
+
+// articleData template 
+// {
+//     "title":"",
+//     "image":"",
+//     "imageCaption": "",
+//     "category": "",
+//     "author":"",
+//     "date":"",
+//     "content":""
+// },

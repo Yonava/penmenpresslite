@@ -17,10 +17,11 @@
             @click="engageSearch(rawQuery)" />
                
         </div>
+        
         <!-- display search results -->
         <div v-if="rawQuery.length === 0 && searching">
             <center>
-                <p style="margin-top: 12.5vh; font-size: 8pt;">Filters: '^' for Content, '=' for Headline, '$' for Author, '_' for Category</p>
+                <p style="margin-top: 12.5vh; font-size: 7pt;">Filters: '^' for Content, '=' for Headline, '$' for Author, '_' for Category</p>
                 <img class="magnifying-glass" src="../assets/search.svg" alt="magnifying glass">
             </center>
         </div>
@@ -28,15 +29,15 @@
             <p v-if="displayedArticles.length > 0" class="search-text">Here's What We Found:</p>
             <div v-else style="margin-top: 20vh;">
                 <center>
-                    <p style="font-size: 14pt;">Bad News!</p>
-                    <p style="font-size: 14pt;">We Can't Find What You're Searching For</p>
+                    <p style="font-size: 12pt;">Bad News!</p>
+                    <p style="font-size: 12pt;">We Can't Find What You're Searching For</p>
                     <p style="font-size: 40pt;">😢</p>
                 </center>
             </div>
         
             <div class="parent" v-for="article in displayedArticles" :key="article.id">
                 <div class="box-1" @click="$parent.articleRequested(article)">  
-                    <img class="photo" :src="require(`../assets/pictures/${article.image}.webp`)" :alt="article.imageCaption">                
+                    <img class="photo" :src="article.image" :alt="article.imageCaption">                
                     <div class="box-2">
                         <p class="author">{{ article.date }} - {{ article.author.substring(1) }}</p>
                         <p class="cat">{{ article.category.substring(1) }}</p>
@@ -60,7 +61,7 @@
             
             <div class="parent">
                 <div class="box-1" @click="$parent.articleRequested(articles[articleOfTheDay])">  
-                    <img class="photo" :src="require(`../assets/pictures/${articles[articleOfTheDay].image}.webp`)" :alt="articles[articleOfTheDay].imageCaption">                
+                    <img class="photo" :src="articles[articleOfTheDay].image" :alt="articles[articleOfTheDay].imageCaption">                
                     <div class="box-2">
                         <p class="author">{{ articles[articleOfTheDay].date }} - {{ articles[articleOfTheDay].author.substring(1) }}</p>
                         <p class="cat">{{ articles[articleOfTheDay].category.substring(1) }}</p>
