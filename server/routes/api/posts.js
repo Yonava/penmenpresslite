@@ -1,5 +1,6 @@
 const express = require('express');
 const mongodb = require('mongodb');
+require('dotenv').config();
 
 const router = express.Router();
 
@@ -33,7 +34,7 @@ router.delete('/:id', async (req, res) => {
 
 async function loadPostsCollection() {
   const client = await mongodb.MongoClient.connect(
-    'mongodb+srv://press:auth@cluster0.wfzfa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    process.env.API_KEY,
     {
       useNewUrlParser: true
     }
