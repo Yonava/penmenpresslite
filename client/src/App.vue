@@ -32,7 +32,7 @@
                 </div>
                 <div @click="navigate('bookmarked')" :style="selected[2]" class="nav-container">
                     <img v-if="page != 'bookmarked'" class="icon" src="./assets/savedicon.svg" alt="saved">
-                    <img v-else class="icon" src="./assets/savediconblack.svg" alt="saved-selected">
+                    <img class="icon" src="./assets/savediconblack.svg" alt="saved-selected">
                 </div>
             </div>
         </footer> 

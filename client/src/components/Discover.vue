@@ -5,7 +5,7 @@
         <div :style="searchStyleMain" class="search">
             
             <img v-if="!searching" @click="engageSearch('')" class="search-icon" src="../assets/search.svg" alt="search">
-            <img v-else @click="disengageSearch()" class="esc-icon" src="../assets/backsearch.svg" alt="esc.">
+            <img @click="disengageSearch()" :style="showEsc" class="esc-icon" src="../assets/backsearch.svg" alt="esc.">
             
             <input
             v-if="searching"
@@ -101,6 +101,7 @@ export default {
             displayedArticles: [],
             rawQuery: '',
             searchStyleMain: 'padding-top: 1vh;',
+            showEsc: 'display: none;'
         }
     },
     props: [
@@ -186,12 +187,15 @@ export default {
             // setTimeout((() => this.$refs.email.focus()), 10); 
             // doesnt bring up keyboard on iOS :(
 
+            window.scrollTo(0, 0);
+            this.showEsc = ''
             this.searching = true;
             this.rawQuery = searchQuery;
             this.searchStyleMain = 'padding-top: 3vh; border-bottom: 1px solid black; background: #c9c9c9f5; box-shadow: rgb(25, 25, 25) 0px 0px 10px;';
         },
         disengageSearch() {
 
+            this.showEsc = 'display: none;'
             this.searching = false;
             this.rawQuery = '';
             this.searchStyleMain = 'padding-top: 1vh;';

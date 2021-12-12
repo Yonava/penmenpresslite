@@ -17,7 +17,7 @@
                 </div>
                 <div class="box-3">
                     <img v-if="article.saved" @click="$parent.bookmark(article, false)" class="book" src="../assets/remove-bookmark.svg" alt="unsave">
-                    <img v-else @click="$parent.bookmark(article, true)" class="book" src="../assets/add-bookmark.svg" alt="save">
+                    <img v-else-if="!articles.saved" @click="$parent.bookmark(article, true)" class="book" src="../assets/add-bookmark.svg" alt="save">
                 </div>
             </div>
         </div>

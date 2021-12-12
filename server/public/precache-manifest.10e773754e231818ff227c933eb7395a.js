@@ -1,55 +1,55 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "994fab2ea4b342d0dd40",
-    "url": "/css/app.05b77815.css"
+    "revision": "3f0c6452ca5f7c76f628",
+    "url": "/css/app.1df239a3.css"
   },
   {
     "revision": "5c367b3ea51dba3c4367aa8bdcbbf098",
     "url": "/img/add-bookmark.5c367b3e.svg"
   },
   {
-    "revision": "fb8608776b29ce1a9892f68e2c4b8458",
-    "url": "/img/backsearch.fb860877.svg"
+    "revision": "c48fd12eec18a03e75d2155d4d4a70db",
+    "url": "/img/backsearch.c48fd12e.svg"
   },
   {
-    "revision": "c7e557a05df847d790432d274afa97b8",
-    "url": "/img/discover.c7e557a0.svg"
+    "revision": "18823e0b3cbb4279bc54785afcf4d1cc",
+    "url": "/img/discover.18823e0b.svg"
   },
   {
-    "revision": "22e5d6e5a6cbeb8535bebc884de005dc",
-    "url": "/img/feed.22e5d6e5.svg"
+    "revision": "773998d3d6b738c3c1f59bc9ae894218",
+    "url": "/img/feed.773998d3.svg"
   },
   {
-    "revision": "9763be5876c1b7c7d5e9c04ebddb462a",
-    "url": "/img/font.9763be58.svg"
+    "revision": "4cb5424240d4916086dc1b717f5ed592",
+    "url": "/img/font.4cb54242.svg"
   },
   {
     "revision": "26554516547f4a3a240220633d172fd7",
     "url": "/img/remove-bookmark.26554516.svg"
   },
   {
-    "revision": "4071479bdec1617d886a4882a4f4b602",
-    "url": "/img/savedicon.4071479b.svg"
+    "revision": "36d92439e79c3ed981142c212895fec4",
+    "url": "/img/savedicon.36d92439.svg"
   },
   {
-    "revision": "e176f27aa70fa4b9b463cd0222ce1ad4",
-    "url": "/img/savediconblack.e176f27a.svg"
+    "revision": "21362ca5c93b4ccb508391fd2d93ff5b",
+    "url": "/img/savediconblack.21362ca5.svg"
   },
   {
-    "revision": "85381b4f5e697f83d47154f7ec441cc4",
-    "url": "/img/search.85381b4f.svg"
+    "revision": "acf08b29fd128fb0616f84d4c7d9cf92",
+    "url": "/img/search.acf08b29.svg"
   },
   {
     "revision": "9d02641e74afc1cd6a7047da7552cba5",
     "url": "/img/share.9d02641e.svg"
   },
   {
-    "revision": "2e9fee866380c64b2a2ce92d8e9c9c95",
+    "revision": "72550625b8f2ce89645a5bb479a9db78",
     "url": "/index.html"
   },
   {
-    "revision": "994fab2ea4b342d0dd40",
-    "url": "/js/app.9a695742.js"
+    "revision": "3f0c6452ca5f7c76f628",
+    "url": "/js/app.41705fee.js"
   },
   {
     "revision": "48edbcff0de95d19a666",
