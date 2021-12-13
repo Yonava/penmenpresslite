@@ -56,6 +56,10 @@ export default {
         captureY() {
             localStorage.pagePos = window.scrollY;
         },
+        top() {
+            window.scrollTo(0, window.scrollY-25);
+            if (!(window.scrollY < 1)) setTimeout(this.top, 1);
+        }
     }
 }
 </script>

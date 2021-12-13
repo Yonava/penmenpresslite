@@ -21,18 +21,26 @@
             <Bookmarked :articles="articles" />
         </div>
 
+        <!-- trending menu -->
+        <div v-else-if="page === 'trending'">
+            <Trending :articles="articles" />
+        </div>
+
         <!-- navigation panel -->
         <footer v-if="!contentView" class="bottom">
             <div class="bottom-container">
-                <div @click="navigate('discover')" :style="selected[0]" class="nav-container">
-                    <img class="icon" src="./assets/discover.svg" alt="discovery">
+                <div @click="navigate('home')" :style="selected[0]" class="nav-container">
+                    <img class="icon" src="./assets/feedicon.svg" alt="home">
                 </div>
-                <div @click="navigate('home')" :style="selected[1]" class="nav-container">
-                    <img class="icon" src="./assets/feed.svg" alt="home">
+                <div @click="navigate('discover')" :style="selected[1]" class="nav-container">
+                    <img class="icon" src="./assets/discovericon.svg" alt="discovery">
                 </div>
-                <div @click="navigate('bookmarked')" :style="selected[2]" class="nav-container">
+                <div @click="navigate('trending')" :style="selected[2]" class="nav-container">
+                    <img class="icon" src="./assets/trendingicon.svg" alt="trending">
+                </div>
+                <div @click="navigate('bookmarked')" :style="selected[3]" class="nav-container">
                     <img v-if="page != 'bookmarked'" class="icon" src="./assets/savedicon.svg" alt="saved">
-                    <img class="icon" src="./assets/savediconblack.svg" alt="saved-selected">
+                    <img class="icon" src="./assets/savedicon-filled.svg" alt="saved-selected">
                 </div>
             </div>
         </footer> 
@@ -48,6 +56,7 @@ import Content from './components/Content.vue'
 import Discover from './components/Discover.vue'
 import Bookmarked from './components/Bookmarked.vue'
 import Feed from './components/Feed.vue'
+import Trending from './components/Trending.vue'
 
 export default {
     name: 'App',
@@ -56,6 +65,7 @@ export default {
         Discover,
         Bookmarked,
         Feed,
+        Trending,
         },
     data: () => {
         return {
@@ -67,7 +77,7 @@ export default {
             page: 'home',
             requestHandler: true,
             articles: [],
-            selected: ['filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);'],
+            selected: ['filter: invert(0%);', 'filter: invert(60%);', 'filter: invert(60%);', 'filter: invert(60%);'],
         }
     },
     methods: {
@@ -97,13 +107,16 @@ export default {
             window.scrollTo(0,0);
             switch (page) {
                 case 'discover':
-                    this.selected = ['filter: invert(0%);', 'filter: invert(60%);', 'filter: invert(60%);']
+                    this.selected = ['filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);', 'filter: invert(60%);'];
                     break;
                 case 'home':
-                    this.selected = ['filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);']
+                    this.selected = ['filter: invert(0%);', 'filter: invert(60%);', 'filter: invert(60%);', 'filter: invert(60%);'];
                     break;
                 case 'bookmarked':
-                    this.selected = ['filter: invert(60%);', 'filter: invert(60%);', 'filter: invert(0%);']
+                    this.selected = ['filter: invert(60%);', 'filter: invert(60%);', 'filter: invert(60%);', 'filter: invert(0%);'];
+                    break;
+                case 'trending':
+                    this.selected = ['filter: invert(60%);', 'filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);'];
                     break;
             }
             this.page = page;
@@ -215,6 +228,11 @@ export default {
 }
 
 /* NAVIGATION DISPLAY */
+.top {
+    z-index: 2;
+    position: fixed;
+    
+}
 .icon {
     height: 5vh;
     width: 5vh;
@@ -224,12 +242,12 @@ export default {
     height: 5vh;
     width: 5vh;
     margin-top: .5vh;
-    margin-right: 10vw;
-    margin-left: 10vw;
+    margin-right: 7.5vw;
+    margin-left: 7.5vw;
     margin-bottom: 0px;
 }
 .bottom-container {
-    width: 80vw;
+    width: 90vw;
     justify-content: center;
     display: flex;
     margin-bottom: 0px;

@@ -9,7 +9,6 @@
             
             <input
             v-if="searching"
-            ref="email"
             class="searchbar"
             type="text" 
             placeholder="Articles, Authors, or Categories" 
@@ -184,7 +183,7 @@ export default {
         },
         engageSearch(searchQuery) {
 
-            // setTimeout((() => this.$refs.email.focus()), 10); 
+            // setTimeout((() => this.$refs.<search_ref_name>.focus()), 10); 
             // doesnt bring up keyboard on iOS :(
 
             window.scrollTo(0, 0);
