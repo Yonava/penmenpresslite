@@ -87,6 +87,24 @@
                     <h2 class="quick-search" @click="engageSearch('_Sports')">Sports</h2>
             </div>
         </center>
+
+           
+        <h3 class="social-title">Connect With Us</h3>
+        <div class="socials">
+            <div class="social-icons">
+                <a href="https://www.instagram.com/penmenpress/" target="_blank">
+                    <img src="../assets/instagram.svg" alt="instagram">
+                </a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/penmenpress/" target="_blank">
+                    <img src="../assets/facebook.svg" alt="facebook">
+                </a>
+            </div>
+        </div>
+    
+
+
         <br><br><br><br>
     </div>
 </template>
@@ -208,6 +226,20 @@ export default {
 </script>
 
 <style scoped>
+/* SOCIALS */
+.social-title {
+    font-size: 16pt;
+    text-align: center;
+}
+.socials {
+    display: flex;
+    justify-content: center;
+}
+.social-icons {
+    width: 10vw;
+    margin: 3%;
+    margin-top: 0%;
+}
 
 /* ARTICLE OF THE DAY */
 .article-of-the-day-title {

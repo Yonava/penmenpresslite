@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0a738856f7ac014952a0",
-    "url": "/css/app.e22ecff5.css"
+    "revision": "b0fbc26090f17b912a8e",
+    "url": "/css/app.c9f1645d.css"
   },
   {
     "revision": "5c367b3ea51dba3c4367aa8bdcbbf098",
@@ -16,12 +16,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/discovericon.2e5b6d26.svg"
   },
   {
+    "revision": "78d6179dc2a42b9c4f6411059533e186",
+    "url": "/img/facebook.78d6179d.svg"
+  },
+  {
     "revision": "f27ffd8aa50b7a241baa3fe75f0876f8",
     "url": "/img/feedicon.f27ffd8a.svg"
   },
   {
     "revision": "4cb5424240d4916086dc1b717f5ed592",
     "url": "/img/font.4cb54242.svg"
+  },
+  {
+    "revision": "6e01c9d79adb98f7a6efa242e33afc4a",
+    "url": "/img/instagram.6e01c9d7.svg"
   },
   {
     "revision": "04f00413ba9f7a6df757e6a69bd6c200",
@@ -56,12 +64,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/trendingicon.ea3d4602.svg"
   },
   {
-    "revision": "60375cd04f795365bb4176897062f0f2",
+    "revision": "baf37b32f7271bff51c259ec2dd0fbef",
     "url": "/index.html"
   },
   {
-    "revision": "0a738856f7ac014952a0",
-    "url": "/js/app.a283cb9d.js"
+    "revision": "b0fbc26090f17b912a8e",
+    "url": "/js/app.1d7d413f.js"
   },
   {
     "revision": "564a700a2e53f5758e26",
