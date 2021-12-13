@@ -88,22 +88,26 @@
             </div>
         </center>
 
-           
-        <h3 class="social-title">Connect With Us</h3>
-        <div class="socials">
-            <div class="social-icons">
-                <a href="https://www.instagram.com/penmenpress/" target="_blank">
-                    <img src="../assets/instagram.svg" alt="instagram">
-                </a>
-            </div>
-            <div class="social-icons">
-                <a href="https://www.facebook.com/penmenpress/" target="_blank">
-                    <img src="../assets/facebook.svg" alt="facebook">
-                </a>
+        <div v-if="!searching">
+            <h3 class="social-title">Connect With Us</h3>
+            <div class="socials">
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/penmenpress/" target="_blank">
+                        <img src="../assets/instagram.svg" alt="instagram">
+                    </a>
+                </div>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/penmenpress/" target="_blank">
+                        <img src="../assets/facebook.svg" alt="facebook">
+                    </a>
+                </div>
+                <div class="social-icons">
+                    <a href="https://penmenpress.com/" target="_blank">
+                        <img src="../assets/website.svg" alt="website">
+                    </a>
+                </div>
             </div>
         </div>
-    
-
 
         <br><br><br><br>
     </div>
