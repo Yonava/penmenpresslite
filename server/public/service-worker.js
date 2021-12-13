@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.10e773754e231818ff227c933eb7395a.js"
+  "/precache-manifest.2825630c965235a7cd2fe08e15892739.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "penmenpressmobile"});

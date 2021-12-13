@@ -1,0 +1,18 @@
+<svg width="172" height="172" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>background</title>
+  <rect x="-1" y="-1" width="174" height="174" id="canvas_background" fill="none"/>
+ </g>
+
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_1" stroke="null">
+   <path d="m27.361908,0l117.276186,0c2.851764,0 5.151909,1.768303 5.151909,3.942838l0,89.984325c0,2.1825 -2.310553,3.942838 -5.151909,3.942838c-1.425882,0 -2.716461,-0.446058 -3.653172,-1.162938l-55.120224,-36.337832l-55.14104,36.536965c-2.144027,1.417829 -5.391291,1.242591 -7.254304,-0.398266c-0.84304,-0.740776 -1.248948,-1.664754 -1.248948,-2.572801l-0.010408,0l0,-89.99229c0,-2.174535 2.310553,-3.942838 5.151909,-3.942838l0,0l0.000001,-0.000001zm112.124277,7.893641l-106.96196,0l0,77.423l49.926683,-33.087978c1.894237,-1.290383 4.798041,-1.338175 6.775541,-0.031861l50.270144,33.143735l0,-77.446896l-0.010408,0z" id="svg_2" stroke="null"/>
+  </g>
+  <text fill="#000000" stroke="null" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="22.200001" y="160.81" id="svg_3" font-size="45" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">Saved</text>
+  <path id="svg_4" d="m48,20.85" opacity="0.5" stroke-width="0.001" stroke="#FF0000" fill="#000"/>
+  <rect id="svg_5" height="48" width="113" y="6.85" x="31" stroke-width="0.001" stroke="#FF0000" fill="#000"/>
+  <path stroke="#FF0000" transform="rotate(99.85885620117188 63.15927505493164,66.1296157836914) " id="svg_6" d="m29.380048,101.821444l0,-71.38366l67.558459,71.38366l-67.558459,0z" stroke-width="0.001" fill="#000"/>
+  <path transform="rotate(170.3719482421875 110.11000061035156,67.70075225830078) " id="svg_7" d="m78.609998,96.700753l0,-58.000002l62.999999,58.000002l-62.999999,0z" fill-opacity="null" stroke-opacity="null" stroke-width="0.001" stroke="#FF0000" fill="#000"/>
+ </g>
+</svg>
