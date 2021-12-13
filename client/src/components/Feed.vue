@@ -6,6 +6,8 @@
             <h1 style="border-bottom: .2vh solid black; margin-left: 3%; opacity: 1; margin-top: 0vh;">NEWS FEED</h1>
         </header>
 
+        <img @click="top()" :style="topStyle" class="top-button" src="../assets/top-button.svg" alt="up">
+
         <!-- article display -->
         <div class="parent" v-for="article in articles" :key="article.id">
             <div class="box-1" @click="$parent.articleRequested(article)">  
@@ -39,7 +41,7 @@ export default {
     ],
     data: () => {
         return {
-    
+            topStyle: 'display: none;'
         }
     },
     mounted() {
@@ -55,6 +57,7 @@ export default {
     methods: {
         captureY() {
             localStorage.pagePos = window.scrollY;
+            window.scrollY > 500 ? this.topStyle = '':this.topStyle = 'display: none;';
         },
         top() {
             window.scrollTo(0, window.scrollY-25);
@@ -65,5 +68,14 @@ export default {
 </script>
 
 <style scoped>
+.top-button {
+    opacity: 0.3;
+    background-color: black;
+    border-radius: 50%;
+    width: 7.5%;
+    margin-top: 80vh;
+    margin-left: 46.75%;
+    position: fixed;
+}
 
 </style>
