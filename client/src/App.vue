@@ -50,7 +50,7 @@
 
 <script>
 
-import PostService from './PostService'
+import ArticleService from './DatabaseService'
 import ArticleObj from './classes/Articles.js'
 import Content from './components/Content.vue'
 import Discover from './components/Discover.vue'
@@ -125,7 +125,7 @@ export default {
     async mounted() {
 
         // fetching articles from database
-        this.articleData = await PostService.retrieve();
+        this.articleData = await ArticleService.retrieve();
 
         // init article objects
         for (let i = 0; i < this.articleData.length; i++) {

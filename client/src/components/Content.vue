@@ -196,6 +196,7 @@ img {
     font-family: 'Times New Roman', Times, serif;
     max-width: 100%;
     white-space: pre-wrap;
+    padding: 2%;
 }
 
 /* PARENT STYLING */

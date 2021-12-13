@@ -9,8 +9,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const posts = require('./routes/api/posts');
-app.use('/api/posts', posts);
+const articles = require('./routes/api/articles');
+app.use('/api/articles', articles);
 
 // Handle production
 if (process.env.NODE_ENV === 'production') {
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
   
     // Handle SPA
     app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
-  }
+}
 
 const port = process.env.PORT || 5000;
 

@@ -9,6 +9,8 @@
 
         <img @click="top()" :style="topStyle" class="top-button" src="../assets/top-button.svg" alt="up">
 
+        <br>
+
         <!-- article display -->
         <div class="parent" v-for="article in articles" :key="article.id">
             <div class="box-1" @click="$parent.articleRequested(article)">  
