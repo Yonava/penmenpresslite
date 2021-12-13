@@ -225,6 +225,8 @@ export default {
     background-color: white;
     opacity: 0.95;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-bottom: .2vh solid black; 
+    display: relative;
 }
 
 /* NAVIGATION DISPLAY */

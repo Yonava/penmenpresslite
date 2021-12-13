@@ -76,6 +76,8 @@ export default {
             this.resizeInput = localStorage.resizeInput;
         }
         window.navigator.vibrate([200, 100, 200]); // works on andriod devices
+        // add view count put request here
+        // start article background timer
     },
     watch: {
         resizeInput() {

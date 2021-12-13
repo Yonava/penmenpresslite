@@ -1,9 +1,9 @@
 <template>
     <div>
         
-        <!-- main feed banner -->
+        <!-- saved articles banner -->
         <header class="feed-header"> 
-            <h1 style="border-bottom: .2vh solid black; margin-left: 3%; opacity: 1; margin-top: 0vh;">SAVED ARTICLES</h1>
+            <h1 style="margin-left: 3%; opacity: 1; margin-top: 0px; margin-bottom: 0px;">SAVED ARTICLES</h1>
         </header>
 
         <!-- if no saved articles -->

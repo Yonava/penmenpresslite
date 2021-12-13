@@ -2,8 +2,9 @@
     <div>
 
         <!-- main feed banner -->
+        <img class="refresh-icon" @click="refresh()" src="../assets/refresh.svg" alt="refresh">
         <header class="feed-header"> 
-            <h1 style="border-bottom: .2vh solid black; margin-left: 3%; opacity: 1; margin-top: 0vh;">NEWS FEED</h1>
+            <h1 style="margin-left: 3%; opacity: 1; margin-top: 0vh; margin-bottom: 0px;">NEWS FEED</h1>
         </header>
 
         <img @click="top()" :style="topStyle" class="top-button" src="../assets/top-button.svg" alt="up">
@@ -62,7 +63,10 @@ export default {
         top() {
             window.scrollTo(0, window.scrollY-25);
             if (!(window.scrollY < 1)) setTimeout(this.top, 1);
-        }
+        },
+        refresh() {
+            location.reload();
+        },
     }
 }
 </script>
@@ -77,5 +81,12 @@ export default {
     margin-left: 46.75%;
     position: fixed;
 }
-
+.refresh-icon {
+    height: 5%;
+    width: 5%;
+    position: fixed;
+    z-index: 1;
+    right: 0;
+    padding: 5px;
+}
 </style>
