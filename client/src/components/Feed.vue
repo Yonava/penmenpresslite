@@ -2,17 +2,16 @@
     <div>
 
         <!-- main feed banner -->
-        <img class="refresh-icon" @click="refresh()" src="../assets/refresh.svg" alt="refresh">
         <header class="feed-header"> 
             <h1 style="margin-left: 3%; opacity: 1; margin-top: 0vh; margin-bottom: 0px;">NEWS FEED</h1>
         </header>
 
-        <img @click="top()" :style="topStyle" class="top-button" src="../assets/top-button.svg" alt="up">
-
-        <br>
+        <div class="top-div">
+            <img @click="top()" :style="topStyle" class="top-button" src="../assets/top-button.svg" alt="up">
+        </div>
 
         <!-- article display -->
-        <div class="parent" v-for="article in articles" :key="article.id">
+        <div style="margin-top: 2vh;" class="parent" v-for="article in articles" :key="article.id">
             <div class="box-1" @click="$parent.articleRequested(article)">  
                 <img class="photo" :src="article.image" :alt="article.imageCaption">                
                 <div class="box-2">
@@ -29,8 +28,9 @@
 
         <!-- disclaimers -->
         <center style="font-size: 8pt;">
+            <img class="refresh-icon" @click="refresh()" src="../assets/refresh.svg" alt="refresh">
             <p style="margin-bottom: 0vh;">visit <a href="https://penmenpress.com/">https://penmenpress.com/</a> for more snhu reporting</p>
-            <p style="margin-bottom: 10vh; margin-top: .5vh;">© penmenpress 2021, all rights reserved</p>
+            <p style="margin-bottom: 14vh; margin-top: .5vh;">© penmenpress 2021, all rights reserved</p>
         </center>
 
     </div>
@@ -63,7 +63,7 @@ export default {
             window.scrollY > 500 ? this.topStyle = '':this.topStyle = 'display: none;';
         },
         top() {
-            window.scrollTo(0, window.scrollY-25);
+            window.scrollTo(0, window.scrollY-75);
             if (!(window.scrollY < 1)) setTimeout(this.top, 1);
         },
         refresh() {
@@ -74,21 +74,23 @@ export default {
 </script>
 
 <style scoped>
+.top-div {
+    display: flex;
+    position: fixed;
+    top: 88vh;
+    left: 47%;
+}
 .top-button {
-    opacity: 0.3;
     background-color: black;
     border-radius: 50%;
-    width: 7.5%;
-    margin-top: 80vh;
-    margin-left: 46.75%;
-    position: fixed;
+    width: 25px;    
 }
 .refresh-icon {
     height: 5%;
     width: 5%;
-    position: fixed;
-    z-index: 1;
-    right: 0;
-    padding: 5px;
+    border: 1px solid black;
+    padding: 2%;
+    border-radius: 10px;
+    
 }
 </style>

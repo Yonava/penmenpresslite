@@ -7,8 +7,7 @@
             <img v-if="!searching" @click="engageSearch('')" class="search-icon" src="../assets/search.svg" alt="search">
             <img @click="disengageSearch()" :style="showEsc" class="esc-icon" src="../assets/backsearch.svg" alt="esc.">
             
-            <input
-            v-if="searching"
+            <input v-if="searching"
             class="searchbar"
             type="text" 
             placeholder="Articles, Authors, or Categories" 

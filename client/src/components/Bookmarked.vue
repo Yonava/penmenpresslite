@@ -15,7 +15,7 @@
         </center>
 
         <!-- article display -->
-        <div v-for="article in articles" :key="article.id">
+        <div style="margin-top: 2vh;" v-for="article in articles" :key="article.id">
             <div v-if="article.saved">
                 <div class="parent">
                     <div class="box-1" @click="$parent.articleRequested(article)">  

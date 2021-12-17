@@ -121,43 +121,42 @@ export default {
             }
             this.page = page;
         },
-    },
-    async mounted() {
+        async loadAssets() {
 
-        // fetching articles from database
-        this.articleData = await ArticleService.retrieve();
+            // fetching articles from database
+            this.articleData = await ArticleService.retrieve();
 
-        // init article objects
-        for (let i = 0; i < this.articleData.length; i++) {
-            let loadArticles = new ArticleObj(
-                this.articleData[i].title,
-                this.articleData[i].image,
-                this.articleData[i].imageCaption,
-                this.articleData[i].category,
-                this.articleData[i].author,
-                this.articleData[i].date,
-                this.articleData[i].content
-            )
-            this.articles.push(loadArticles);
-        }
+            // init article objects
+            for (let i = 0; i < this.articleData.length; i++) {
+                let loadArticles = new ArticleObj(
+                    this.articleData[i].title,
+                    this.articleData[i].image,
+                    this.articleData[i].imageCaption,
+                    this.articleData[i].category,
+                    this.articleData[i].author,
+                    this.articleData[i].date,
+                    this.articleData[i].content
+                )
+                this.articles.push(loadArticles);
+            }
 
-        // sort by article date
-        this.articles.sort((a, b) => b.dateScore - a.dateScore);
+            // sort by article date
+            this.articles.sort((a, b) => b.dateScore - a.dateScore);
 
-        // init bookmarked localStorage to prevent lag on first click
-        let initBookmarks = localStorage.bookmarked;
-        localStorage.bookmarked = initBookmarks;
-
-        // fetch bookmarked articles from storage
-        if (localStorage.bookmarked) {
-            let parseStorage = localStorage.bookmarked.split(',');
-            this.bookmarked = ['Saved Articles Detected']
-            for (let i = 0; i < parseStorage.length; i++) {
-                for (let j = 0; j < this.articles.length; j++) {
-                    if (this.articles[j].title === parseStorage[i]) this.articles[j].saved = true;
+            // fetch bookmarked articles from storage
+            if (localStorage.bookmarked) {
+                let parseStorage = localStorage.bookmarked.split(',');
+                this.bookmarked = ['Saved Articles Detected']
+                for (let i = 0; i < parseStorage.length; i++) {
+                    for (let j = 0; j < this.articles.length; j++) {
+                        if (this.articles[j].title === parseStorage[i]) this.articles[j].saved = true;
+                    }
                 }
             }
-        }
+        },
+    },
+    mounted() {
+        this.loadAssets();
     },
 }
 </script>
@@ -215,7 +214,7 @@ export default {
 }
 .author {
     margin: 0px;
-    font-size: .5rem;
+    font-size: 6.5pt;
 }
 
 /* HEADER DISPLAY */
