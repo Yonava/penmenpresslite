@@ -75,7 +75,6 @@ export default {
 
 <style scoped>
 .top-div {
-    display: flex;
     position: fixed;
     top: 88vh;
     left: 47%;
@@ -91,6 +90,5 @@ export default {
     border: 1px solid black;
     padding: 2%;
     border-radius: 10px;
-    
 }
 </style>
