@@ -80,6 +80,13 @@ export default {
         }
     },
     methods: {
+        async refresh() {
+            for (let i = 0; i < this.articles.length; i++) {
+                await ArticleService.updateScore(this.articles[i].id, 0);
+                console.log(this.articles[i].score);
+            }
+            this.loadAssets();
+        },
         scoreTracker(id, currentScore, incrementBy) {
             const newScore = currentScore + incrementBy;
             ArticleService.updateScore(id, newScore);

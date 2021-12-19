@@ -26,7 +26,7 @@
 
         <!-- disclaimers -->
         <center style="font-size: 8pt;">
-            <img class="refresh-icon" @click="refresh()" src="../assets/refresh.svg" alt="refresh">
+            <img class="refresh-icon" @click="$parent.refresh()" src="../assets/refresh.svg" alt="refresh">
             <p style="margin-bottom: 0vh;">visit <a href="https://penmenpress.com/">https://penmenpress.com/</a> for more snhu reporting</p>
             <p style="margin-bottom: 14vh; margin-top: .5vh;">© penmenpress 2021, all rights reserved</p>
         </center>
@@ -63,10 +63,7 @@ export default {
         top() {
             window.scrollTo(0, window.scrollY-100);
             if (!(window.scrollY < 1)) setTimeout(this.top, 1);
-        },
-        refresh() {
-            location.reload();
-        },
+        }
     }
 }
 </script>
