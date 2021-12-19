@@ -83,11 +83,11 @@ export default {
         scoreTracker(id, currentScore, incrementBy) {
             const newScore = currentScore + incrementBy;
             ArticleService.updateScore(id, newScore)
+            this.loadAssets()
         },
         bookmark(article, saveState) {
             this.confirmRequest(false);
             article.saved = saveState;
-            if (article.saved) this.scoreTracker(article.id, article.score, 5)
             this.bookmarked = [];
             for (let i = 0; i < this.articles.length; i++) {
                 if (this.articles[i].saved) this.bookmarked.push(this.articles[i].title);
@@ -131,6 +131,8 @@ export default {
             this.page = page;
         },
         async loadAssets() {
+
+            this.articles = [];
 
             // fetching articles from database
             this.articleData = await ArticleService.retrieve();
