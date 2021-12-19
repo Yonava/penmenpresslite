@@ -104,8 +104,8 @@ export default {
                 this.articles.sort((a, b) => b.dateScore - a.dateScore);
                 const articleLookup = this.articles.indexOf(this.selectedArticle);
                 await this.loadAssets();
-                this.scoreTracker(this.articles[articleLookup].id, this.articles[articleLookup].score, 15);
-                this.selectedArticle.score = this.articles[articleLookup].score + 15;
+                this.scoreTracker(this.articles[articleLookup].id, this.articles[articleLookup].score, 1);
+                this.selectedArticle.score = this.articles[articleLookup].score + 1;
             }
             request ? this.requestHandler = true:this.requestHandler = false;
         },
