@@ -129,6 +129,7 @@ export default {
                     this.selected = ['filter: invert(60%);', 'filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);'];
                     break;
             }
+            if (page != 'trending') this.articles.sort((a, b) => b.dateScore - a.dateScore);
             this.page = page;
         },
         async loadAssets() {
@@ -170,10 +171,8 @@ export default {
         },
     },
     mounted() {
-        this.loadAssets();
-        
-        
 
+        this.loadAssets();
     },
 }
 </script>
