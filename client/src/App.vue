@@ -82,8 +82,7 @@ export default {
     methods: {
         scoreTracker(id, currentScore, incrementBy) {
             const newScore = currentScore + incrementBy;
-            ArticleService.updateScore(id, newScore)
-            this.loadAssets()
+            ArticleService.updateScore(id, newScore);
         },
         bookmark(article, saveState) {
             this.confirmRequest(false);
@@ -102,7 +101,9 @@ export default {
             if (!request) this.requestHandler = false;
             if (this.requestHandler) {
                 this.toggleContentView();
-                this.scoreTracker(this.selectedArticle.id, this.selectedArticle.score, 15);
+                const articleLookup = this.articles.indexOf(this.selectedArticle);
+                this.loadAssets();
+                this.scoreTracker(this.articles[articleLookup].id, this.articles[articleLookup].score, 15);
             }
             request ? this.requestHandler = true:this.requestHandler = false;
         },
