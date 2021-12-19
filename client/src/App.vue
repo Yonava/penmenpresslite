@@ -81,11 +81,12 @@ export default {
     },
     methods: {
         async refresh() {
-            for (let i = 0; i < this.articles.length; i++) {
-                await ArticleService.updateScore(this.articles[i].id, 0);
-                console.log(this.articles[i].score);
-            }
-            this.loadAssets();
+            // for (let i = 0; i < this.articles.length; i++) {
+            //     await ArticleService.updateScore(this.articles[i].id, 0);
+            //     console.log(this.articles[i].score);
+            // }
+            // this.loadAssets();
+            location.reload();
         },
         scoreTracker(id, currentScore, incrementBy) {
             const newScore = currentScore + incrementBy;
