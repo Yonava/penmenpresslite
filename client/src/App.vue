@@ -97,12 +97,13 @@ export default {
             this.selectedArticle = selectedArticle;
             setTimeout(this.confirmRequest(true), 3)
         },
-        confirmRequest(request) {
+        async confirmRequest(request) {
             if (!request) this.requestHandler = false;
             if (this.requestHandler) {
                 this.toggleContentView();
+                this.articles.sort((a, b) => b.dateScore - a.dateScore);
                 const articleLookup = this.articles.indexOf(this.selectedArticle);
-                this.loadAssets();
+                await this.loadAssets();
                 this.scoreTracker(this.articles[articleLookup].id, this.articles[articleLookup].score, 15);
             }
             request ? this.requestHandler = true:this.requestHandler = false;
@@ -127,8 +128,6 @@ export default {
                     this.selected = ['filter: invert(60%);', 'filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);'];
                     break;
             }
-            if (page != 'trending') this.articles.sort((a, b) => b.dateScore - a.dateScore);
-            else this.articles.sort((a, b) => b.score - a.score);
             this.page = page;
         },
         async loadAssets() {
@@ -171,6 +170,9 @@ export default {
     },
     mounted() {
         this.loadAssets();
+        
+        
+
     },
 }
 </script>
