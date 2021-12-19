@@ -47,7 +47,7 @@ export default {
     },
     mounted() {
         // set page position
-        window.scrollTo(0, localStorage.pagePos);
+        window.scrollTo(0, localStorage.pagePosFeed);
     },
     created() {
         addEventListener("scroll", (this.captureY));
@@ -57,7 +57,7 @@ export default {
     },
     methods: {
         captureY() {
-            localStorage.pagePos = window.scrollY;
+            localStorage.pagePosFeed = window.scrollY;
             window.scrollY > 500 ? this.topStyle = '':this.topStyle = 'display: none;';
         },
         top() {

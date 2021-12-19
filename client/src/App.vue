@@ -66,10 +66,9 @@ export default {
         Bookmarked,
         Feed,
         Trending,
-        },
+    },
     data: () => {
         return {
-            fetch: [],
             bookmarked: [],
             articleData: [],
             contentView: false,
@@ -81,9 +80,14 @@ export default {
         }
     },
     methods: {
+        scoreTracker(id, currentScore, incrementBy) {
+            const newScore = currentScore + incrementBy;
+            ArticleService.updateScore(id, newScore)
+        },
         bookmark(article, saveState) {
             this.confirmRequest(false);
             article.saved = saveState;
+            if (article.saved) this.scoreTracker(article.id, article.score, 5)
             this.bookmarked = [];
             for (let i = 0; i < this.articles.length; i++) {
                 if (this.articles[i].saved) this.bookmarked.push(this.articles[i].title);
@@ -96,7 +100,10 @@ export default {
         },
         confirmRequest(request) {
             if (!request) this.requestHandler = false;
-            if (this.requestHandler) this.toggleContentView();
+            if (this.requestHandler) {
+                this.toggleContentView();
+                this.scoreTracker(this.selectedArticle.id, this.selectedArticle.score, 15);
+            }
             request ? this.requestHandler = true:this.requestHandler = false;
         },
         toggleContentView() {
@@ -119,6 +126,8 @@ export default {
                     this.selected = ['filter: invert(60%);', 'filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);'];
                     break;
             }
+            if (page != 'trending') this.articles.sort((a, b) => b.dateScore - a.dateScore);
+            else this.articles.sort((a, b) => b.score - a.score);
             this.page = page;
         },
         async loadAssets() {
@@ -136,7 +145,8 @@ export default {
                     this.articleData[i].author,
                     this.articleData[i].date,
                     this.articleData[i].content,
-                    this.articleData[i].score
+                    this.articleData[i].score,
+                    this.articleData[i]._id
                 )
                 this.articles.push(loadArticles);
             }

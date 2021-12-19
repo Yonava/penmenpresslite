@@ -19,7 +19,8 @@
             <div>
                 <p class="cat">{{ article.category.substring(1) }}</p>
                 <h1 class="headline">{{ article.title.substring(1) }}</h1>
-                <p class="author-credit">{{ article.author.substring(1) }}</p>
+                <p class="author-credit">{{ article.author.substring(1) }} - {{ article.date }} 
+                    - Score: {{ article.score }}</p>
                 <img :src="article.image" :alt="article.imageCaption">
                 <center>
                     <p class="caption">{{ article.imageCaption }}</p>
@@ -172,7 +173,6 @@ export default {
     font-size: 6pt;
 }
 img {
-    max-height: 40vh;
     width: 100%;
     object-fit: cover;
 }
