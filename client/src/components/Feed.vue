@@ -6,7 +6,7 @@
             <h1 style="margin-left: 3%; opacity: 1; margin-top: 0vh; margin-bottom: 0px;">NEWS FEED</h1>
         </header>
        
-        <img @click="top()" :style="topStyle" class="top-button" src="../assets/top-button.svg" alt="up">
+        <img @click="top()" :style="topStyle" class="top-button" src="../assets/top-button.svg" alt="scroll-up">
 
         <!-- article display -->
         <div style="margin-top: 2vh;" class="parent" v-for="article in articles" :key="article.id">
@@ -61,7 +61,7 @@ export default {
             window.scrollY > 500 ? this.topStyle = '':this.topStyle = 'display: none;';
         },
         top() {
-            window.scrollTo(0, window.scrollY-75);
+            window.scrollTo(0, window.scrollY-100);
             if (!(window.scrollY < 1)) setTimeout(this.top, 1);
         },
         refresh() {

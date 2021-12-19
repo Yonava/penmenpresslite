@@ -6,8 +6,6 @@
             <h1 style="margin-left: 3%; opacity: 1; margin-top: 0px; margin-bottom: 0px;">SAVED ARTICLES</h1>
         </header>
         
-        <br>
-
         <!-- if no saved articles -->
         <center v-if="!saved">
             <p class="non-saved">Saved/Bookmarked Articles Show Up Here</p>

@@ -1,16 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
 
-// middlewear
+// middleware
 app.use(bodyParser.json());
 app.use(cors());
 
 const articles = require('./routes/api/articles');
 app.use('/api/articles', articles);
+
+mongoose.connect(process.env.API_KEY, () => console.log('Successfully Connected'))
 
 // Handle production
 if (process.env.NODE_ENV === 'production') {

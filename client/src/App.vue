@@ -135,7 +135,8 @@ export default {
                     this.articleData[i].category,
                     this.articleData[i].author,
                     this.articleData[i].date,
-                    this.articleData[i].content
+                    this.articleData[i].content,
+                    this.articleData[i].score
                 )
                 this.articles.push(loadArticles);
             }
