@@ -38,7 +38,7 @@
 
         <br /><br />
 
-        <p style="font-size: 4pt;">{{ article.score }}</p>
+        <p style="font-size: 4pt;">Trending Score: {{ article.score }}</p>
 
     </div>
 
