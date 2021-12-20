@@ -53,7 +53,7 @@ export default {
     methods: {
         captureY() {
             localStorage.pagePosTrending = window.scrollY;
-            if (window.scrollY < -200) {
+            if (window.scrollY < -150) {
                 
                 this.$parent.loadAssets();
                 window.scrollTo(0, 0);
