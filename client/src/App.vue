@@ -8,7 +8,7 @@
 
         <!-- content view / reader view -->
         <div v-else-if="contentView">
-            <Content :article="selectedArticle" />
+            <Content :article="selectedArticle" :articles="articles" />
         </div>
 
         <!-- discover menu -->
@@ -105,16 +105,9 @@ export default {
             this.selectedArticle = selectedArticle;
             setTimeout(this.confirmRequest(true), 3)
         },
-        async confirmRequest(request) {
+        confirmRequest(request) {
             if (!request) this.requestHandler = false;
-            if (this.requestHandler) {
-                this.toggleContentView();
-                this.articles.sort((a, b) => b.dateScore - a.dateScore);
-                const articleLookup = this.articles.indexOf(this.selectedArticle);
-                await this.loadAssets();
-                this.scoreTracker(this.articles[articleLookup].id, this.articles[articleLookup].score, 1);
-                this.selectedArticle.score = this.articles[articleLookup].score + 1;
-            }
+            if (this.requestHandler) this.toggleContentView();
             request ? this.requestHandler = true:this.requestHandler = false;
         },
         toggleContentView() {

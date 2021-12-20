@@ -20,7 +20,7 @@
                 <p class="cat">{{ article.category.substring(1) }}</p>
                 <h1 class="headline">{{ article.title.substring(1) }}</h1>
                 <p class="author-credit">{{ article.author.substring(1) }} - {{ article.date }} 
-                    - Views: {{ article.score }}</p>
+                    - {{ article.score }} Views</p>
                 <img :src="article.image" :alt="article.imageCaption">
                 <center>
                     <p class="caption">{{ article.imageCaption }}</p>
@@ -33,10 +33,9 @@
         <!-- return button -->
         <button :style="returnButtonStyle" 
         class="back" 
-        @click="$parent.toggleContentView()">
+        @click="updateScore()">
             <b>Return to Feed</b>
         </button>
-
 
         <br /><br />
 
@@ -49,6 +48,7 @@
 export default {
     props: [
         'article',
+        'articles',
     ],
     data: () => {
         return {
@@ -63,22 +63,23 @@ export default {
             fontLabel: 'opacity: 0;',
             buttonColoration: 'background-color: white;',
             fontSliderCooldown: false,
+            timeSpent: 0,
         }
     },
     created() {
         document.addEventListener("scroll", (this.scroll));
+        this.timeKeeper = setInterval(() => this.timeSpent++, 1000);
     },
     destroyed() {
         document.removeEventListener("scroll", (this.scroll));
+        clearInterval(this.timeKeeper)
     },
     mounted() {
         if (localStorage.articleSize) {
             this.articleSize = localStorage.articleSize;
             this.resizeInput = localStorage.resizeInput;
         }
-        window.navigator.vibrate([200, 100, 200]); // works on andriod devices
-        // add view count put request here
-        // start article background timer
+        window.navigator.vibrate([200, 100, 200]); // works on some andriod devices
     },
     watch: {
         resizeInput() {
@@ -129,8 +130,30 @@ export default {
                     this.fontSliderCooldown = false;
                 });
             }
-            
 
+        },
+        scoreAlgo() {
+
+            let score = 0;
+            if (this.timeSpent >= 10) {
+                score = this.timeSpent;
+            }
+            return score;
+        },
+        async updateScore() {
+
+            const appliedScore = this.scoreAlgo();
+
+            if (appliedScore > 0) {
+                this.articles.sort((a, b) => b.dateScore - a.dateScore);
+                const articleLookup = this.articles.indexOf(this.article);
+                await this.$parent.loadAssets();
+                this.$parent.scoreTracker(this.articles[articleLookup].id, 
+                this.articles[articleLookup].score, appliedScore);
+            }
+
+            this.$parent.toggleContentView();
+            
         }
     }
 }
