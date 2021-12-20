@@ -37,13 +37,16 @@
         </button>
 
         <br /><br />
-        <p>{{ article.score }}</p>
+
+        <p style="font-size: 4pt;">{{ article.score }}</p>
 
     </div>
 
 </template>
 
 <script>
+
+import DatabaseService from '../DatabaseService'
 
 export default {
     props: [
@@ -78,8 +81,8 @@ export default {
         document.removeEventListener("scroll", (this.scroll));
         clearInterval(this.timeKeeper)
     },
-    mounted() {
-        
+    async mounted() {
+    
         if (localStorage.articleSize) {
             this.articleSize = localStorage.articleSize;
             this.resizeInput = localStorage.resizeInput;
@@ -140,7 +143,7 @@ export default {
         scoreAlgo() {
 
             let score = 0;
-            const minStayLength = 7;
+            const minStayLength = 5;
 
             if (this.timeSpent >= minStayLength) {
                 const pageLength = Math.max(
@@ -160,11 +163,8 @@ export default {
             const appliedScore = this.scoreAlgo();
             this.$parent.toggleContentView();
             if (appliedScore > 0) {
-                this.articles.sort((a, b) => b.dateScore - a.dateScore);
-                const articleLookup = this.articles.indexOf(this.article);
-                await this.$parent.loadAssets();
-                this.$parent.scoreTracker(this.articles[articleLookup].id, 
-                this.articles[articleLookup].score, appliedScore);
+                const payload = await DatabaseService.retrieveOne(this.article.id);
+                this.$parent.scoreTracker(this.article.id, payload.score, appliedScore);
             }
         }
     }

@@ -12,6 +12,16 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+
+    try {
+        const articles = await Article.findOne({ _id: req.params.id });
+        res.json(articles);
+    } catch (error) {
+        res.json({ message: error });
+    }
+})
+
 router.post('/', async (req, res) => {
 
     const article = new Article({
