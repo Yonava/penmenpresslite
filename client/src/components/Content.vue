@@ -19,8 +19,7 @@
             <div>
                 <p class="cat">{{ article.category.substring(1) }}</p>
                 <h1 class="headline">{{ article.title.substring(1) }}</h1>
-                <p class="author-credit">{{ article.author.substring(1) }} - {{ article.date }} 
-                    - {{ article.score }} Views</p>
+                <p class="author-credit">{{ article.author.substring(1) }} - {{ article.date }}</p>
                 <img :src="article.image" :alt="article.imageCaption">
                 <center>
                     <p class="caption">{{ article.imageCaption }}</p>
@@ -38,6 +37,7 @@
         </button>
 
         <br /><br />
+        <p>{{ article.score }}</p>
 
     </div>
 
@@ -64,17 +64,22 @@ export default {
             buttonColoration: 'background-color: white;',
             fontSliderCooldown: false,
             timeSpent: 0,
+            pageSnapshots: [],
         }
     },
     created() {
         document.addEventListener("scroll", (this.scroll));
-        this.timeKeeper = setInterval(() => this.timeSpent++, 1000);
+        this.timeKeeper = setInterval(() => {
+            this.timeSpent++;
+            this.pageSnapshots.push(window.scrollY);
+        }, 1000);
     },
     destroyed() {
         document.removeEventListener("scroll", (this.scroll));
         clearInterval(this.timeKeeper)
     },
     mounted() {
+        
         if (localStorage.articleSize) {
             this.articleSize = localStorage.articleSize;
             this.resizeInput = localStorage.resizeInput;
@@ -135,15 +140,25 @@ export default {
         scoreAlgo() {
 
             let score = 0;
-            if (this.timeSpent >= 10) {
-                score = this.timeSpent;
+            const minStayLength = 7;
+
+            if (this.timeSpent >= minStayLength) {
+                const pageLength = Math.max(
+                document.body.scrollHeight, 
+                document.body.offsetHeight, 
+                document.documentElement.clientHeight, 
+                document.documentElement.scrollHeight, 
+                document.documentElement.offsetHeight
+                );
+                const readThruMultiplier = (Math.max(...this.pageSnapshots) / pageLength);
+                score = this.timeSpent * readThruMultiplier;
             }
-            return score;
+            return Math.round(score);
         },
         async updateScore() {
 
             const appliedScore = this.scoreAlgo();
-
+            this.$parent.toggleContentView();
             if (appliedScore > 0) {
                 this.articles.sort((a, b) => b.dateScore - a.dateScore);
                 const articleLookup = this.articles.indexOf(this.article);
@@ -151,9 +166,6 @@ export default {
                 this.$parent.scoreTracker(this.articles[articleLookup].id, 
                 this.articles[articleLookup].score, appliedScore);
             }
-
-            this.$parent.toggleContentView();
-            
         }
     }
 }
