@@ -139,10 +139,10 @@ export default {
         },
         async loadAssets() {
 
-            this.articles = [];
-
             // fetching articles from database
             this.articleData = await ArticleService.retrieve();
+            
+            this.articles = [];
 
             // init article objects
             for (let i = 0; i < this.articleData.length; i++) {
