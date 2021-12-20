@@ -53,7 +53,11 @@ export default {
     methods: {
         captureY() {
             localStorage.pagePosTrending = window.scrollY;
-            if (window.scrollY < -100) this.$parent.loadAssets();
+            if (window.scrollY < -100) {
+                
+                this.$parent.loadAssets();
+                window.scrollTo(0, 0);
+            }
         },
         sortTrending() {
             this.trendingArticles = this.articles;
