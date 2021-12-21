@@ -38,7 +38,7 @@
 
         <br /><br />
 
-        <p style="font-size: 4pt;">Trending Score: {{ article.score }}</p>
+        <p style="font-size: 4pt;">----> Trending Score: {{ article.score }}</p>
 
     </div>
 
@@ -219,6 +219,7 @@ img {
     margin-left: 3%;
     transition: 200ms ease-in-out;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    color: black; /* for some versions of ios */
 }
 .headline {
     font-size: 20pt;

@@ -88,9 +88,7 @@ export default {
             //     await ArticleService.updateScore(this.articles[i].id, 0);
             //     console.log(this.articles[i].score);
             // }
-            // this.loadAssets();
-
-            location.reload();
+            this.loadAssets();
         },
         scoreTracker(id, currentScore, incrementBy) {
             const newScore = currentScore + incrementBy;
@@ -275,7 +273,7 @@ export default {
     margin-bottom: 0px;
 }
 .bottom {
-    height: 6vh;
+    height: 7.5vh;
     background-color: white;
     position: fixed;
     bottom: 0;
