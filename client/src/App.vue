@@ -40,7 +40,7 @@
                 </div>
                 <div @click="navigate('bookmarked')" :style="selected[3]" class="nav-container">
                     <img v-if="page != 'bookmarked'" class="icon" src="./assets/savedicon.svg" alt="saved">
-                    <img class="icon" src="./assets/savedicon-filled.svg" alt="saved-selected">
+                    <img v-else class="icon" src="./assets/savedicon-filled.svg" alt="saved-selected">
                 </div>
             </div>
         </footer> 
@@ -71,6 +71,7 @@ export default {
         return {
             bookmarked: [],
             articleData: [],
+            styleSelected: 'opacity: 0;',
             contentView: false,
             selectedArticle: {},
             page: 'home',
@@ -130,9 +131,13 @@ export default {
                     break;
                 case 'trending':
                     this.selected = ['filter: invert(60%);', 'filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);'];
+                    this.styleSelected = 'opacity: 1';
                     break;
             }
-            if (page != 'trending') this.articles.sort((a, b) => b.dateScore - a.dateScore);
+            if (page != 'trending') {
+                this.articles.sort((a, b) => b.dateScore - a.dateScore);
+                this.styleSelected = 'opacity: 0;'
+            }
             this.page = page;
         },
         async loadAssets() {
@@ -240,8 +245,7 @@ export default {
 .feed-header {
     top: 0;
     position: sticky;
-    background-color: white;
-    opacity: 0.95;
+    background: linear-gradient(#ffffff, #fffffff5);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     border-bottom: .2vh solid black; 
     display: relative;
@@ -255,7 +259,7 @@ export default {
 }
 .icon {
     height: 5vh;
-    width: 5vh;
+    width: 5.3vh;
     margin-bottom: 0px;
 }
 .nav-container {
@@ -271,6 +275,7 @@ export default {
     justify-content: center;
     display: flex;
     margin-bottom: 0px;
+    background-color: white;
 }
 .bottom {
     height: 7.5vh;
