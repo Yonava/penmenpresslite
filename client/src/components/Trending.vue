@@ -2,7 +2,7 @@
     <div>
 
         <!-- reload icon -->
-        <img class="book" v-if="checkPos()" src="../assets/refresh.svg" alt="refresh">
+        <img class="book" v-if="y < -100" src="../assets/refresh.svg" alt="refresh">
 
         <!-- trending banner -->
         <header class="feed-header"> 
@@ -39,15 +39,18 @@ export default {
     data: () => {
         return {
             trendingArticles: [],
+            y: 0,
         }
     },
     mounted() {
         this.sortTrending();
     },
     created() {
+        addEventListener("scroll", this.captureY);
         addEventListener("touchend", this.checkReload);
     },
     destroyed() {
+        removeEventListener("scroll", this.captureY);
         removeEventListener("touchend", this.checkReload);
     },
     methods: {
@@ -58,6 +61,9 @@ export default {
         },
         checkReload() {
             if (window.scrollY < -100) this.$parent.loadAssets();
+        },
+        captureY() {
+            this.y = window.scrollY;   
         },
         sortTrending() {
             this.trendingArticles = this.articles;
