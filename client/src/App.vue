@@ -1,6 +1,6 @@
 <template>
     <div>
-
+       
         <!-- home feed -->
         <div v-if="!contentView && page === 'home'">
             <Feed :articles="articles" />
@@ -40,7 +40,7 @@
                 </div>
                 <div @click="navigate('bookmarked')" :style="selected[3]" class="nav-container">
                     <img v-if="page != 'bookmarked'" class="icon" src="./assets/savedicon.svg" alt="saved">
-                    <img v-else class="icon" src="./assets/savedicon-filled.svg" alt="saved-selected">
+                    <img class="icon" :style="styleSelected" src="./assets/savedicon-filled.svg" alt="saved-selected">
                 </div>
             </div>
         </footer> 
@@ -71,7 +71,7 @@ export default {
         return {
             bookmarked: [],
             articleData: [],
-            styleSelected: 'opacity: 0;',
+            styleSelected: 'display: none',
             contentView: false,
             selectedArticle: {},
             page: 'home',
@@ -81,6 +81,9 @@ export default {
         }
     },
     methods: {
+        hi() {
+            console.log('k')
+        },
         async refresh() {
             
             // TOGGLE COMMENTED AREA FOR DEV BUILD:
@@ -118,7 +121,7 @@ export default {
             this.contentView = !this.contentView;
         },
         navigate(page) {
-            window.scrollTo(0,0);
+            
             switch (page) {
                 case 'discover':
                     this.selected = ['filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);', 'filter: invert(60%);'];
@@ -131,14 +134,18 @@ export default {
                     break;
                 case 'trending':
                     this.selected = ['filter: invert(60%);', 'filter: invert(60%);', 'filter: invert(0%);', 'filter: invert(60%);'];
-                    this.styleSelected = 'opacity: 1';
                     break;
             }
             if (page != 'trending') {
                 this.articles.sort((a, b) => b.dateScore - a.dateScore);
-                this.styleSelected = 'opacity: 0;'
+                window.scrollTo(0,0);
             }
+
+            if (page === 'bookmarked') this.styleSelected = '';
+            else this.styleSelected = 'display: none';  
+
             this.page = page;
+
         },
         async loadAssets() {
 
@@ -271,14 +278,14 @@ export default {
     margin-bottom: 0px;
 }
 .bottom-container {
+    margin-top: .5vh;
     width: 90vw;
     justify-content: center;
     display: flex;
-    margin-bottom: 0px;
     background-color: white;
 }
 .bottom {
-    height: 7.5vh;
+    height: 7.75vh;
     background-color: white;
     position: fixed;
     bottom: 0;
@@ -286,7 +293,6 @@ export default {
     border-top: 1px black solid;
     display: flex;
     justify-content: center;
-    margin-bottom: 0px;
 }
 
 /* GLOBAL DISPLAY */

@@ -1,5 +1,9 @@
 <template>
     <div>
+
+        <!-- reload icon -->
+        <img class="book" v-if="checkPos()" src="../assets/refresh.svg" alt="refresh">
+
         <!-- trending banner -->
         <header class="feed-header"> 
             <h1 style="margin-left: 3%; opacity: 1; margin-top: 0px; margin-bottom: 0px;">TRENDING</h1>
@@ -38,26 +42,22 @@ export default {
         }
     },
     mounted() {
-
-        // set page position
-        window.scrollTo(0, localStorage.pagePosTrending);  
-
         this.sortTrending();
     },
     created() {
-        addEventListener("scroll", (this.captureY));
+        addEventListener("touchend", this.checkReload);
     },
     destroyed() {
-        removeEventListener("scroll", (this.captureY));
+        removeEventListener("touchend", this.checkReload);
     },
     methods: {
-        captureY() {
-            localStorage.pagePosTrending = window.scrollY;
-            if (window.scrollY < -150) {
-                
-                this.$parent.loadAssets();
-                window.scrollTo(0, 0);
-            }
+        checkPos() {
+            let value = false;
+            if (window.scrollY < -100) value = true;
+            return value;
+        },
+        checkReload() {
+            if (window.scrollY < -100) this.$parent.loadAssets();
         },
         sortTrending() {
             this.trendingArticles = this.articles;

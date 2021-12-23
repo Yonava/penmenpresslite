@@ -229,6 +229,7 @@ export default {
 </script>
 
 <style scoped>
+
 /* SOCIALS */
 .social-title {
     font-size: 16pt;

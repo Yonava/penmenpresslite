@@ -5,7 +5,8 @@
 
             <!-- utility panel -->
             <div class="utility-parent">
-                <img class="utility-icon" src="../assets/share.svg" alt="share">
+                <!-- share icon disabled until functionality gets built in -->
+                <!-- <img class="utility-icon" src="../assets/share.svg" alt="share"> -->
                 <img @click="resizeFont()" 
                 class="utility-icon" 
                 src="../assets/font.svg" 
@@ -129,7 +130,7 @@ export default {
                     setTimeout(() => this.expandFontSlider += 'opacity: 0;', delay + fontLabelTrasitDur);
                 } else {
                     this.expandFontSlider = 'width: 2vw; opacity: 1;';
-                    setTimeout(() => this.expandFontSlider += 'width: 55vw;', delay);
+                    setTimeout(() => this.expandFontSlider += 'width: 72.5vw;', delay);
                 }
                 resolvePromise.then(() => {
                     if (!this.sliderExpanded) this.fontLabel = 'opacity: 1;';
