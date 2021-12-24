@@ -65,7 +65,8 @@ export default {
                 setTimeout(() => {
                     this.blocked = false;
                     this.refresh = 'display: none';
-                }, 1500)
+                    this.sortTrending();
+                }, 3000)
             }
         },
         captureY() {
@@ -80,9 +81,6 @@ export default {
             let pos = this.trendingArticles.indexOf(article) + 1;
             if (pos < 10) pos = '0' + pos;
             return pos;
-        },
-        reloadAnimation() {
-
         }
     }
 }
@@ -102,6 +100,6 @@ export default {
 .refresh-icon {
     width: 3vh;
     margin: 1vh;
-    transition: 1500ms ease-in-out;
+    transition: 3s ease-in;
 }
 </style>
