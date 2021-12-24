@@ -2,7 +2,9 @@
     <div>
 
         <!-- reload icon -->
-        <img class="book" v-if="y < -100" src="../assets/refresh.svg" alt="refresh">
+        <center>
+            <img class="refresh-icon" :style="refresh" src="../assets/refresh.svg" alt="refresh">
+        </center>
 
         <!-- trending banner -->
         <header class="feed-header"> 
@@ -39,7 +41,8 @@ export default {
     data: () => {
         return {
             trendingArticles: [],
-            y: 0,
+            refresh: 'display: none;',
+            blocked: false,
         }
     },
     mounted() {
@@ -54,27 +57,30 @@ export default {
         removeEventListener("touchend", this.checkReload);
     },
     methods: {
-        checkPos() {
-            let value = false;
-            if (window.scrollY < -100) value = true;
-            return value;
-        },
         checkReload() {
-            if (window.scrollY < -100) this.$parent.loadAssets();
+            if (window.scrollY < -100) {
+                this.blocked = true;
+                this.refresh = 'transform: rotate(360deg)'
+                this.$parent.loadAssets();
+                setTimeout(() => this.blocked = false, 2000)
+            }
         },
         captureY() {
-            this.y = window.scrollY;   
+            if (window.scrollY < -100 && !this.blocked) this.refresh = '';
+            else if (!this.blocked) this.refresh = 'display: none'
         },
         sortTrending() {
             this.trendingArticles = this.articles;
             this.trendingArticles.sort((a, b) => b.score - a.score)
         },
         rank(article) {
-
             let pos = this.trendingArticles.indexOf(article) + 1;
             if (pos < 10) pos = '0' + pos;
             return pos;
-        }  
+        },
+        reloadAnimation() {
+
+        }
     }
 }
 </script>
@@ -89,5 +95,9 @@ export default {
     flex-wrap: wrap;
     font-weight: bold;
     font-size: 8pt;
+}
+.refresh-icon {
+    width: 2.5vh;
+    transition: 2s ease-in-out;
 }
 </style>
