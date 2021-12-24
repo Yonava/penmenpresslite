@@ -58,9 +58,9 @@ export default {
     },
     methods: {
         checkReload() {
-            if (window.scrollY < -100) {
+            if (window.scrollY < -100 && !this.blocked) {
                 this.blocked = true;
-                this.refresh = 'transform: rotate(1250deg)';
+                this.refresh = 'transform: rotate(1350deg)';
                 this.$parent.loadAssets();
                 setTimeout(() => {
                     this.blocked = false;
@@ -100,6 +100,6 @@ export default {
 .refresh-icon {
     width: 3vh;
     margin: 1vh;
-    transition: 3s ease-in;
+    transition: 3s;
 }
 </style>
