@@ -62,7 +62,10 @@ export default {
                 this.blocked = true;
                 this.refresh = 'transform: rotate(360deg)'
                 this.$parent.loadAssets();
-                setTimeout(() => this.blocked = false, 2000)
+                setTimeout(() => {
+                    this.blocked = false;
+                    this.refresh = 'display: none';
+                }, 1500)
             }
         },
         captureY() {
@@ -97,7 +100,8 @@ export default {
     font-size: 8pt;
 }
 .refresh-icon {
-    width: 2.5vh;
-    transition: 2s ease-in-out;
+    width: 3vh;
+    margin: 1vh;
+    transition: 1500ms ease-in-out;
 }
 </style>
