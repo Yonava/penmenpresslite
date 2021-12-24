@@ -81,17 +81,14 @@ export default {
         }
     },
     methods: {
-        hi() {
-            console.log('k')
-        },
         async refresh() {
             
             // TOGGLE COMMENTED AREA FOR DEV BUILD:
 
-            // for (let i = 0; i < this.articles.length; i++) {
-            //     await ArticleService.updateScore(this.articles[i].id, 0);
-            //     console.log(this.articles[i].score);
-            // }
+            for (let i = 0; i < this.articles.length; i++) {
+                await ArticleService.updateScore(this.articles[i].id, 0);
+                console.log(this.articles[i].score);
+            }
             this.loadAssets();
         },
         scoreTracker(id, currentScore, incrementBy) {

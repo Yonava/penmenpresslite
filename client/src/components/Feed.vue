@@ -50,10 +50,10 @@ export default {
         window.scrollTo(0, localStorage.pagePosFeed);
     },
     created() {
-        addEventListener("scroll", (this.captureY));
+        addEventListener("scroll", this.captureY);
     },
     destroyed() {
-        removeEventListener("scroll", (this.captureY));
+        removeEventListener("scroll", this.captureY);
     },
     methods: {
         captureY() {
@@ -72,7 +72,7 @@ export default {
 
 .top-button {
     position: fixed;
-    top: 88vh;
+    top: 85vh;
     left: 47%;
     background-color: black;
     border-radius: 50%;

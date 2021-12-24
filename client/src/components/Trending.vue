@@ -60,7 +60,7 @@ export default {
         checkReload() {
             if (window.scrollY < -100) {
                 this.blocked = true;
-                this.refresh = 'transform: rotate(360deg)'
+                this.refresh = 'transform: rotate(1250deg)';
                 this.$parent.loadAssets();
                 setTimeout(() => {
                     this.blocked = false;
