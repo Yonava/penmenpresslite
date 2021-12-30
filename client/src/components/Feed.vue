@@ -61,8 +61,10 @@ export default {
             window.scrollY > 500 ? this.topStyle = '':this.topStyle = 'display: none;';
         },
         top() {
-            window.scrollTo(0, window.scrollY-100);
-            if (!(window.scrollY < 1)) setTimeout(this.top, 1);
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
     }
 }

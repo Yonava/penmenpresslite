@@ -114,7 +114,7 @@ export default {
             request ? this.requestHandler = true:this.requestHandler = false;
         },
         toggleContentView() {
-            window.scrollTo(0,0);
+            window.scrollTo(0, 0);
             this.contentView = !this.contentView;
         },
         navigate(page) {
@@ -238,7 +238,9 @@ export default {
     background-color: rgb(46, 185, 185);
     color: white;
     font-size: 8pt;
-    padding: .5vw;
+    padding: .75vw;
+    padding-left: 1vw;
+    border-radius: 5px;
 }
 .author {
     margin: 0px;

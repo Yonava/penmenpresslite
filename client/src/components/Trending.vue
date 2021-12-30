@@ -11,6 +11,8 @@
             <h1 style="margin-left: 3%; opacity: 1; margin-top: 0px; margin-bottom: 0px;">TRENDING</h1>
         </header>
 
+        <img @click="top()" :style="topStyle" class="top-button" src="../assets/top-button.svg" alt="scroll-up">
+
         <!-- article display -->
         <div class="parent" style="margin-top: 2vh;" v-for="article in trendingArticles" :key="article.id">
             <div class="box-1" @click="$parent.articleRequested(article)"> 
@@ -43,6 +45,7 @@ export default {
             trendingArticles: [],
             refresh: 'display: none;',
             blocked: false,
+            topStyle: 'display: none;',
         }
     },
     mounted() {
@@ -70,6 +73,8 @@ export default {
             }
         },
         captureY() {
+            window.scrollY > 500 ? this.topStyle = '':this.topStyle = 'display: none;';
+            console.log(this.topStyle)
             if (window.scrollY < -100 && !this.blocked) this.refresh = '';
             else if (!this.blocked) this.refresh = 'display: none'
         },
@@ -81,6 +86,12 @@ export default {
             let pos = this.trendingArticles.indexOf(article) + 1;
             if (pos < 10) pos = '0' + pos;
             return pos;
+        },
+        top() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
     }
 }
@@ -88,6 +99,14 @@ export default {
 
 <style scoped>
 
+.top-button {
+    position: fixed;
+    top: 85vh;
+    left: 47%;
+    background-color: black;
+    border-radius: 50%;
+    width: 25px;    
+}
 .ranking {
     margin: 0%; 
     margin-right: 2%;
