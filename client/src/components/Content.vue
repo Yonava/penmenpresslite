@@ -72,14 +72,14 @@ export default {
         }
     },
     created() {
-        document.addEventListener("scroll", (this.scroll));
+        document.addEventListener("scroll", this.scroll);
         this.timeKeeper = setInterval(() => {
             this.timeSpent++;
             this.pageSnapshots.push(window.scrollY);
         }, 1000);
     },
     destroyed() {
-        document.removeEventListener("scroll", (this.scroll));
+        document.removeEventListener("scroll", this.scroll);
         clearInterval(this.timeKeeper)
     },
     async mounted() {
