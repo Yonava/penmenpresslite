@@ -10,7 +10,7 @@
             <input v-if="searching"
             class="searchbar"
             type="text" 
-            placeholder="Articles, Authors, or Categories" 
+            placeholder="Try searching 'Yona Voss-Andreae'" 
             v-model="rawQuery"
             @click="engageSearch(rawQuery)" />
                
