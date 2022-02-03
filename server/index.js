@@ -13,7 +13,7 @@ app.use(cors());
 const articles = require('./routes/api/articles');
 app.use('/api/articles', articles);
 
-mongoose.connect(process.env.API_KEY, () => console.log('Successfully Connected'))
+mongoose.connect('mongodb+srv://press:dpM2qhDcvhsbwxOk@cluster0.wfzfa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', () => console.log('Successfully Connected'))
 
 // Handle production
 if (process.env.NODE_ENV === 'production') {
@@ -24,6 +24,6 @@ if (process.env.NODE_ENV === 'production') {
     app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
 }
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 app.listen(port, () => console.log(`Listening @ localhost:${port}`));

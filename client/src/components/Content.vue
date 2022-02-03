@@ -5,8 +5,7 @@
 
             <!-- utility panel -->
             <div class="utility-parent">
-                <!-- share icon disabled until functionality gets built in -->
-                <!-- <img class="utility-icon" src="../assets/share.svg" alt="share"> -->
+                <img class="utility-icon" src="../assets/share.svg" alt="share">
                 <img @click="resizeFont()" 
                 class="utility-icon" 
                 src="../assets/font.svg" 
@@ -88,7 +87,7 @@ export default {
             this.articleSize = localStorage.articleSize;
             this.resizeInput = localStorage.resizeInput;
         }
-        window.navigator.vibrate([200, 100, 200]); // works on some andriod devices
+        // window.navigator.vibrate([200, 100, 200]);  works on some andriod devices
     },
     watch: {
         resizeInput() {

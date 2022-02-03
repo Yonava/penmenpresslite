@@ -14,7 +14,6 @@ class ArticleService {
             console.log(error)
         }
     }
-
     // Get Singe Article from Database
     static async retrieveOne(id) {
         try {

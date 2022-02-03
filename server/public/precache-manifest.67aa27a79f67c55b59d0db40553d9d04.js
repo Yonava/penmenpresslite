@@ -1,15 +1,15 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e38e6a96df242aeb71de",
-    "url": "/css/app.31640313.css"
+    "revision": "754e4770875bac94b595",
+    "url": "/css/app.fa8e25cb.css"
   },
   {
     "revision": "5c367b3ea51dba3c4367aa8bdcbbf098",
     "url": "/img/add-bookmark.5c367b3e.svg"
   },
   {
-    "revision": "c48fd12eec18a03e75d2155d4d4a70db",
-    "url": "/img/backsearch.c48fd12e.svg"
+    "revision": "fb8608776b29ce1a9892f68e2c4b8458",
+    "url": "/img/backsearch.fb860877.svg"
   },
   {
     "revision": "2e5b6d2691b2dd6f43f4170a165ff48a",
@@ -24,8 +24,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/feedicon.f27ffd8a.svg"
   },
   {
-    "revision": "4cb5424240d4916086dc1b717f5ed592",
-    "url": "/img/font.4cb54242.svg"
+    "revision": "9763be5876c1b7c7d5e9c04ebddb462a",
+    "url": "/img/font.9763be58.svg"
   },
   {
     "revision": "6e01c9d79adb98f7a6efa242e33afc4a",
@@ -48,8 +48,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/savedicon.b83b1fc0.svg"
   },
   {
-    "revision": "acf08b29fd128fb0616f84d4c7d9cf92",
-    "url": "/img/search.acf08b29.svg"
+    "revision": "85381b4f5e697f83d47154f7ec441cc4",
+    "url": "/img/search.85381b4f.svg"
+  },
+  {
+    "revision": "9d02641e74afc1cd6a7047da7552cba5",
+    "url": "/img/share.9d02641e.svg"
   },
   {
     "revision": "b107fca272d4ecc126d9526cba95f7a8",
@@ -64,12 +68,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/website.490d041f.svg"
   },
   {
-    "revision": "2191d304a22218562f9329a8b94d417d",
+    "revision": "9eadd7ae0780214f77766043a73c1715",
     "url": "/index.html"
   },
   {
-    "revision": "e38e6a96df242aeb71de",
-    "url": "/js/app.40aab0b5.js"
+    "revision": "754e4770875bac94b595",
+    "url": "/js/app.82b5242d.js"
   },
   {
     "revision": "8550504800ffb2d499a1",
@@ -80,7 +84,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/manifest.json"
   },
   {
-    "revision": "735ab4f94fbcd57074377afca324c813",
+    "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
     "url": "/robots.txt"
   },
   {
