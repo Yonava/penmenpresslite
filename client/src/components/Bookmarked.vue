@@ -6,10 +6,12 @@
             <h1 style="margin-left: 3%; opacity: 1; margin-top: 0px; margin-bottom: 0px;">SAVED ARTICLES</h1>
         </header>
         
+        
         <!-- if no saved articles -->
         <center v-if="!saved">
             <p class="non-saved">Saved/Bookmarked Articles Show Up Here</p>
             <img class="icon-display" src="../assets/add-bookmark.svg" alt="save">
+            <button @click="copyText()">Hi</button>
         </center>
 
         <!-- article display -->
@@ -30,6 +32,7 @@
                 </div>
             </div>
         </div>
+
 
         <br><br><br><br>
 
@@ -54,6 +57,13 @@ export default {
                 if (this.articles[i].saved) return
             }
             this.saved = false;
+        },
+        async copyText() {
+            try {
+                await navigator.clipboard.writeText('testtest..123testtest')
+            } catch (error) {
+                console.error(error)
+            }
         }
     },
     mounted() {
