@@ -11,7 +11,7 @@
         <center v-if="!saved">
             <p class="non-saved">Saved/Bookmarked Articles Show Up Here</p>
             <img class="icon-display" src="../assets/add-bookmark.svg" alt="save">
-            <button @click="copyText()">Hi</button>
+            <button @click="copyText('hi')">pressme</button>
         </center>
 
         <!-- article display -->
@@ -58,9 +58,9 @@ export default {
             }
             this.saved = false;
         },
-        async copyText() {
+        async copyText(text) {
             try {
-                await navigator.clipboard.writeText('testtest..123testtest')
+                await navigator.clipboard.writeText(text)
             } catch (error) {
                 console.error(error)
             }
