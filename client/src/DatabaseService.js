@@ -11,7 +11,7 @@ class ArticleService {
             const data = res.data;
             return data;
         } catch (error) {
-            console.log(error)
+            alert(error)
         }
     }
     // Get Singe Article from Database

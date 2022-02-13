@@ -13,7 +13,7 @@ app.use(cors());
 const articles = require('./routes/api/articles');
 app.use('/api/articles', articles);
 
-mongoose.connect('mongodb+srv://press:dpM2qhDcvhsbwxOk@cluster0.wfzfa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', () => console.log('Successfully Connected'))
+mongoose.connect("\mongodb+srv://press:dpM2qhDcvhsbwxOk@cluster0.wfzfa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", () => console.log('Successfully Connected'))
 
 // Handle production
 if (process.env.NODE_ENV === 'production') {

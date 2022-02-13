@@ -4,6 +4,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
 
+    console.log("getting stuff")
     try {
         const articles = await Article.find();
         res.json(articles);

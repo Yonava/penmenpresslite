@@ -185,11 +185,6 @@ export default {
     },
     mounted() {
 
-        navigator.clipboard.writeText("<empty clipboard>").then(function() {
-            console.log("clipboard copy successful")
-        }, function() {
-            console.log("clipboard copy failed")
-        });
         this.loadAssets();
     },
 }
@@ -303,7 +298,7 @@ export default {
 /* GLOBAL DISPLAY */
 body {
     -webkit-overflow-scrolling: touch; /* enables “momentum” (smooth) scrolling */
-    -webkit-user-select: none; /* disabled ability to highlight text & iconography */
+    user-select: none; /* disabled ability to highlight text & iconography */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0px;
 }
