@@ -11,7 +11,6 @@
         <center v-if="!saved">
             <p class="non-saved">Saved/Bookmarked Articles Show Up Here</p>
             <img class="icon-display" src="../assets/add-bookmark.svg" alt="save">
-            <button @click="copyText('hi')">pressme</button>
         </center>
 
         <!-- article display -->
