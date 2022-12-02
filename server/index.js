@@ -3,10 +3,11 @@ const cors = require('cors');
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-  host: 'press.c0w2juzukesp.us-east-1.rds.amazonaws.com',
+  host: 'press-db.c0w2juzukesp.us-east-1.rds.amazonaws.com',
   port: '3306',
   user: 'admin',
-  password: 'cs231db!'
+  password: 'cs231db!',
+  database: 'press'
 });
 
 db.connect((err) => {
