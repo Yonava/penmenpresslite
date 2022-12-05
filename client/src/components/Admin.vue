@@ -91,7 +91,7 @@
           >edit</button>
         </div>
       </div>
-      <div v-if="selectedArticle.title">
+      <div v-if="Object.keys(selectedArticle).length">
         <h3>
           Editing: {{ selectedArticle.title }}
         </h3>
@@ -109,6 +109,11 @@
           v-model="selectedArticle.category" 
           type="text" 
           placeholder="category"
+        />
+        <input 
+          v-model="selectedArticle.score" 
+          type="number"
+          placeholder="score"
         />
         <textarea 
           v-model="selectedArticle.content"
@@ -426,8 +431,8 @@ export default {
         content: '',
         category: '',
         photo: '',
-        score: '',
-        issueId: '',
+        score: 0,
+        issueId: 0,
         releaseDay: '',
         releaseMonth: '',
         releaseYear: '',
@@ -461,6 +466,22 @@ export default {
       selectedArticle: {},
     }
   },
+  mounted() {
+    axios.get('/api/articles')
+      .then((response) => {
+        this.articles = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    axios.get('/api/issues')
+      .then((response) => {
+        this.issues = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
   methods: {
     addAuthor() {
       this.authors.push(this.newAuthor);
@@ -468,6 +489,7 @@ export default {
         firstName: '',
         middleName: '',
         lastName: '',
+        score: 0,
         bio: '',
         photo: '',
         joinDay: '',
@@ -483,7 +505,7 @@ export default {
       this.selectedAuthor = author;
     },
     saveAuthor() {
-      console.log('save author');
+      
     },
     addIssue() {
       this.issues.push(this.newIssue);
@@ -504,18 +526,16 @@ export default {
       console.log('save issue');
     },
     addArticle() {
-      this.articles.push(this.newArticle);
-      this.newArticle = {
-        title: '',
-        content: '',
-        category: '',
-        photo: '',
-        score: '',
-        issueId: '',
-        releaseDay: '',
-        releaseMonth: '',
-        releaseYear: '',
-      }
+      this.newArticle.releaseDay = parseInt(this.newArticle.releaseDay);
+      this.newArticle.releaseMonth = parseInt(this.newArticle.releaseMonth);
+      this.newArticle.releaseYear = parseInt(this.newArticle.releaseYear);
+      axios.post('/api/articles', this.newArticle)
+        .then(() => {
+          location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     deleteArticle(articleId) {
       this.articles = this.articles.filter(article => article.id !== articleId);
@@ -524,7 +544,13 @@ export default {
       this.selectedArticle = article;
     },
     saveArticle() {
-      console.log('save article');
+      axios.put(`/api/articles/${this.selectedArticle.id}`, this.selectedArticle)
+        .then(() => {
+          location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   }
 }

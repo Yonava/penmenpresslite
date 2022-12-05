@@ -1,62 +1,51 @@
 
--- @BLOCK 
-SELECT * FROM Authors;
-
 -- @BLOCK
 CREATE TABLE ArticleAuthor (
-  ArticleId INT NOT NULL,
-  AuthorId INT NOT NULL,
-  PRIMARY KEY (ArticleId, AuthorId),
-  FOREIGN KEY (ArticleId) REFERENCES Articles(Id),
-  FOREIGN KEY (AuthorId) REFERENCES Authors(Id)
+  articleId INT NOT NULL,
+  authorId INT NOT NULL,
+  PRIMARY KEY (articleId, authorId),
+  FOREIGN KEY (articleId) REFERENCES Articles(id),
+  FOREIGN KEY (authorId) REFERENCES Authors(id)
 );
 
 -- @BLOCK
 CREATE TABLE Articles (
-  Title VARCHAR(255) NOT NULL,
-  Content LONGTEXT,
-  Category VARCHAR(255),
-  Photo LONGTEXT,
-  Score TEXT,
-  Id INT AUTO_INCREMENT,
-  Issue_Id INT,
-  Release_Day INT,
-  Release_Month INT,
-  Release_Year INT,
-  FOREIGN KEY (Issue_Id) REFERENCES Issues(Id),
-  PRIMARY KEY (Id)
+  title VARCHAR(255) NOT NULL,
+  content LONGTEXT,
+  category VARCHAR(255),
+  photo LONGTEXT,
+  score INT,
+  id INT AUTO_INCREMENT,
+  issueId INT,
+  releaseDay INT,
+  releaseMonth INT,
+  releaseYear INT,
+  FOREIGN KEY (issueId) REFERENCES Issues(id),
+  PRIMARY KEY (id)
 );
 
 -- @BLOCK
-DROP TABLE Articles;
-
--- @BLOCK
 CREATE TABLE Issues (
-  Id INT AUTO_INCREMENT,
-  Cover_Photo LONGTEXT,
-  Release_Day INT,
-  Release_Month INT,
-  Release_Year INT,
-  PRIMARY KEY (Id)
+  id INT AUTO_INCREMENT,
+  photo LONGTEXT,
+  releaseDay INT,
+  releaseMonth INT,
+  releaseYear INT,
+  PRIMARY KEY (id)
 );
 
 -- @BLOCK
 CREATE TABLE Authors (
-  Id INT AUTO_INCREMENT,
-  F_Name VARCHAR(20) NOT NULL,
-  M_Name VARCHAR(20),
-  L_Name VARCHAR(20),
-  Bio TEXT,
-  Photo LONGTEXT,
-  Join_Day INT,
-  Join_Month INT,
-  Join_Year INT,
-  Title VARCHAR(255),
-  PRIMARY KEY (Id)
+  id INT AUTO_INCREMENT,
+  firstName VARCHAR(20) NOT NULL,
+  middleName VARCHAR(20),
+  lastName VARCHAR(20),
+  bio TEXT,
+  photo LONGTEXT,
+  joinDay INT,
+  joinMonth INT,
+  joinYear INT,
+  title VARCHAR(255),
+  PRIMARY KEY (id)
 );
-
--- @BLOCK
-SELECT * FROM Authors;
-
--- @BLOCK
 

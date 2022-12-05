@@ -121,7 +121,7 @@ export default {
         "filter: invert(60%);",
         "filter: invert(60%);",
       ],
-      showAdminPanel: false
+      showAdminPanel: true
     };
   },
   methods: {

@@ -7,8 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const articles = require('./routes/api/articles');
-app.use('/api/articles', articles);
+const articles = require('./routes/api/endpoint');
+app.use('/api/', articles);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(__dirname + '/public/'));
