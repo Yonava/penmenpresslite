@@ -171,4 +171,126 @@ router.post('/issues/', async (req, res) => {
   });
 });
 
+// get all authors
+router.get('/authors/', async (req, res) => {
+  const sql = 'SELECT * FROM Authors';
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.json(result);
+  });
+});
+
+// update author by id
+router.put('/authors/:id', async (req, res) => {
+  const query = `UPDATE Authors SET firstName = '${req.body.firstName}', middleName = '${req.body.middleName}', lastName = '${req.body.lastName}', photo = '${req.body.photo}', bio = '${req.body.bio}', joinDay = ${req.body.joinDay}, joinMonth = ${req.body.joinMonth}, joinYear = ${req.body.joinYear}, title = '${req.body.title}' WHERE id = ${req.params.id}`;
+  db.query(query, (err) => {
+    if (err) {
+      res.json(err);
+      return;
+    }
+    res.json({
+      status: 'success',
+      executed: query
+    });
+  });
+});
+
+// add author
+router.post('/authors/', async (req, res) => {
+  const items = '(firstName, middleName, lastName, photo, bio, joinDay, joinMonth, joinYear, title)';
+  const data = {
+    firstName: req.body.firstName,
+    middleName: req.body.middleName,
+    lastName: req.body.lastName,
+    photo: req.body.photo,
+    bio: req.body.bio,
+    joinDay: req.body.joinDay,
+    joinMonth: req.body.joinMonth,
+    joinYear: req.body.joinYear,
+    title: req.body.title
+  };
+  const query = `INSERT INTO Authors ${items} VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  db.query(query, Object.values(data), (err) => {
+    if (err) {
+      res.json(err);
+      return;
+    }
+    res.json({
+      status: 'success',
+      data
+    });
+  });
+});
+
+// delete author by id
+router.delete('/authors/:id', async (req, res) => {
+  const sql = `DELETE FROM Authors WHERE id = ${req.params.id}`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.json(result);
+  });
+});
+
+// add author to article
+router.post('/articleAuthor/:articleId/:authorId', async (req, res) => {
+  const items = '(articleId, authorId)';
+  const data = {
+    articleId: req.params.articleId,
+    authorId: req.params.authorId
+  };
+  const query = `INSERT INTO ArticleAuthor ${items} VALUES (?, ?)`;
+  db.query(query, Object.values(data), (err) => {
+    if (err) {
+      res.json(err);
+      return;
+    }
+    res.json({
+      status: 'success',
+      data
+    });
+  });
+});
+
+// get all of an articles authors
+router.get('/articleAuthor/:articleId', async (req, res) => {
+  const sql = `SELECT authorId FROM ArticleAuthor WHERE articleId = ${req.params.articleId}`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.json(result.map((author) => author.authorId));
+  });
+});
+
+// delete all authors from article
+router.delete('/articleAuthor/:articleId', async (req, res) => {
+  const sql = `DELETE FROM ArticleAuthor WHERE articleId = ${req.params.articleId}`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.json(result);
+  });
+});
+
+// remove author from article
+router.delete('/articleAuthor/:articleId/:authorId', async (req, res) => {
+  const sql = `DELETE FROM ArticleAuthor WHERE articleId = ${req.params.articleId} AND authorId = ${req.params.authorId}`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.json(result);
+  });
+});
+
 module.exports = router;

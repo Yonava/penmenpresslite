@@ -95,6 +95,25 @@
         <h3>
           Editing: {{ selectedArticle.title }}
         </h3>
+        <span>
+          Add Authors:
+          <button @click="addAuthorToArticle">+</button>
+        </span>
+        <div 
+          v-for="(author, index) in articleAuthors"
+          :key="author.id"
+        >
+          <select v-model="articleAuthors[index]">
+            <option 
+              v-for="authored in authors"
+              :value="authored.id"
+              :key="authored.id"
+            >
+              {{ authored.firstName }} {{ authored.lastName }}
+            </option>
+          </select>
+          <button @click="removeArticleAuthor(index)">x</button>
+        </div>
         <input 
           v-model="selectedArticle.title" 
           type="text" 
@@ -267,6 +286,9 @@
             placeholder="join year"
             type="number"
           >
+          <button @click="saveAuthor">
+            save
+          </button>
         </div>
       </div>
     </div>
@@ -373,32 +395,9 @@ export default {
         joinDay: '',
         joinMonth: '',
         joinYear: '',
-        title: '',
-        id: '1'
+        title: ''
       },
-      authors: [{
-        firstName: 'ricm',
-        middleName: 'Yona',
-        lastName: 'os',
-        bio: 'hi',
-        photo: 'foimvfinp',
-        joinDay: '4',
-        joinMonth: '34',
-        joinYear: '242',
-        title: '0',
-        id: '2'
-      },
-      {
-        firstName: 'A',
-        middleName: 'ko',
-        lastName: 'pi',
-        bio: 'mk;k',
-        photo: 'kml;l',
-        joinDay: '1',
-        joinMonth: '4',
-        joinYear: '5',
-        title: '2',
-      }],
+      authors: [],
       selectedAuthor: {},
 
       // ISSUES
@@ -425,6 +424,9 @@ export default {
       },
       articles: [],
       selectedArticle: {},
+      
+      // ARTICLE AUTHOR
+      articleAuthors: [],
     }
   },
   mounted() {
@@ -442,31 +444,47 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+    axios.get('/api/authors')
+      .then((response) => {
+        this.authors = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   methods: {
     addAuthor() {
-      this.authors.push(this.newAuthor);
-      this.newAuthor = {
-        firstName: '',
-        middleName: '',
-        lastName: '',
-        score: 0,
-        bio: '',
-        photo: '',
-        joinDay: '',
-        joinMonth: '',
-        joinYear: '',
-        title: '',
-      }
+      this.newAuthor.joinDay = parseInt(this.newAuthor.joinDay);
+      this.newAuthor.joinMonth = parseInt(this.newAuthor.joinMonth);
+      this.newAuthor.joinYear = parseInt(this.newAuthor.joinYear);
+      axios.post('/api/authors', this.newAuthor)
+        .then(() => {
+          location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     deleteAuthor(authorId) {
-      this.authors = this.authors.filter(author => author.id !== authorId);
+      axios.delete(`/api/authors/${authorId}`)
+        .then(() => {
+          location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     editAuthor(author) {
       this.selectedAuthor = author;
     },
     saveAuthor() {
-      
+      axios.put(`/api/authors/${this.selectedAuthor.id}`, this.selectedAuthor)
+        .then(() => {
+          location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     addIssue() {
       axios.post('/api/issues', this.newIssue)
@@ -502,7 +520,6 @@ export default {
       this.newArticle.releaseDay = parseInt(this.newArticle.releaseDay);
       this.newArticle.releaseMonth = parseInt(this.newArticle.releaseMonth);
       this.newArticle.releaseYear = parseInt(this.newArticle.releaseYear);
-  
       axios.post('/api/articles', this.newArticle)
         .then(() => {
           location.reload();
@@ -523,7 +540,17 @@ export default {
     editArticle(article) {
       this.selectedArticle = article;
     },
-    saveArticle() {
+    async saveArticle() {
+      await axios.delete(`/api/articleAuthor/${this.selectedArticle.id}`)
+        .catch((error) => {
+          return console.log(error);
+        });
+      this.articleAuthors.forEach(async (articleAuthor) => {
+        await axios.post(`/api/articleAuthor/${this.selectedArticle.id}/${articleAuthor}`)
+          .catch((error) => {
+            console.log(error);
+          });
+      });
       axios.put(`/api/articles/${this.selectedArticle.id}`, this.selectedArticle)
         .then(() => {
           location.reload();
@@ -532,6 +559,23 @@ export default {
           console.log(error);
         });
     },
+    addAuthorToArticle() {
+      this.articleAuthors.push(0);
+    },
+    removeArticleAuthor(index) {
+      this.articleAuthors.splice(index, 1);
+    },
+  },
+  watch: {
+    selectedArticle() {
+      axios.get(`/api/articleAuthor/${this.selectedArticle.id}`)
+        .then((response) => {
+          this.articleAuthors = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 }
 </script>
