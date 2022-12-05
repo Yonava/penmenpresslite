@@ -74,8 +74,14 @@ router.post('/articles/', async (req, res) => {
 
 // delete article
 router.delete('/articles/:id', async (req, res) => {
-  const article = await db.query('DELETE FROM Articles WHERE id = ?', [req.params.id]);
-  res.json(article);
+  const sql = `DELETE FROM Articles WHERE id = ${req.params.id}`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.json(result);
+  });
 });
 
 // update article
@@ -104,6 +110,18 @@ router.get('/issues/', async (req, res) => {
   });
 });
 
+// delete issue by id
+router.delete('/issues/:id', async (req, res) => {
+  const sql = `DELETE FROM Issues WHERE id = ${req.params.id}`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.json(result);
+  });
+});
+
 router.get('/issues/:id', async (req, res) => {
   const sql = `SELECT * FROM Issues WHERE id = ${req.params.id}`;
   db.query(sql, (err, result) => {
@@ -114,6 +132,21 @@ router.get('/issues/:id', async (req, res) => {
       res.json(null);
     }
     res.json(result);
+  });
+});
+
+router.put('/issues/:id', async (req, res) => {
+  const query = `UPDATE Issues SET photo = '${req.body.photo}', releaseDay = ${req.body.releaseDay}, releaseMonth = ${req.body.releaseMonth}, releaseYear = ${req.body.releaseYear} WHERE id = ${req.params.id}`;
+  db.query
+  (query, (err) => {
+    if (err) {
+      res.json(err);
+      return;
+    }
+    res.json({
+      status: 'success',
+      executed: query
+    });
   });
 });
 
@@ -137,4 +170,5 @@ router.post('/issues/', async (req, res) => {
     });
   });
 });
+
 module.exports = router;

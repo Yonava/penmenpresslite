@@ -35,10 +35,10 @@
       ></textarea>
       <div style="margin: 10px">
         Link to a Released Issue:
-        <select v-model="newArticle.issue">
+        <select v-model="newArticle.issueId">
           <option 
             v-for="issue in issues" 
-            :value="issue"
+            :value="issue.id"
             :key="issue.id"
           >
             {{ issue.releaseMonth }}/{{ issue.releaseDay }}/{{ issue.releaseYear }}
@@ -121,10 +121,10 @@
         ></textarea>
         <div style="margin: 10px">
           Link to a Released Issue:
-          <select v-model="selectedArticle.issue">
+          <select v-model="selectedArticle.issueId">
             <option 
               v-for="issue in issues" 
-              :value="issue"
+              :value="issue.id"
               :key="issue.id"
             >
               {{ issue.releaseMonth }}/{{ issue.releaseDay }}/{{ issue.releaseYear }}
@@ -227,7 +227,7 @@
             style="margin-left: 10px"
           >edit</button>
         </div>
-        <div v-if="selectedAuthor.firstName">
+        <div v-if="Object.keys(selectedAuthor).length">
           <input 
             v-model="selectedAuthor.firstName" 
             placeholder="first name"
@@ -329,7 +329,7 @@
             style="margin-left: 10px"
           >edit</button>
         </div>
-        <div v-if="selectedIssue.photo">
+        <div v-if="Object.keys(selectedIssue).length">
           <input 
             v-model="selectedIssue.photo" 
             placeholder="photo"
@@ -350,6 +350,7 @@
             placeholder="release year"
             type="number"
           >
+          <button @click="saveIssue">save</button>
         </div>
       </div>
     </div>
@@ -407,22 +408,7 @@ export default {
         releaseMonth: '',
         releaseYear: ''
       },
-      issues: [
-        {
-          photo: 'foimvfinp',
-          releaseDay: '4',
-          releaseMonth: '34',
-          releaseYear: '242',
-          id: '1'
-        },
-        {
-          photo: 'kml;l',
-          releaseDay: '1',
-          releaseMonth: '4',
-          releaseYear: '5',
-          id: '2'
-        }
-      ],
+      issues: [],
       selectedIssue: {},
 
       // ARTICLES
@@ -437,32 +423,7 @@ export default {
         releaseMonth: '',
         releaseYear: '',
       },
-      articles: [
-        {
-          title: 'foimvfinp',
-          content: '4',
-          category: '34',
-          photo: '242',
-          score: '1',
-          issueId: '1',
-          releaseDay: '4',
-          releaseMonth: '34',
-          releaseYear: '242',
-          id: '1'
-        },
-        {
-          title: 'kml;l',
-          content: '1',
-          category: '4',
-          photo: '5',
-          score: '2',
-          issueId: '2',
-          releaseDay: '1',
-          releaseMonth: '4',
-          releaseYear: '5',
-          id: '2'
-        }
-      ],
+      articles: [],
       selectedArticle: {},
     }
   },
@@ -508,27 +469,40 @@ export default {
       
     },
     addIssue() {
-      this.issues.push(this.newIssue);
-      this.newIssue = {
-        photo: '',
-        releaseDay: '',
-        releaseMonth: '',
-        releaseYear: ''
-      }
+      axios.post('/api/issues', this.newIssue)
+        .then(() => {
+          location.reload()
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     deleteIssue(issueId) {
-      this.issues = this.issues.filter(issue => issue.id !== issueId);
+      axios.delete(`/api/issues/${issueId}`)
+        .then(() => {
+          location.reload()
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     editIssue(issue) {
       this.selectedIssue = issue;
     },
     saveIssue() {
-      console.log('save issue');
+      axios.put(`/api/issues/${this.selectedIssue.id}`, this.selectedIssue)
+        .then(() => {
+          location.reload()
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     addArticle() {
       this.newArticle.releaseDay = parseInt(this.newArticle.releaseDay);
       this.newArticle.releaseMonth = parseInt(this.newArticle.releaseMonth);
       this.newArticle.releaseYear = parseInt(this.newArticle.releaseYear);
+  
       axios.post('/api/articles', this.newArticle)
         .then(() => {
           location.reload();
@@ -538,7 +512,13 @@ export default {
         });
     },
     deleteArticle(articleId) {
-      this.articles = this.articles.filter(article => article.id !== articleId);
+      axios.delete(`/api/articles/${articleId}`)
+        .then(() => {
+          location.reload();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     editArticle(article) {
       this.selectedArticle = article;
