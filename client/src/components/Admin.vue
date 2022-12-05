@@ -26,14 +26,108 @@
     </h2>
     <div class="cat-container">
       <h3>
-        Add Author
+        Add Author:
       </h3>
+      <input 
+        v-model="newAuthor.firstName" 
+        placeholder="first name"
+        type="text"
+      >
+      <input 
+        v-model="newAuthor.middleName" 
+        placeholder="middle name"
+        type="text"
+      >
+      <input 
+        v-model="newAuthor.lastName" 
+        placeholder="last name"
+        type="text"
+      >
+      <textarea 
+        v-model="newAuthor.bio" 
+        placeholder="bio"
+      ></textarea>
+      <input 
+        v-model="newAuthor.joinDay" 
+        placeholder="join day"
+        type="number"
+      >
+      <input 
+        v-model="newAuthor.joinMonth" 
+        placeholder="join month"
+        type="number"
+      >
+      <input 
+        v-model="newAuthor.joinYear" 
+        placeholder="join year"
+        type="number"
+      >
       <h3>
-        Delete Author
+        Delete Author:
       </h3>
+      <div>
+        <div 
+          v-for="author in authors"
+          :key="author.id"
+        >
+          <span>{{ author.firstName }} {{ author.lastName }}</span>
+          <button 
+            @click="deleteAuthor(author.id)"
+            style="margin-left: 10px"
+          >x</button>
+        </div>
+      </div>
       <h3>
         Edit Author
       </h3>
+      <div>
+        <div 
+          v-for="author in authors"
+          :key="author.id"
+        >
+          <span>{{ author.firstName }} {{ author.lastName }}</span>
+          <button 
+            @click="editAuthor(author)"
+            style="margin-left: 10px"
+          >edit</button>
+        </div>
+        <div v-if="selectedAuthor">
+          <input 
+            v-model="selectedAuthor.firstName" 
+            placeholder="first name"
+            type="text"
+          >
+          <input 
+            v-model="selectedAuthor.middleName" 
+            placeholder="middle name"
+            type="text"
+          >
+          <input 
+            v-model="selectedAuthor.lastName" 
+            placeholder="last name"
+            type="text"
+          >
+          <textarea 
+            v-model="selectedAuthor.bio" 
+            placeholder="bio"
+          ></textarea>
+          <input 
+            v-model="selectedAuthor.joinDay" 
+            placeholder="join day"
+            type="number"
+          >
+          <input 
+            v-model="selectedAuthor.joinMonth" 
+            placeholder="join month"
+            type="number"
+          >
+          <input 
+            v-model="selectedAuthor.joinYear" 
+            placeholder="join year"
+            type="number"
+          >
+        </div>
+      </div>
     </div>
     <h2>
       Issues
@@ -54,7 +148,74 @@
 
 <script>
 export default {
-  
+  data() {
+    return{
+      newAuthor: {
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        bio: '',
+        photo: '',
+        joinDay: '',
+        joinMonth: '',
+        joinYear: '',
+        title: '',
+        id: '1'
+      },
+      authors: [{
+        firstName: 'ricm',
+        middleName: 'Yona',
+        lastName: 'os',
+        bio: 'hi',
+        photo: 'foimvfinp',
+        joinDay: '4',
+        joinMonth: '34',
+        joinYear: '242',
+        title: '0',
+        id: '2'
+      },
+      {
+        firstName: 'A',
+        middleName: 'ko',
+        lastName: 'pi',
+        bio: 'mk;k',
+        photo: 'kml;l',
+        joinDay: '1',
+        joinMonth: '4',
+        joinYear: '5',
+        title: '2',
+      }],
+      selectedAuthor: undefined,
+    }
+  },
+  methods: {
+    addAuthor() {
+      console.log('add author', this.newAuthor);
+      this.newAuthor = {
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        bio: '',
+        photo: '',
+        joinDay: '',
+        joinMonth: '',
+        joinYear: '',
+        title: '',
+      }
+    },
+    deleteAuthor(authorId) {
+      this.authors = this.authors.filter(author => author.id !== authorId);
+    },
+    editAuthor(author) {
+      this.selectedAuthor = author;
+    }
+  },
+  watch: {
+    selectedAuthorEdit() {
+      console.log(this.selectedAuthorEdit)
+      this.authorBeingEdited = this.authors.find(author => author.id === this.selectedAuthorEdit);
+    }
+  }
 }
 </script>
 
@@ -66,13 +227,21 @@ export default {
     justify-content: center;
     height: 100%;
     width: 100%;
-    padding: 15px;
+    margin: 15px;
     margin-bottom: 200px;
+    position: relative;
   }
   .cat-container {
     display: flex;
     flex-direction: column;
     align-items: left;
-    width: 100%;
+    width: 80%;
+  }
+  input {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 7px;
+    margin-top: 7px;
+    padding: 5px;
   }
 </style>
