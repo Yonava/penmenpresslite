@@ -1,22 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql');
 
-const db = mysql.createConnection({
-  host: 'press-db.c0w2juzukesp.us-east-1.rds.amazonaws.com',
-  port: '3306',
-  user: 'admin',
-  password: 'cs231db!',
-  database: 'press'
-});
-
-db.connect((err) => {
-  if (err) {
-    console.log(err);
-    return;
-  }
-  console.log('Connected to database');
-});
 
 const app = express();
 

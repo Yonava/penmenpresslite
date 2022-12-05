@@ -1,20 +1,53 @@
 const express = require('express');
 const router = express.Router();
 
+const mysql = require('mysql');
+
+const db = mysql.createConnection({
+  host: 'press-db.c0w2juzukesp.us-east-1.rds.amazonaws.com',
+  port: '3306',
+  user: 'admin',
+  password: 'cs231db!',
+  database: 'press'
+});
+
+db.connect((err) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log('Connected to database');
+});
+
 // get all articles
 router.get('/', async (req, res) => {
-  const articles = await db.query('SELECT * FROM Articles');
-  res.json(articles);
+  const sql = 'SELECT * FROM Articles';
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.json(result);
+  });
 });
 
 // get article by id
 router.get('/:id', async (req, res) => {
-  const article = await db.query('SELECT * FROM Articles WHERE id = ?', [req.params.id]);
-  res.json(article);
+  const sql = `SELECT * FROM Articles WHERE id = ${req.params.id}`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.json(result);
+  });
 })
 
 // add article
 router.post('/', async (req, res) => {
+  const query = 'INSERT INTO Articles (title, content, author) VALUES (?, ?, ?)';
+  const values = [req.body.title, req.body.content, req.body.author];
+  
   const article = await db.query('INSERT INTO Articles SET ?', [req.body]);
   res.json(article);
 });
