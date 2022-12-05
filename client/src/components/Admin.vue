@@ -48,6 +48,11 @@
         placeholder="bio"
       ></textarea>
       <input 
+        v-model="newAuthor.photo" 
+        placeholder="image url"
+        type="text"
+      >
+      <input 
         v-model="newAuthor.joinDay" 
         placeholder="join day"
         type="number"
@@ -62,6 +67,9 @@
         placeholder="join year"
         type="number"
       >
+      <button @click="addAuthor">
+        add
+      </button>
       <h3>
         Delete Author:
       </h3>
@@ -78,7 +86,7 @@
         </div>
       </div>
       <h3>
-        Edit Author
+        Edit Author:
       </h3>
       <div>
         <div 
@@ -91,7 +99,7 @@
             style="margin-left: 10px"
           >edit</button>
         </div>
-        <div v-if="selectedAuthor">
+        <div v-if="selectedAuthor.firstName">
           <input 
             v-model="selectedAuthor.firstName" 
             placeholder="first name"
@@ -111,6 +119,11 @@
             v-model="selectedAuthor.bio" 
             placeholder="bio"
           ></textarea>
+          <input 
+            v-model="selectedAuthor.photo" 
+            placeholder="image url"
+            type="text"
+          >
           <input 
             v-model="selectedAuthor.joinDay" 
             placeholder="join day"
@@ -134,14 +147,83 @@
     </h2>
     <div class="cat-container">
       <h3>
-        Add Issue
+        Add Issue:
       </h3>
+      <input 
+        v-model="newIssue.photo" 
+        placeholder="photo"
+        type="text"
+      >
+      <input 
+        v-model="newIssue.releaseDay" 
+        placeholder="release day"
+        type="number"
+      >
+      <input 
+        v-model="newIssue.releaseMonth"
+        placeholder="release month"
+        type="number"
+      >
+      <input 
+        v-model="newIssue.releaseYear" 
+        placeholder="release year"
+        type="number"
+      >
+      <button @click="addIssue">
+        add
+      </button>
       <h3>
-        Delete Issue
+        Delete Issue:
       </h3>
+      <div>
+        <div 
+          v-for="issue in issues"
+          :key="issue.id"
+        >
+          <span>{{ issue.releaseMonth }}/{{ issue.releaseDay }}/{{ issue.releaseYear }}</span>
+          <button 
+            @click="deleteIssue(issue.id)"
+            style="margin-left: 10px"
+          >x</button>
+        </div>
+      </div>
       <h3>
-        Edit Issue
+        Edit Issue:
       </h3>
+      <div>
+        <div 
+          v-for="issue in issues"
+          :key="issue.id"
+        >
+          <span>{{ issue.releaseMonth }}/{{ issue.releaseDay }}/{{ issue.releaseYear }}</span>
+          <button 
+            @click="editIssue(issue)"
+            style="margin-left: 10px"
+          >edit</button>
+        </div>
+        <div v-if="selectedIssue.photo">
+          <input 
+            v-model="selectedIssue.photo" 
+            placeholder="photo"
+            type="text"
+          >
+          <input 
+            v-model="selectedIssue.releaseDay" 
+            placeholder="release day"
+            type="number"
+          >
+          <input 
+            v-model="selectedIssue.releaseMonth"
+            placeholder="release month"
+            type="number"
+          >
+          <input 
+            v-model="selectedIssue.releaseYear" 
+            placeholder="release year"
+            type="number"
+          >
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -150,6 +232,7 @@
 export default {
   data() {
     return{
+      // AUTHORS
       newAuthor: {
         firstName: '',
         middleName: '',
@@ -185,12 +268,40 @@ export default {
         joinYear: '5',
         title: '2',
       }],
-      selectedAuthor: undefined,
+      selectedAuthor: {},
+
+      // ISSUES
+      newIssue: {
+        photo: '',
+        releaseDay: '',
+        releaseMonth: '',
+        releaseYear: ''
+      },
+      issues: [
+        {
+          photo: 'foimvfinp',
+          releaseDay: '4',
+          releaseMonth: '34',
+          releaseYear: '242',
+          id: '1'
+        },
+        {
+          photo: 'kml;l',
+          releaseDay: '1',
+          releaseMonth: '4',
+          releaseYear: '5',
+          id: '2'
+        }
+      ],
+      selectedIssue: {},
+
+      // ARTICLES
+      
     }
   },
   methods: {
     addAuthor() {
-      console.log('add author', this.newAuthor);
+      this.authors.push(this.newAuthor);
       this.newAuthor = {
         firstName: '',
         middleName: '',
@@ -208,6 +319,21 @@ export default {
     },
     editAuthor(author) {
       this.selectedAuthor = author;
+    },
+    addIssue() {
+      this.issues.push(this.newIssue);
+      this.newIssue = {
+        photo: '',
+        releaseDay: '',
+        releaseMonth: '',
+        releaseYear: ''
+      }
+    },
+    deleteIssue(issueId) {
+      this.issues = this.issues.filter(issue => issue.id !== issueId);
+    },
+    editIssue(issue) {
+      this.selectedIssue = issue;
     }
   },
   watch: {
