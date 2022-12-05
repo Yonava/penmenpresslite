@@ -1,7 +1,20 @@
 <template>
   <div>
+
+    <div 
+      v-if="!showAdminPanel" 
+      style="position: fixed; top: 0; right: 0; z-index: 9"
+    >
+      <button @click="showAdminPanel = true">admin</button>
+    </div>
+
+    <!-- admin panel -->
+    <div v-if="showAdminPanel">
+      <Admin @close-admin-panel="showAdminPanel = false" />
+    </div>
+
     <!-- home feed -->
-    <div v-if="!contentView && page === 'home'">
+    <div v-else-if="!contentView && page === 'home'">
       <Feed :articles="articles" />
     </div>
 
@@ -80,6 +93,7 @@ import Discover from "./components/Discover.vue";
 import Bookmarked from "./components/Bookmarked.vue";
 import Feed from "./components/Feed.vue";
 import Trending from "./components/Trending.vue";
+import Admin from "./components/Admin.vue";
 
 export default {
   name: "App",
@@ -89,6 +103,7 @@ export default {
     Bookmarked,
     Feed,
     Trending,
+    Admin
   },
   data: () => {
     return {
@@ -106,6 +121,7 @@ export default {
         "filter: invert(60%);",
         "filter: invert(60%);",
       ],
+      showAdminPanel: false
     };
   },
   methods: {
