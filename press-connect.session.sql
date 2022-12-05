@@ -4,23 +4,25 @@ SELECT * FROM Authors;
 
 -- @BLOCK
 CREATE TABLE ArticleAuthor (
-  Id INT AUTO_INCREMENT,
-  Author_Id INT NOT NULL,
-  Article_Id INT NOT NULL,
-  FOREIGN KEY Author_Id REFERENCES Authors(Id),
-  FOREIGN KEY Article_Id REFERENCES Articles(Id),
-  PRIMARY KEY (Id)
+  ArticleId INT NOT NULL,
+  AuthorId INT NOT NULL,
+  PRIMARY KEY (ArticleId, AuthorId),
+  FOREIGN KEY (ArticleId) REFERENCES Articles(Id),
+  FOREIGN KEY (AuthorId) REFERENCES Authors(Id)
 );
 
 -- @BLOCK
 CREATE TABLE Articles (
-  Id INT AUTO_INCREMENT,
   Title VARCHAR(255) NOT NULL,
-  Category VARCHAR(20),
-  Content TEXT,
-  Eng_Score TEXT,
+  Content LONGTEXT,
+  Category VARCHAR(255),
   Photo LONGTEXT,
+  Score TEXT,
+  Id INT AUTO_INCREMENT,
   Issue_Id INT,
+  Release_Day INT,
+  Release_Month INT,
+  Release_Year INT,
   FOREIGN KEY (Issue_Id) REFERENCES Issues(Id),
   PRIMARY KEY (Id)
 );
@@ -32,6 +34,9 @@ DROP TABLE Articles;
 CREATE TABLE Issues (
   Id INT AUTO_INCREMENT,
   Cover_Photo LONGTEXT,
+  Release_Day INT,
+  Release_Month INT,
+  Release_Year INT,
   PRIMARY KEY (Id)
 );
 
@@ -42,6 +47,11 @@ CREATE TABLE Authors (
   M_Name VARCHAR(20),
   L_Name VARCHAR(20),
   Bio TEXT,
+  Photo LONGTEXT,
+  Join_Day INT,
+  Join_Month INT,
+  Join_Year INT,
+  Title VARCHAR(255),
   PRIMARY KEY (Id)
 );
 
