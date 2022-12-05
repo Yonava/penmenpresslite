@@ -12,14 +12,137 @@
     </h2>
     <div class="cat-container">
       <h3>
-        Add Article
+        Add Article:
       </h3>
+      <input 
+        v-model="newArticle.title" 
+        type="text" 
+        placeholder="title"
+      />
+      <input 
+        v-model="newArticle.photo" 
+        type="text" 
+        placeholder="image"
+      />
+      <input 
+        v-model="newArticle.category" 
+        type="text" 
+        placeholder="category"
+      />
+      <textarea 
+        v-model="newArticle.content"
+        placeholder="content"
+      ></textarea>
+      <div style="margin: 10px">
+        Link to a Released Issue:
+        <select v-model="newArticle.issue">
+          <option 
+            v-for="issue in issues" 
+            :value="issue"
+            :key="issue.id"
+          >
+            {{ issue.releaseMonth }}/{{ issue.releaseDay }}/{{ issue.releaseYear }}
+          </option>
+        </select>
+      </div>
+      <input 
+        v-model="newArticle.releaseDay"
+        type="number"
+        placeholder="release day"
+      >
+      <input 
+        v-model="newArticle.releaseMonth"
+        type="number"
+        placeholder="release month"
+      >
+      <input 
+        v-model="newArticle.releaseYear"
+        type="number"
+        placeholder="release year"
+      >
+      <button @click="addArticle">add</button>        
       <h3>
-        Delete Article
+        Delete Article:
       </h3>
+      <div>
+        <div 
+          v-for="article in articles"
+          :key="article.id"
+        >
+          <span>{{ article.title }}</span>
+          <button 
+            @click="deleteArticle(article.id)"
+            style="margin-left: 10px"
+          >x</button>
+        </div>
+      </div>
       <h3>
-        Edit Article
+        Edit Article:
       </h3>
+      <div>
+        <div 
+          v-for="article in articles"
+          :key="article.id"
+        >
+          <span>{{ article.title }}</span>
+          <button 
+            @click="editArticle(article)"
+            style="margin-left: 10px"
+          >edit</button>
+        </div>
+      </div>
+      <div v-if="selectedArticle.title">
+        <h3>
+          Editing: {{ selectedArticle.title }}
+        </h3>
+        <input 
+          v-model="selectedArticle.title" 
+          type="text" 
+          placeholder="title"
+        />
+        <input 
+          v-model="selectedArticle.photo" 
+          type="text" 
+          placeholder="image"
+        />
+        <input 
+          v-model="selectedArticle.category" 
+          type="text" 
+          placeholder="category"
+        />
+        <textarea 
+          v-model="selectedArticle.content"
+          placeholder="content"
+        ></textarea>
+        <div style="margin: 10px">
+          Link to a Released Issue:
+          <select v-model="selectedArticle.issue">
+            <option 
+              v-for="issue in issues" 
+              :value="issue"
+              :key="issue.id"
+            >
+              {{ issue.releaseMonth }}/{{ issue.releaseDay }}/{{ issue.releaseYear }}
+            </option>
+          </select>
+        </div>
+        <input 
+          v-model="selectedArticle.releaseDay"
+          type="number"
+          placeholder="release day"
+        >
+        <input 
+          v-model="selectedArticle.releaseMonth"
+          type="number"
+          placeholder="release month"
+        >
+        <input 
+          v-model="selectedArticle.releaseYear"
+          type="number"
+          placeholder="release year"
+        >
+        <button @click="saveArticle">save</button>
+      </div>
     </div>
     <h2>
       Authors
@@ -296,7 +419,44 @@ export default {
       selectedIssue: {},
 
       // ARTICLES
-      
+      newArticle: {
+        title: '',
+        content: '',
+        category: '',
+        photo: '',
+        score: '',
+        issueId: '',
+        releaseDay: '',
+        releaseMonth: '',
+        releaseYear: '',
+      },
+      articles: [
+        {
+          title: 'foimvfinp',
+          content: '4',
+          category: '34',
+          photo: '242',
+          score: '1',
+          issueId: '1',
+          releaseDay: '4',
+          releaseMonth: '34',
+          releaseYear: '242',
+          id: '1'
+        },
+        {
+          title: 'kml;l',
+          content: '1',
+          category: '4',
+          photo: '5',
+          score: '2',
+          issueId: '2',
+          releaseDay: '1',
+          releaseMonth: '4',
+          releaseYear: '5',
+          id: '2'
+        }
+      ],
+      selectedArticle: {},
     }
   },
   methods: {
@@ -320,6 +480,9 @@ export default {
     editAuthor(author) {
       this.selectedAuthor = author;
     },
+    saveAuthor() {
+      console.log('save author');
+    },
     addIssue() {
       this.issues.push(this.newIssue);
       this.newIssue = {
@@ -334,13 +497,33 @@ export default {
     },
     editIssue(issue) {
       this.selectedIssue = issue;
-    }
-  },
-  watch: {
-    selectedAuthorEdit() {
-      console.log(this.selectedAuthorEdit)
-      this.authorBeingEdited = this.authors.find(author => author.id === this.selectedAuthorEdit);
-    }
+    },
+    saveIssue() {
+      console.log('save issue');
+    },
+    addArticle() {
+      this.articles.push(this.newArticle);
+      this.newArticle = {
+        title: '',
+        content: '',
+        category: '',
+        photo: '',
+        score: '',
+        issueId: '',
+        releaseDay: '',
+        releaseMonth: '',
+        releaseYear: '',
+      }
+    },
+    deleteArticle(articleId) {
+      this.articles = this.articles.filter(article => article.id !== articleId);
+    },
+    editArticle(article) {
+      this.selectedArticle = article;
+    },
+    saveArticle() {
+      console.log('save article');
+    },
   }
 }
 </script>
