@@ -183,6 +183,20 @@ router.get('/authors/', async (req, res) => {
   });
 });
 
+// get author by id
+router.get('/authors/:id', async (req, res) => {
+  const sql = `SELECT * FROM Authors WHERE id = ${req.params.id}`;
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    } else if (result.length === 0) {
+      res.json(null);
+    }
+    res.json(result[0]);
+  });
+});
+
 // update author by id
 router.put('/authors/:id', async (req, res) => {
   const query = `UPDATE Authors SET firstName = '${req.body.firstName}', middleName = '${req.body.middleName}', lastName = '${req.body.lastName}', photo = '${req.body.photo}', bio = '${req.body.bio}', joinDay = ${req.body.joinDay}, joinMonth = ${req.body.joinMonth}, joinYear = ${req.body.joinYear}, title = '${req.body.title}' WHERE id = ${req.params.id}`;

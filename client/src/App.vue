@@ -95,6 +95,8 @@ import Feed from "./components/Feed.vue";
 import Trending from "./components/Trending.vue";
 import Admin from "./components/Admin.vue";
 
+import axios from "axios";
+
 export default {
   name: "App",
   components: {
@@ -121,19 +123,13 @@ export default {
         "filter: invert(60%);",
         "filter: invert(60%);",
       ],
-      showAdminPanel: true
+      showAdminPanel: false
     };
   },
+  mounted() {
+    this.loadAssets();
+  },
   methods: {
-    async refresh() {
-      // TOGGLE COMMENTED AREA FOR DEV BUILD:
-
-      for (let i = 0; i < this.articles.length; i++) {
-        await ArticleService.updateScore(this.articles[i].id, 0);
-        console.log(this.articles[i].score);
-      }
-      this.loadAssets();
-    },
     scoreTracker(id, currentScore, incrementBy) {
       const newScore = currentScore + incrementBy;
       ArticleService.updateScore(id, newScore);
@@ -206,24 +202,59 @@ export default {
 
       this.page = page;
     },
+    pressFormatDate(day, month, year) {
+      const MONTHS_LONG = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
+      return `${MONTHS_LONG[month - 1]} ${day}, ${year}`
+    },
     async loadAssets() {
+
       // fetching articles from database
-      this.articleData = await ArticleService.retrieve();
+      await axios.get('/api/articles')
+        .then(response => {
+          this.articleData = response.data;
+        })
+        .catch(err => console.log(err))
+
 
       this.articles = [];
 
       // init article objects
       for (let i = 0; i < this.articleData.length; i++) {
+        let authorIds;
+        let author;
+        await axios.get(`/api/articleAuthor/${this.articleData[i].id}`)
+          .then(response => {
+            authorIds = response.data;
+          })
+          .catch(err => console.log(err));
+        await axios.get(`/api/authors/${authorIds[0]}`)
+          .then(response => {
+            author = `${response.data.firstName} ${response.data.lastName}`;
+          })
+          .catch(err => console.log(err));
+
         let loadArticles = new ArticleObj(
           this.articleData[i].title,
-          this.articleData[i].image,
-          this.articleData[i].imageCaption,
+          this.articleData[i].photo,
           this.articleData[i].category,
-          this.articleData[i].author,
-          this.articleData[i].date,
+          author,
+          this.pressFormatDate(this.articleData[i].releaseDay, this.articleData[i].releaseMonth, this.articleData[i].releaseYear),
           this.articleData[i].content,
           this.articleData[i].score,
-          this.articleData[i]._id
+          this.articleData[i].id
         );
         this.articles.push(loadArticles);
       }
@@ -243,10 +274,7 @@ export default {
         }
       }
     },
-  },
-  mounted() {
-    this.loadAssets();
-  },
+  }
 };
 </script>
 

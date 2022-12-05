@@ -1,8 +1,7 @@
 export default class Articles {
-  constructor(title, image, imageCaption, category, author, date, content, score, _id) {
+  constructor(title, image, category, author, date, content, score, _id) {
     this.title = '=' + title; // = filters search strictly by category
     this.image = this.verifyImage(image);
-    this.imageCaption = imageCaption;
     this.category = '_' + category; // _ filters search strictly by category
     this.author = '$' + author; // $ filters search strictly by author
     this.date = date;
