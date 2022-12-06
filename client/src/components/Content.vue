@@ -58,6 +58,48 @@
         >
           {{ article.content.substring(1) }}</pre>
       </div>
+      <div style="margin: 8px;">
+        <h2 style="margin-top: 0px; margin-bottom: 8px;">
+          About The Author{{ authors.length > 1 ? "s" : "" }}
+        </h2>
+        <div 
+          v-for="author in authors"
+          :key="author.id"
+          style="display: flex; flex-direction: row; padding: 10px; border: 1px solid black; border-radius: 10px; margin-bottom: 10px;"
+        >
+          <img 
+            v-if="author.photo"
+            :src="author.photo" 
+            :alt="author.firstName" 
+            class="author-photo"
+          />
+          <div style="margin-left: 10px">
+            <p 
+              v-if="author.title"
+              style="margin: 0px"
+            >
+              {{ author.title }}
+            </p>
+            <h3 style="margin: 0px">
+              {{ author.firstName }} {{ author.middleName }} {{ author.lastName }}
+            </h3>
+            <p 
+              v-if="author.bio"
+              style="margin: 0px"
+            >
+              {{ author.bio }}
+            </p>
+            <p 
+              v-if="author.joinDay && author.joinMonth && author.joinYear" 
+              style="margin-bottom: 0px; font-size: 9pt;"
+            >
+              <i>
+                {{ author.firstName }} {{ author.lastName }} has been with the press since {{ author.joinDay }}/{{ author.joinMonth }}/{{ author.joinYear }}
+              </i>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- return button -->
@@ -71,7 +113,7 @@
       </b>
     </button>
 
-    <br /><br />
+    <br /><br /><br />
 
     <p style="font-size: 4pt">
       ----> Trending Score: {{ article.score }}
@@ -307,6 +349,11 @@ img {
   max-width: 100%;
   white-space: pre-wrap;
   padding: 2%;
+}
+
+.author-photo {
+  max-width: 100px; 
+  border-radius: 10px; 
 }
 
 /* PARENT STYLING */
