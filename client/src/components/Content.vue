@@ -38,7 +38,10 @@
           {{ article.title.substring(1) }}
         </h1>
         <p class="author-credit">
-          {{ article.author.substring(1) }} - {{ article.date }}
+          {{ authorDisplay }}
+        </p>
+        <p class="author-credit">
+          {{ article.date }}
         </p>
         <img 
           :src="article.image" 
@@ -78,6 +81,7 @@
 
 <script>
 import DatabaseService from "../DatabaseService";
+import axios from "axios";
 
 export default {
   props: ["article", "articles"],
@@ -96,6 +100,8 @@ export default {
       fontSliderCooldown: false,
       timeSpent: 0,
       pageSnapshots: [],
+
+      authors: []
     };
   },
   created() {
@@ -114,6 +120,27 @@ export default {
       this.articleSize = localStorage.articleSize;
       this.resizeInput = localStorage.resizeInput;
     }
+
+    let authorList = [];
+    await axios.get(`/api/articleAuthor/${this.article.id}`)
+      .then((res) => {
+        // array of author ids
+        authorList = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    authorList.forEach(async (authorId) => {
+      await axios.get(`/api/authors/${authorId}`)
+        .then((res) => {
+          this.authors.push(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+
     // window.navigator.vibrate([200, 100, 200]);  works on some andriod devices
   },
   watch: {
@@ -122,6 +149,22 @@ export default {
       localStorage.articleSize = this.articleSize;
       localStorage.resizeInput = this.resizeInput;
     },
+  },
+  computed: {
+    authorDisplay() {
+      let authorDisplay = "";
+      this.authors.forEach((author) => {
+        if (author?.title) {
+          authorDisplay += author.title + " ";
+        }
+        authorDisplay += author.firstName + " ";
+        if (author?.middleName) {
+          authorDisplay += author.middleName[0] + ". ";
+        }
+        authorDisplay += author.lastName + ", ";
+      });
+      return authorDisplay.substring(0, authorDisplay.length - 2);
+    }
   },
   methods: {
     scroll() {

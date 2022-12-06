@@ -190,6 +190,11 @@
         placeholder="last name"
         type="text"
       >
+      <input 
+        v-model="newAuthor.title" 
+        placeholder="title"
+        type="text"
+      >
       <textarea 
         v-model="newAuthor.bio" 
         placeholder="bio"
@@ -260,6 +265,11 @@
           <input 
             v-model="selectedAuthor.lastName" 
             placeholder="last name"
+            type="text"
+          >
+          <input 
+            v-model="selectedAuthor.title" 
+            placeholder="title"
             type="text"
           >
           <textarea 
