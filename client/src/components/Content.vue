@@ -122,7 +122,6 @@
 </template>
 
 <script>
-import DatabaseService from "../DatabaseService";
 import axios from "axios";
 
 export default {
@@ -278,13 +277,8 @@ export default {
       }
       return Math.round(score);
     },
-    async updateScore() {
-      const appliedScore = this.scoreAlgo();
+    updateScore() {
       this.$parent.toggleContentView();
-      if (appliedScore > 0) {
-        const payload = await DatabaseService.retrieveOne(this.article.id);
-        this.$parent.scoreTracker(this.article.id, payload.score, appliedScore);
-      }
     },
   },
 };

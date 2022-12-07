@@ -31,28 +31,28 @@
       <div class="bottom-container">
         <div
           @click="navigate('home')"
-          :style="selected[0]"
+          :style="page === 'home' ? 'filter: invert(0%)' : 'filter: invert(60%)'"
           class="nav-container"
         >
           <img class="icon" src="./assets/feedicon.svg" alt="home" />
         </div>
         <div
           @click="navigate('discover')"
-          :style="selected[1]"
+          :style="page === 'discover' ? 'filter: invert(0%)' : 'filter: invert(60%)'"
           class="nav-container"
         >
           <img class="icon" src="./assets/discovericon.svg" alt="discovery" />
         </div>
         <div
           @click="navigate('trending')"
-          :style="selected[2]"
+          :style="page === 'trending' ? 'filter: invert(0%)' : 'filter: invert(60%)'"
           class="nav-container"
         >
           <img class="icon" src="./assets/trendingicon.svg" alt="trending" />
         </div>
         <div
           @click="navigate('bookmarked')"
-          :style="selected[3]"
+          :style="page === 'bookmarked' ? 'filter: invert(0%)' : 'filter: invert(60%)'"
           class="nav-container"
         >
           <img
@@ -74,14 +74,12 @@
 </template>
 
 <script>
-import ArticleService from "./DatabaseService";
 import ArticleObj from "./classes/Articles.js";
 import Content from "./components/Content.vue";
 import Discover from "./components/Discover.vue";
 import Bookmarked from "./components/Bookmarked.vue";
 import Feed from "./components/Feed.vue";
 import Trending from "./components/Trending.vue";
-import Admin from "./components/Admin.vue";
 
 import axios from "axios";
 
@@ -92,10 +90,9 @@ export default {
     Discover,
     Bookmarked,
     Feed,
-    Trending,
-    Admin
+    Trending
   },
-  data: () => {
+  data () {
     return {
       bookmarked: [],
       articleData: [],
@@ -104,23 +101,13 @@ export default {
       selectedArticle: {},
       page: "home",
       requestHandler: true,
-      articles: [],
-      selected: [
-        "filter: invert(0%);",
-        "filter: invert(60%);",
-        "filter: invert(60%);",
-        "filter: invert(60%);",
-      ]
+      articles: []
     };
   },
   mounted() {
     this.loadAssets();
   },
   methods: {
-    scoreTracker(id, currentScore, incrementBy) {
-      const newScore = currentScore + incrementBy;
-      ArticleService.updateScore(id, newScore);
-    },
     bookmark(article, saveState) {
       this.confirmRequest(false);
       article.saved = saveState;
@@ -145,40 +132,6 @@ export default {
       this.contentView = !this.contentView;
     },
     navigate(page) {
-      switch (page) {
-        case "discover":
-          this.selected = [
-            "filter: invert(60%);",
-            "filter: invert(0%);",
-            "filter: invert(60%);",
-            "filter: invert(60%);",
-          ];
-          break;
-        case "home":
-          this.selected = [
-            "filter: invert(0%);",
-            "filter: invert(60%);",
-            "filter: invert(60%);",
-            "filter: invert(60%);",
-          ];
-          break;
-        case "bookmarked":
-          this.selected = [
-            "filter: invert(60%);",
-            "filter: invert(60%);",
-            "filter: invert(60%);",
-            "filter: invert(0%);",
-          ];
-          break;
-        case "trending":
-          this.selected = [
-            "filter: invert(60%);",
-            "filter: invert(60%);",
-            "filter: invert(0%);",
-            "filter: invert(60%);",
-          ];
-          break;
-      }
       if (page != "trending") {
         this.articles.sort((a, b) => b.dateScore - a.dateScore);
         window.scrollTo(0, 0);
@@ -367,6 +320,12 @@ export default {
   border-top: 1px black solid;
   display: flex;
   justify-content: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* GLOBAL DISPLAY */
